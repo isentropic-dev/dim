@@ -45,7 +45,7 @@ At this point, `length(100)` produces a value tagged with dimension `L`.
 No units, no scale factors, just dimensionality.
 
 > For larger systems, dim-quantity supports a
-> [spec-based approach](packages/dim-quantity#code-generation) with code generation.
+> [spec-based approach](packages/dim-quantity#quick-start-spec-based) with code generation.
 
 ### 2. Layer a unit system on top
 

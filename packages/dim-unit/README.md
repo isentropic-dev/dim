@@ -3,10 +3,6 @@
 Build type-safe unit systems with scale factors and affine offsets,
 layered on `dim-quantity`.
 
-Units give meaning to raw quantity values.
-A quantity `length(1000)` becomes "1 kilometer" or "1000 meters"
-depending on which unit you use to interpret it.
-
 ## Quick Start
 
 ```ts
@@ -31,6 +27,8 @@ const hour = second.scaled(3600);
 const kelvin = us.unit(temperature);
 const celsius = kelvin.offset(273.15);
 ```
+
+## Units
 
 ### Linear Units
 
@@ -133,46 +131,6 @@ add(meter(1), foot(1)); // Compile error: cannot mix "si" and "imperial"
 
 This prevents accidental mixing of incompatible unit systems
 (e.g., one where the base length is meters vs feet).
-
-## API Reference
-
-### `defineUnitSystem(name, qs)`
-
-Creates a unit system from a quantity system.
-The name acts as a type brand to prevent cross-system operations.
-
-```ts
-const us = defineUnitSystem("myUnits", qs);
-```
-
-### `us.unit(quantityFactory)`
-
-Creates a base unit from a quantity factory.
-
-| Property/Method   | Returns         | Description                            |
-| ----------------- | --------------- | -------------------------------------- |
-| `(value)`         | `Linear<D>`     | Create a quantity                      |
-| `.scale`          | `number`        | Scale factor (always 1 for base units) |
-| `.scaled(factor)` | `ScaledUnit<D>` | Derive a scaled unit                   |
-| `.offset(value)`  | `AffineUnit<D>` | Derive an affine unit                  |
-
-### `valueIn(quantity, unit)`
-
-Extracts the numeric value of a quantity in the given unit.
-
-```ts
-valueIn(kilometer(5), meter); // 5000
-```
-
-### Operations
-
-| Function         | Description                                                                     |
-| ---------------- | ------------------------------------------------------------------------------- |
-| `add(a, b)`      | Add quantities (Linear + Linear, Affine + Linear, Linear + Affine)              |
-| `subtract(a, b)` | Subtract quantities (Affine − Affine → Linear, Affine − Linear → Affine, etc)   |
-| `multiply(a, b)` | Multiply linear quantities (dimensions combine)                                 |
-| `divide(a, b)`   | Divide linear quantities (dimensions combine)                                   |
-| `scale(q, n)`    | Scale a linear quantity by a number                                             |
 
 ## License
 
