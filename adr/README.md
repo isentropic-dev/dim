@@ -21,9 +21,9 @@ Each ADR follows this structure:
 
 ## Index
 
-| ADR                                    | Title                                          | Status   |
-| -------------------------------------- | ---------------------------------------------- | -------- |
+| ADR                                    | Title                                          | Status     |
+| -------------------------------------- | ---------------------------------------------- | ---------- |
 | [001](001-explicit-dimension-types.md) | Explicit Dimension Types for JSR Compatibility | Superseded |
-| [002](002-quantity-codegen.md)         | Quantity Codegen                               | Accepted |
-| [003](003-floating-point-precision.md) | Floating Point Precision and Base Unit Storage | Accepted |
-| [004](004-unit-system-branding.md)     | Unit System Branding for Cross-System Safety   | Accepted |
+| [002](002-quantity-codegen.md)         | Quantity Codegen                               | Accepted   |
+| [003](003-floating-point-precision.md) | Floating Point Precision and Base Unit Storage | Accepted   |
+| [004](004-unit-system-branding.md)     | Unit System Branding for Cross-System Safety   | Accepted   |

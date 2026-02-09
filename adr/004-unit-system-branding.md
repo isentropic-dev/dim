@@ -6,10 +6,9 @@ Accepted
 
 ## Context
 
-Quantities from different unit systems should not be combinable.
-If one system uses meters as the base length unit and another uses feet,
-adding `meter(1)` to `foot(1)` produces meaningless results (value of 2 in
-neither meters nor feet).
+Quantities from different unit systems should not be combinable. If one system
+uses meters as the base length unit and another uses feet, adding `meter(1)` to
+`foot(1)` produces meaningless results (value of 2 in neither meters nor feet).
 
 The question was where to enforce this:
 
@@ -29,8 +28,8 @@ We chose the unit layer because:
 ## Decision
 
 Brand unit-layer types (`Linear<D, S>`, `Affine<D, S>`) with the unit system
-name.
-Use TypeScript's `NoInfer<S>` on operation parameters to prevent type widening.
+name. Use TypeScript's `NoInfer<S>` on operation parameters to prevent type
+widening.
 
 ```ts
 // Unit system takes a name that becomes the type brand
@@ -40,7 +39,7 @@ const imperial = defineUnitSystem("imperial", isq);
 // Operations use NoInfer to force exact brand matching
 function add<D, S extends string>(
   a: Linear<D, S>,
-  b: Linear<D, NoInfer<S>>,  // S inferred from first arg only
+  b: Linear<D, NoInfer<S>>, // S inferred from first arg only
 ): Linear<D, S>;
 ```
 

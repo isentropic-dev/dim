@@ -4,8 +4,8 @@ Define quantity systems for compile-time dimensional analysis.
 
 ## Quick Start (Spec-Based)
 
-The preferred approach for any non-trivial system.
-Define a spec, generate typed factories, and use them.
+The preferred approach for any non-trivial system. Define a spec, generate typed
+factories, and use them.
 
 ```typescript
 // quantities.spec.ts
@@ -75,8 +75,8 @@ subtract(velocity(10), area(5));
 
 ## Quick Start (Code-Based)
 
-For small, one-off quantity systems where code generation isn't worth the overhead.
-Define dimensions and factories directly:
+For small, one-off quantity systems where code generation isn't worth the
+overhead. Define dimensions and factories directly:
 
 ```typescript
 import { defineQuantitySystem } from "@isentropic/dim-quantity";
@@ -93,9 +93,9 @@ const velocity = qs.factory({ L: 1, T: -1 });
 type Length = DimOf<typeof length>;
 type Velocity = DimOf<typeof velocity>;
 
-const distance = length(100);  // Quantity<Length>
+const distance = length(100); // Quantity<Length>
 const duration = time(10);
-const speed = divide(distance, duration);  // Quantity<Velocity>
+const speed = divide(distance, duration); // Quantity<Velocity>
 
 // Dimension mismatches are compile errors
 // @ts-expect-error: can't add length and time

@@ -42,13 +42,18 @@ function sortedDimEntries(
   ) as [string, Exp][];
   if (dims) {
     const order = new Map(dims.map((d, i) => [d, i]));
-    entries.sort((a, b) => (order.get(a[0]) ?? Infinity) - (order.get(b[0]) ?? Infinity));
+    entries.sort((a, b) =>
+      (order.get(a[0]) ?? Infinity) - (order.get(b[0]) ?? Infinity)
+    );
   }
   return entries;
 }
 
 /** Format a dimension as a human-readable formula (e.g., "L·T⁻¹"). */
-function formatDimension(dim: Partial<Record<string, Exp>>, dims?: readonly string[]): string {
+function formatDimension(
+  dim: Partial<Record<string, Exp>>,
+  dims?: readonly string[],
+): string {
   const superscripts: Record<string, string> = {
     "-": "⁻",
     "0": "⁰",
@@ -108,7 +113,9 @@ export function generateQuantitySystem(spec: QuantitySpec): string {
   lines.push(` * ${capitalize(name)} quantity system.`);
   lines.push(` *`);
   lines.push(` * THIS FILE IS GENERATED. DO NOT EDIT DIRECTLY.`);
-  lines.push(` * ${spec.regenHint ?? "Regenerate with your generation command."}`);
+  lines.push(
+    ` * ${spec.regenHint ?? "Regenerate with your generation command."}`,
+  );
   lines.push(` *`);
   lines.push(` * @module`);
   lines.push(` */`);

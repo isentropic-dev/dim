@@ -413,5 +413,3 @@ Deno.test("operations: velocity calculation", () => {
   // 100 km / 2 h = 50 km/h = 13.89 m/s
   assertAlmostEquals(valueIn(speed, meterPerSecond), 13.8889, 0.001);
 });
-
-
