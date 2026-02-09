@@ -23,6 +23,11 @@ deno task --cwd packages/dim-quantity generate:exponents
 deno task --cwd packages/dim-isq generate:quantities
 ```
 
+## Pre-commit Checks
+
+- When changes touch `adr/`, verify `adr/README.md` index matches actual files
+  (entries present, statuses current)
+
 ## Conventions
 
 - Cover critical business logic with tests when adding new functionality
