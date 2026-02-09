@@ -16,7 +16,8 @@ deno task --cwd packages/quantity generate:exponents  # Generate exponent types
 
 Before committing, run `deno fmt && deno lint && deno test`.
 
-When changing generator code, also run generation tasks to verify end-to-end (spec imports are dynamically loaded and not caught by type-checking):
+When changing generator code, also run generation tasks to verify end-to-end
+(spec imports are dynamically loaded and not caught by type-checking):
 
 ```bash
 deno task --cwd packages/dim-quantity generate:exponents
@@ -57,8 +58,6 @@ deno task --cwd packages/dim-isq generate:quantities
 
 - Skip Installation section until packages are published to JSR
 - No "See Also" sections—monorepo root README handles cross-linking
-- Use semantic line breaks: break after sentences or clauses, not at fixed
-  columns
 
 ## Architecture Decision Records
 
