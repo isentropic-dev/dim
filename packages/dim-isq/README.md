@@ -85,6 +85,39 @@ const v: Velocity = velocity(25);
 | `absorbedDose`        | L²·T⁻²        |
 | `catalyticActivity`   | N·T⁻¹         |
 
+## Adding a New Quantity
+
+Quantities are generated from `quantities.spec.ts`.
+To add a new derived quantity:
+
+1. **Add the entry** to the `derived` section in `quantities.spec.ts`:
+
+   ```typescript
+   derived: {
+     // ...existing quantities...
+     angularVelocity: { T: -1 },
+   },
+   ```
+
+   Keys are camelCase and become both the type name (PascalCase) and factory function (camelCase).
+   Values map dimension letters to their exponents.
+
+2. **Regenerate** the quantities file:
+
+   ```bash
+   deno task generate:quantities
+   ```
+
+3. **Update the table** in this README under [Available Quantities](#available-quantities).
+
+4. **Run checks**:
+
+   ```bash
+   deno fmt && deno lint && deno test
+   ```
+
+> **Note:** Base quantities are fixed to the seven ISQ dimensions and shouldn't need to change.
+
 ## Limitations
 
 - **Angle is dimensionless** —
