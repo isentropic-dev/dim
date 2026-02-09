@@ -1,7 +1,8 @@
 /**
- * Unit-aware arithmetic operations.
+ * Unit-aware arithmetic operations (free functions).
  *
- * Extends quantity operations with support for affine units (like temperature scales).
+ * Extends quantity operations with support for affine units (like temperature
+ * scales). For a fluent chaining API, see {@linkcode "@isentropic/dim-unit/chain"}.
  *
  * @example
  * ```ts

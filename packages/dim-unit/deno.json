@@ -3,6 +3,7 @@
   "license": "MIT",
   "exports": {
     ".": "./src/mod.ts",
-    "./ops": "./src/ops.ts"
+    "./ops": "./src/ops.ts",
+    "./chain": "./src/chain.ts"
   }
 }

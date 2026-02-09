@@ -2,6 +2,7 @@ import { assertAlmostEquals, assertEquals } from "@std/assert";
 import { defineQuantitySystem } from "@isentropic/dim-quantity";
 import { defineUnitSystem, valueIn } from "./src/mod.ts";
 import { add, divide, multiply, scale, subtract } from "./src/ops.ts";
+import { q, QAffine, QLinear } from "./src/chain.ts";
 
 // === Setup ===
 
@@ -154,6 +155,110 @@ Deno.test("type safety: affine units cannot derive further", () => {
   assertEquals(typeof celsius.offset, "number");
 });
 
+// === Chainable Operations ===
+
+Deno.test("chain: q wraps linear quantity", () => {
+  const d = q(meter(5));
+  assertEquals(d instanceof QLinear, true);
+  assertEquals(d.value, 5);
+});
+
+Deno.test("chain: q wraps affine quantity", () => {
+  const t = q(celsius(100));
+  assertEquals(t instanceof QAffine, true);
+  assertEquals(t.value, 373.15);
+  assertEquals(t._affine, true);
+});
+
+Deno.test("chain: linear plus linear", () => {
+  const result = q(kilometer(5)).plus(meter(500));
+  assertEquals(result instanceof QLinear, true);
+  assertEquals(valueIn(result, meter), 5500);
+});
+
+Deno.test("chain: linear minus linear", () => {
+  const result = q(kilometer(5)).minus(kilometer(3));
+  assertEquals(valueIn(result, kilometer), 2);
+});
+
+Deno.test("chain: linear times linear", () => {
+  const force = q(meter(5)).times(meter(2));
+  assertEquals(force.value, 10);
+});
+
+Deno.test("chain: linear div linear", () => {
+  const speed = q(kilometer(100)).div(hour(2));
+  assertAlmostEquals(valueIn(speed, meterPerSecond), 100000 / 7200, 0.01);
+});
+
+Deno.test("chain: linear scale", () => {
+  const result = q(meter(5)).scale(3);
+  assertEquals(valueIn(result, meter), 15);
+});
+
+Deno.test("chain: linear .in() terminal", () => {
+  const v = q(kilometer(5)).in(meter);
+  assertEquals(v, 5000);
+});
+
+Deno.test("chain: affine minus affine = linear", () => {
+  const result = q(celsius(100)).minus(celsius(0));
+  assertEquals(result instanceof QLinear, true);
+  assertEquals(result.value, 100);
+});
+
+Deno.test("chain: affine plus linear = affine", () => {
+  const result = q(celsius(20)).plus(celsius.delta(10));
+  assertEquals(result instanceof QAffine, true);
+  assertAlmostEquals(valueIn(result, celsius), 30, 0.01);
+});
+
+Deno.test("chain: affine minus linear = affine", () => {
+  const result = q(celsius(100)).minus(celsius.delta(10));
+  assertEquals(result instanceof QAffine, true);
+  assertAlmostEquals(valueIn(result, celsius), 90, 0.01);
+});
+
+Deno.test("chain: affine .in() with affine unit", () => {
+  const v = q(fahrenheit(212)).in(celsius);
+  assertAlmostEquals(v, 100, 0.01);
+});
+
+Deno.test("chain: affine .in() with linear unit", () => {
+  const v = q(celsius(100)).in(kelvin);
+  assertAlmostEquals(v, 373.15, 0.01);
+});
+
+Deno.test("chain: type-state transition affine → linear → derived", () => {
+  // celsius(100) - celsius(0) = 100K delta, then divide by time
+  const rate = q(celsius(100)).minus(celsius(0)).div(second(10));
+  assertEquals(rate instanceof QLinear, true);
+  assertEquals(rate.value, 10); // 100K / 10s = 10 K/s
+});
+
+Deno.test("chain: multi-step linear chain", () => {
+  // (5km + 500m) / 2h
+  const speed = q(kilometer(5)).plus(meter(500)).div(hour(2));
+  assertAlmostEquals(valueIn(speed, kilometerPerHour), 2.75, 0.01);
+});
+
+Deno.test("chain: interop with free functions", () => {
+  const wrapped = q(meter(5));
+  // QLinear satisfies Linear, so it works with free functions
+  const result = add(wrapped, meter(3));
+  assertEquals(valueIn(result, meter), 8);
+});
+
+Deno.test("chain: interop with valueIn", () => {
+  const wrapped = q(kilometer(5));
+  assertEquals(valueIn(wrapped, meter), 5000);
+});
+
+Deno.test("chain: affine interop with valueIn", () => {
+  const wrapped = q(celsius(100));
+  assertAlmostEquals(valueIn(wrapped, celsius), 100, 0.01);
+});
+
 // Compile-time type safety checks
 function _compileTimeChecks() {
   const affine1 = celsius(100);
@@ -192,4 +297,23 @@ function _compileTimeChecks() {
 
   // @ts-expect-error: cannot use valueIn with mismatched systems
   valueIn(meter(1), foot);
+
+  // Chain compile-time checks
+  const qAffine = q(celsius(100));
+  const qLinear = q(meter(5));
+
+  // @ts-expect-error: cannot add affine to affine in chain
+  qAffine.plus(celsius(50));
+
+  // @ts-expect-error: QAffine has no times method
+  qAffine.times;
+
+  // @ts-expect-error: QAffine has no div method
+  qAffine.div;
+
+  // @ts-expect-error: QAffine has no scale method
+  qAffine.scale;
+
+  // @ts-expect-error: cannot subtract affine from linear in chain
+  qLinear.minus(celsius(50));
 }

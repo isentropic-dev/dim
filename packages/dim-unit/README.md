@@ -1,7 +1,7 @@
 # @isentropic/dim-unit
 
-Build type-safe unit systems with scale factors and affine offsets,
-layered on `dim-quantity`.
+Build type-safe unit systems with scale factors and affine offsets, layered on
+`dim-quantity`.
 
 ## Quick Start
 
@@ -32,8 +32,8 @@ const celsius = kelvin.offset(273.15);
 
 ### Linear Units
 
-Units with only a scale factor produce **Linear** quantities.
-These support all arithmetic:
+Units with only a scale factor produce **Linear** quantities. These support all
+arithmetic:
 
 ```ts
 const d1 = kilometer(5);
@@ -51,7 +51,8 @@ valueIn(d1, kilometer); // 5
 
 ### Affine Units
 
-Units with an offset produce **Affine** quantities—points on a scale where zero is arbitrary:
+Units with an offset produce **Affine** quantities—points on a scale where zero
+is arbitrary:
 
 ```ts
 const boiling = celsius(100);
@@ -69,6 +70,31 @@ const warmer = add(boiling, celsius.delta(10)); // 110°C
 // Invalid operations are compile-time errors
 add(boiling, freezing); // Error: can't add two affine quantities
 scale(boiling, 2); // Error: can't scale an affine quantity
+```
+
+## Chainable Operations
+
+Wrap any quantity with `q()` for a fluent API:
+
+```ts
+import { q } from "@isentropic/dim-unit/chain";
+import { valueIn } from "@isentropic/dim-unit";
+
+const speed = q(kilometer(5)).div(hour(2));
+valueIn(speed, meterPerSecond); // works — chain results are valid quantities
+
+// .in() terminal extracts a number in the given unit
+q(kilometer(5)).plus(meter(500)).in(meter); // 5500
+```
+
+The chain tracks linear/affine state at the type level. `QLinear` supports all
+operations (`plus`, `minus`, `times`, `div`, `scale`, `in`). `QAffine` supports
+only `plus`/`minus` with appropriate types, and `in`. Subtracting two affine
+values transitions back to `QLinear`, enabling further arithmetic:
+
+```ts
+// QAffine → QLinear → QLinear (dimension changes via div)
+const rate = q(celsius(100)).minus(celsius(0)).div(second(10));
 ```
 
 ## Defining Units
@@ -106,7 +132,8 @@ const fahrenheit = kelvin.scaled(5 / 9).offset(459.67 * 5 / 9);
 
 ### Delta Units
 
-Affine units have a `.delta` property for creating temperature differences and similar:
+Affine units have a `.delta` property for creating temperature differences and
+similar:
 
 ```ts
 const tempRise = celsius.delta(10); // 10 K delta
@@ -116,8 +143,8 @@ valueIn(tempRise, kelvin); // 10
 
 ## Cross-System Safety
 
-Each unit system is branded with its name at the type level.
-Quantities from different unit systems cannot be combined:
+Each unit system is branded with its name at the type level. Quantities from
+different unit systems cannot be combined:
 
 ```ts
 const si = defineUnitSystem("si", qs);
@@ -129,8 +156,8 @@ const foot = imperial.unit(length);
 add(meter(1), foot(1)); // Compile error: cannot mix "si" and "imperial"
 ```
 
-This prevents accidental mixing of incompatible unit systems
-(e.g., one where the base length is meters vs feet).
+This prevents accidental mixing of incompatible unit systems (e.g., one where
+the base length is meters vs feet).
 
 ## License
 
