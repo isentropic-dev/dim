@@ -1,11 +1,14 @@
 # @isentropic/dim-quantity
 
-Define quantity systems with compile-time dimensional analysis in TypeScript.
+Define quantity systems for compile-time dimensional analysis.
 
-## Quick Start
+## Quick Start (Spec-Based)
 
-```ts
-// 1. Define a spec
+The preferred approach for any non-trivial system.
+Define a spec, generate typed factories, and use them.
+
+```typescript
+// quantities.spec.ts
 import { defineQuantitySpec } from "@isentropic/dim-quantity";
 
 export default defineQuantitySpec({
@@ -22,12 +25,20 @@ export default defineQuantitySpec({
     },
   },
 });
+```
 
-// 2. Generate code (via CLI or generateQuantitySystem())
-// → produces physics.generated.ts with typed factories
+Generate the code:
 
-// 3. Use the generated code
-import { area, length, time, velocity } from "./physics.generated.ts";
+```bash
+deno run -RW jsr:@isentropic/dim-quantity/generate \
+  --spec ./quantities.spec.ts \
+  --out ./quantities.generated.ts
+```
+
+Use the generated factories:
+
+```typescript
+import { area, length, time, velocity } from "./quantities.generated.ts";
 import {
   add,
   divide,
@@ -39,11 +50,9 @@ import {
 const distance = length(100);
 const duration = time(10);
 
-// Arithmetic with automatic dimension tracking
 const speed = divide(distance, duration); // → velocity
 const surface = multiply(length(5), length(5)); // → area
 
-// Same-dimension operations
 const total = add(length(50), length(30)); // → length(80)
 const doubled = scale(distance, 2); // → length(200)
 
@@ -54,44 +63,43 @@ add(length(10), time(5));
 subtract(velocity(10), area(5));
 ```
 
-## Core Concepts
+> For Node/Bun, use `generateQuantitySystem()` programmatically:
+>
+> ```typescript
+> import { generateQuantitySystem } from "@isentropic/dim-quantity";
+> import { writeFileSync } from "node:fs";
+> import spec from "./quantities.spec.ts";
+>
+> writeFileSync("./quantities.generated.ts", generateQuantitySystem(spec));
+> ```
 
-A **quantity** is a number with compile-time dimension tracking—no unit semantics attached.
-The value `length(100)` is just `100` tagged with dimension `L`;
-whether that represents meters, feet, or furlongs is not modeled here.
+## Quick Start (Code-Based)
 
-**Units** (scale factors and offsets) are layered on top by `dim-unit`.
+For small, one-off quantity systems where code generation isn't worth the overhead.
+Define dimensions and factories directly:
 
-## Why
+```typescript
+import { defineQuantitySystem } from "@isentropic/dim-quantity";
+import { add, divide } from "@isentropic/dim-quantity";
+import type { DimOf } from "@isentropic/dim-quantity";
 
-Dimensional errors are silent bugs that type systems usually ignore.
-This package encodes dimensions in the type system
-so the compiler catches these mistakes before your code runs.
+const qs = defineQuantitySystem(["L", "T"]);
 
-```ts
-add(length(10), time(5));
-//  ~~~~~~~~~~~
-//  Error: Types '{ L: 1; T: 0 }' and '{ L: 0; T: 1 }' have no overlap
-```
+const length = qs.base("L");
+const time = qs.base("T");
+const velocity = qs.factory({ L: 1, T: -1 });
 
-## Code Generation
+// Extract dimension types from factory functions
+type Length = DimOf<typeof length>;
+type Velocity = DimOf<typeof velocity>;
 
-**Deno:**
+const distance = length(100);  // Quantity<Length>
+const duration = time(10);
+const speed = divide(distance, duration);  // Quantity<Velocity>
 
-```bash
-deno run -RW jsr:@isentropic/dim-quantity/generate \
-  --spec ./quantities.spec.ts \
-  --out ./quantities.generated.ts
-```
-
-**Node/Bun:**
-
-```ts
-import { generateQuantitySystem } from "@isentropic/dim-quantity";
-import { writeFileSync } from "node:fs";
-import spec from "./quantities.spec.ts";
-
-writeFileSync("./quantities.generated.ts", generateQuantitySystem(spec));
+// Dimension mismatches are compile errors
+// @ts-expect-error: can't add length and time
+add(distance, duration);
 ```
 
 ## License
