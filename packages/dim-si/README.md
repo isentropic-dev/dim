@@ -256,6 +256,59 @@ const picogram = gram.scaled(PICO);
 
 See [prefixes.ts](./src/prefixes.ts) for all available SI prefixes.
 
+## Adding a New Unit
+
+Units are organized one file per dimension.
+To add a new unit to an existing dimension, edit its module (e.g., `src/length.ts`).
+To add units for a new dimension:
+
+1. **Create the unit module** at `src/<dimension>.ts`:
+
+   ```typescript
+   /**
+    * Jerk units (L·T⁻³).
+    *
+    * SI unit: meter per second cubed (m/s³).
+    *
+    * @module
+    */
+
+   import type { Jerk } from "@isentropic/dim-isq";
+   import { jerk } from "@isentropic/dim-isq";
+   import type { BaseUnit } from "./system.ts";
+   import { si } from "./system.ts";
+
+   export type { Jerk } from "@isentropic/dim-isq";
+
+   /** Meter per second cubed (m/s³) — SI unit of jerk. */
+   export const meterPerSecondCubed: BaseUnit<Jerk> = si.unit(jerk);
+   ```
+
+   > **Note:** The quantity (`jerk`) must exist in `dim-isq` first.
+   > See the [dim-isq README](../dim-isq/README.md#adding-a-new-quantity) for how to add one.
+
+   For scaled units, use prefixes or compose from other unit scales:
+
+   ```typescript
+   import { KILO } from "./prefixes.ts";
+
+   export const kilometerPerSecondCubed = meterPerSecondCubed.scaled(KILO);
+   ```
+
+2. **Add a subpath export** in `deno.json`:
+
+   ```jsonc
+   "./jerk": "./src/jerk.ts"
+   ```
+
+3. **Update the unit listing** in this README under [Units](#units).
+
+4. **Run checks**:
+
+   ```bash
+   deno fmt && deno lint && deno test
+   ```
+
 ## License
 
 MIT
