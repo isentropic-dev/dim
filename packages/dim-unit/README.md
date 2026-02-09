@@ -11,14 +11,8 @@ depending on which unit you use to interpret it.
 
 ```ts
 import { defineQuantitySystem } from "@isentropic/dim-quantity";
-import {
-  add,
-  defineUnitSystem,
-  divide,
-  scale,
-  subtract,
-  valueIn,
-} from "@isentropic/dim-unit";
+import { defineUnitSystem, valueIn } from "@isentropic/dim-unit";
+import { add, divide, scale, subtract } from "@isentropic/dim-unit/ops";
 
 // Start with a quantity system
 const qs = defineQuantitySystem(["L", "T", "Θ"]);
