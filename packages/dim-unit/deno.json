@@ -1,0 +1,7 @@
+{
+  "name": "@isentropic/dim-unit",
+  "exports": {
+    ".": "./src/mod.ts",
+    "./ops": "./src/ops.ts"
+  }
+}

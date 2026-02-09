@@ -1,0 +1,51 @@
+# dim
+
+Deno monorepo for type-safe dimensional analysis.
+
+See [README.md](README.md) for project overview, packages, core concepts, and
+philosophy. See package READMEs for API details.
+
+## Commands
+
+```bash
+deno test       # Run all tests
+deno lint       # Lint all files
+deno fmt        # Format all files
+deno task --cwd packages/quantity generate:exponents  # Generate exponent types
+```
+
+Before committing, run `deno fmt && deno lint && deno test`.
+
+When changing generator code, also run generation tasks to verify end-to-end (spec imports are dynamically loaded and not caught by type-checking):
+
+```bash
+deno task --cwd packages/dim-quantity generate:exponents
+deno task --cwd packages/dim-isq generate:quantities
+```
+
+## Conventions
+
+- Cover critical business logic with tests when adding new functionality
+- Compound scaled units should use named scaled units when available (e.g.,
+  `kilowatt.scale * hour.scale` not `watt.scaled(KILO).scale * hour.scale`)
+- Review `adr/` for architectural decisions and invariants
+
+## Test Patterns
+
+- `// === Setup ===` section only when there's actual setup code beyond imports
+- `// === Topic ===` sections to group related tests (e.g.,
+  `// === Base Unit Tests ===`)
+- Test names: `"category: description"`
+- Compile-time type checks in `_compileTimeChecks()` function (not executed)
+
+## README Conventions
+
+- Skip Installation section until packages are published to JSR
+- No "See Also" sections—monorepo root README handles cross-linking
+- Use semantic line breaks: break after sentences or clauses, not at fixed
+  columns
+
+## Architecture Decision Records
+
+See `adr/` for documented architectural decisions. Create new ADRs for
+significant design choices that have trade-offs worth capturing.

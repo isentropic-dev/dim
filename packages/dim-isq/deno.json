@@ -1,0 +1,10 @@
+{
+  "name": "@isentropic/dim-isq",
+  "exports": {
+    ".": "./src/mod.ts",
+    "./ops": "./src/ops.ts"
+  },
+  "tasks": {
+    "generate:quantities": "deno run -RW @isentropic/dim-quantity/generate --spec ./quantities.spec.ts --out ./src/quantities.generated.ts"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "@isentropic/dim-quantity",
+  "exports": {
+    ".": "./src/mod.ts",
+    "./ops": "./src/ops.ts",
+    "./generate": "./scripts/generate.ts"
+  },
+  "tasks": {
+    "generate:exponents": "deno run --allow-write scripts/generate-exponents.ts"
+  }
+}
