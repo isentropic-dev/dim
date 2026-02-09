@@ -44,6 +44,9 @@ const velocity = qs.factory({ L: 1, T: -1, Θ: 0 });
 At this point, `length(100)` produces a value tagged with dimension `L`.
 No units, no scale factors, just dimensionality.
 
+> For larger systems, dim-quantity supports a
+> [spec-based approach](packages/dim-quantity#code-generation) with code generation.
+
 ### 2. Layer a unit system on top
 
 Units attach physical meaning to those raw quantities:
