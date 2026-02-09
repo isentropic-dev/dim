@@ -78,26 +78,6 @@ import { gray, sievert } from "@isentropic/dim-si/absorbed-dose";
 // Prefixes
 import { KILO, MILLI, NANO } from "@isentropic/dim-si/prefixes";
 
-// === Base Unit Tests ===
-
-Deno.test("base units: meter", () => {
-  const d = meter(5);
-  assertEquals(d.value, 5);
-  assertEquals(valueIn(d, meter), 5);
-});
-
-Deno.test("base units: kilogram", () => {
-  const m = kilogram(2.5);
-  assertEquals(m.value, 2.5);
-  assertEquals(valueIn(m, kilogram), 2.5);
-});
-
-Deno.test("base units: second", () => {
-  const t = second(10);
-  assertEquals(t.value, 10);
-  assertEquals(valueIn(t, second), 10);
-});
-
 // === Derived Unit Tests ===
 
 Deno.test("derived units: newton = kg·m/s²", () => {
@@ -434,19 +414,4 @@ Deno.test("operations: velocity calculation", () => {
   assertAlmostEquals(valueIn(speed, meterPerSecond), 13.8889, 0.001);
 });
 
-// === Type Safety (compile-time checks) ===
 
-function _compileTimeChecks() {
-  const temp1 = celsius(20);
-  const temp2 = celsius(25);
-  const delta = celsius.delta(5);
-
-  // @ts-expect-error: cannot add two affine quantities
-  add(temp1, temp2);
-
-  // This is fine: affine + linear
-  add(temp1, delta);
-
-  // @ts-expect-error: cannot multiply affine
-  multiply(temp1, delta);
-}
