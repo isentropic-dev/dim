@@ -1,51 +1,120 @@
 # dim
 
-Type-safe dimensional analysis for TypeScript.
+Type-safe dimensional analysis and units for TypeScript.
 
-**Most users should start with [@isentropic/dim-si](packages/dim-si)**,
-which provides ready-to-use SI units with compile-time dimension checking.
+> **Just want SI?**
+> [@isentropic/dim-si](packages/dim-si) provides ready-to-use SI units with compile-time dimension checking.
 
-## Philosophy
+## How It Works
 
-- **Compile-time safety**:
-  Dimension errors are caught by the type checker, not at runtime.
-- **Layered design**:
-  Quantities (dimensions) and units (scale factors) are separate concerns.
-- **Minimal runtime**:
-  Values are just numbers; dimensions are phantom types.
-  Full type safety with zero runtime overhead.
-- **Functional style**:
-  Pure functions, no mutation, explicit operations like `add` and `divide`.
-  Code is predictable and easy to test.
+dim treats quantities and units as separate concepts with different responsibilities.
+Units are layered on top of quantities to give them meaning.
 
-## Core Concepts
+A **quantity** encodes dimensionality.
+Dimensions are tracked at compile time,
+so the type checker catches errors like adding a length to a time
+before your code runs.
 
-A **quantity** is a value with dimensions, like length, time, or velocity.
-Dimensions are tracked at compile time;
-the type system catches errors like adding meters to seconds before your code runs.
+A **unit** gives meaning to a quantity.
+Units are views over quantities:
+different lenses for reading and writing the same underlying value.
 
-A **unit** gives meaning to a quantity value through a scale factor.
-A unit system defines base units for each dimension
-(SI uses meter for length, kilogram for mass, etc).
-Quantities are stored in base units internally, so `kilometer(5)` stores `5000` (meters).
-Units are essentially different views of the same underlying quantity.
+dim accomplishes this by providing tools for defining quantity and unit systems,
+and uses those same tools to provide ready-made ISQ quantities and SI units.
 
-**Linear** units measure from true zero.
-Zero meters is no distance.
-**Affine** units measure from an arbitrary zero.
-Zero Celsius is not "no temperature."
-This distinction determines which operations are valid;
-you can't add two temperatures, but you can subtract them to get a temperature difference.
+## End-to-End Example
 
-See the [dim-si README](packages/dim-si) for detailed examples.
+Here's what that looks like in practice: a small physics system with length, time, and temperature.
+
+### 1. Define a quantity system
+
+Choose base dimensions and derive compound quantities from them:
+
+```typescript
+import { defineQuantitySystem } from "@isentropic/dim-quantity";
+
+const qs = defineQuantitySystem(["L", "T", "Θ"]);
+
+const length = qs.base("L");
+const time = qs.base("T");
+const temperature = qs.base("Θ");
+const velocity = qs.factory({ L: 1, T: -1, Θ: 0 });
+```
+
+At this point, `length(100)` produces a value tagged with dimension `L`.
+No units, no scale factors, just dimensionality.
+
+### 2. Layer a unit system on top
+
+Units attach physical meaning to those raw quantities:
+
+```typescript
+import { defineUnitSystem, valueIn } from "@isentropic/dim-unit";
+
+const us = defineUnitSystem("tutorial", qs);
+
+// Base units
+const meter = us.unit(length);
+const second = us.unit(time);
+const kelvin = us.unit(temperature);
+
+// Scaled units
+const kilometer = meter.scaled(1000);
+const hour = second.scaled(3600);
+
+// Affine units (arbitrary zero point)
+const celsius = kelvin.offset(273.15);
+```
+
+### 3. Use the units to solve problems
+
+Now you have type-safe arithmetic with automatic dimension tracking:
+
+```typescript
+import { add, divide, subtract } from "@isentropic/dim-unit/ops";
+
+const distance = kilometer(5);
+const duration = hour(2);
+const speed = divide(distance, duration);
+
+valueIn(distance, meter);      // 5000
+valueIn(distance, kilometer);  // 5
+
+// Same-dimension arithmetic works
+add(kilometer(1), meter(500));  // 1500 m
+
+// Dimension mismatches are compile errors
+add(distance, duration);
+//  ~~~~~~~~  ~~~~~~~~
+//  Error: length and time dimensions don't match
+
+// Affine units enforce correct semantics
+const boiling = celsius(100);
+const freezing = celsius(0);
+subtract(boiling, freezing);       // 100 K (linear delta)
+add(freezing, celsius.delta(10));  // 10°C (affine point)
+add(boiling, freezing);            // Error: can't add two affine quantities
+```
+
+## Pre-Built Systems
+
+Defining quantity and unit systems from scratch is useful for custom domains,
+but most scientific and engineering work uses the same foundational systems:
+the [ISQ](https://en.wikipedia.org/wiki/International_System_of_Quantities) (International System of Quantities)
+for dimensions and derived quantities,
+and the [SI](https://en.wikipedia.org/wiki/International_System_of_Units) (International System of Units)
+for units.
+
+Rather than make everyone define these themselves,
+dim uses its own tooling to provide them as ready-to-use packages.
 
 ## Packages
 
 | Package | Description |
 |---------|-------------|
-| **[dim-si](packages/dim-si)** | SI units with compile-time dimension checking (built with dim-unit on dim-isq) |
-| **[dim-isq](packages/dim-isq)** | ISQ dimension system (built with dim-quantity) |
-| **[dim-unit](packages/dim-unit)** | Define unit systems with scale factors and affine offsets for a quantity system |
+| **[dim-si](packages/dim-si)** | [SI](https://en.wikipedia.org/wiki/International_System_of_Units) unit system built on dim-isq |
+| **[dim-isq](packages/dim-isq)** | [ISQ](https://en.wikipedia.org/wiki/International_System_of_Quantities) quantity system |
+| **[dim-unit](packages/dim-unit)** | Define unit systems with scale factors and affine offsets for any quantity system |
 | **[dim-quantity](packages/dim-quantity)** | Define quantity systems with compile-time dimension tracking |
 
 ## Development
@@ -53,6 +122,7 @@ See the [dim-si README](packages/dim-si) for detailed examples.
 ```bash
 deno test    # Run all tests
 deno lint    # Lint all files
+deno fmt     # Format all files
 ```
 
 ## License
