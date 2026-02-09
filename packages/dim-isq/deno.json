@@ -1,5 +1,6 @@
 {
   "name": "@isentropic/dim-isq",
+  "license": "MIT",
   "exports": {
     ".": "./src/mod.ts",
     "./ops": "./src/ops.ts"

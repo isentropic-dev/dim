@@ -1,5 +1,6 @@
 {
   "name": "@isentropic/dim-si",
+  "license": "MIT",
   "exports": {
     "./ops": "./src/ops.ts",
     "./system": "./src/system.ts",

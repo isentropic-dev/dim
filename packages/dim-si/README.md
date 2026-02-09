@@ -255,3 +255,7 @@ const picogram = gram.scaled(PICO);
 ```
 
 See [prefixes.ts](./src/prefixes.ts) for all available SI prefixes.
+
+## License
+
+MIT

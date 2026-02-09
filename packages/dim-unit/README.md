@@ -179,3 +179,7 @@ valueIn(kilometer(5), meter); // 5000
 | `multiply(a, b)` | Multiply linear quantities (dimensions combine)                                 |
 | `divide(a, b)`   | Divide linear quantities (dimensions combine)                                   |
 | `scale(q, n)`    | Scale a linear quantity by a number                                             |
+
+## License
+
+MIT

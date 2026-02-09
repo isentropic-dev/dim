@@ -93,3 +93,7 @@ import spec from "./quantities.spec.ts";
 
 writeFileSync("./quantities.generated.ts", generateQuantitySystem(spec));
 ```
+
+## License
+
+MIT

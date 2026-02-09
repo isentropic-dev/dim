@@ -91,3 +91,7 @@ const v: Velocity = velocity(25);
   radians and steradians are indistinct from scalars at the type level
 - **Torque and energy share the same dimension** —
   both are M·L²·T⁻², so the type system can't distinguish them
+
+## License
+
+MIT

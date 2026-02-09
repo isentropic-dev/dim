@@ -54,3 +54,7 @@ See the [dim-si README](packages/dim-si) for detailed examples.
 deno test    # Run all tests
 deno lint    # Lint all files
 ```
+
+## License
+
+MIT
