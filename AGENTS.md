@@ -51,6 +51,10 @@ deno task --cwd packages/dim-isq generate:quantities
 
 ## README Conventions
 
+- When reviewing README sections iteratively, output markdown directly in the
+  response so it renders in chat — don't quote-block or use plain text
+- Type-check code examples with `deno check` before presenting them
+
 - Skip Installation section until packages are published to JSR
 - No "See Also" sections—monorepo root README handles cross-linking
 - Use semantic line breaks: break after sentences or clauses, not at fixed
