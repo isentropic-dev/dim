@@ -28,6 +28,12 @@ deno task --cwd packages/dim-isq generate:quantities
 - When changes touch `adr/`, verify `adr/README.md` index matches actual files
   (entries present, statuses current)
 
+## Project Facts
+
+- Copyright holder: "Isentropic Development"
+- Root `deno.json` is workspace-only — publish metadata (license, version, etc.)
+  belongs in individual package `deno.json` files
+
 ## Conventions
 
 - Cover critical business logic with tests when adding new functionality
