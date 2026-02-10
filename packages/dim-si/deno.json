@@ -2,7 +2,11 @@
   "name": "@isentropic/dim-si",
   "description": "Ready-to-use SI units with compile-time dimensional analysis",
   "license": "MIT",
-  "publish": { "exclude": ["test.ts"] },
+  "publish": {
+    "exclude": [
+      "test.ts"
+    ]
+  },
   "exports": {
     "./ops": "./src/ops.ts",
     "./system": "./src/system.ts",
@@ -36,5 +40,6 @@
     "./illuminance": "./src/illuminance.ts",
     "./absorbed-dose": "./src/absorbed-dose.ts",
     "./catalytic-activity": "./src/catalytic-activity.ts"
-  }
+  },
+  "version": "0.1.0"
 }

@@ -2,10 +2,15 @@
   "name": "@isentropic/dim-unit",
   "description": "Build type-safe unit systems with scale factors and affine offsets",
   "license": "MIT",
-  "publish": { "exclude": ["test.ts"] },
+  "publish": {
+    "exclude": [
+      "test.ts"
+    ]
+  },
   "exports": {
     ".": "./src/mod.ts",
     "./ops": "./src/ops.ts",
     "./chain": "./src/chain.ts"
-  }
+  },
+  "version": "0.1.0"
 }

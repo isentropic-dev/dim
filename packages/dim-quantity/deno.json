@@ -2,7 +2,12 @@
   "name": "@isentropic/dim-quantity",
   "description": "Define quantity systems for compile-time dimensional analysis",
   "license": "MIT",
-  "publish": { "exclude": ["scripts/", "test.ts"] },
+  "publish": {
+    "exclude": [
+      "scripts/",
+      "test.ts"
+    ]
+  },
   "exports": {
     ".": "./src/mod.ts",
     "./ops": "./src/ops.ts",
@@ -10,5 +15,6 @@
   },
   "tasks": {
     "generate:exponents": "deno run --allow-write scripts/generate-exponents.ts"
-  }
+  },
+  "version": "0.1.0"
 }
