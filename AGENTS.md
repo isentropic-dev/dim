@@ -48,6 +48,8 @@ for package list and publish order).
 
 - When changes touch `adr/`, verify `adr/README.md` index matches actual files
   (entries present, statuses current)
+- When adding/renaming/splitting test files, verify `publish.exclude` in the
+  package's `deno.json` still covers them
 
 ## Project Facts
 
