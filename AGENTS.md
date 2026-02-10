@@ -43,8 +43,9 @@ All packages use lockstep versioning. Release flow:
 1. Prep changelogs — add entries under `## Unreleased` in each package's
    `CHANGELOG.md` (at least one package must have content)
 2. Run `deno task release <version>` (e.g. `deno task release 0.1.0`)
-   - Validates: on `main`, clean worktree, up to date with origin, tag doesn't
-     exist
+   - Validates: on `main`, up to date with origin, tag doesn't exist
+   - Allows uncommitted `CHANGELOG.md` changes (staged into release commit);
+     rejects all other uncommitted changes
    - Runs fmt/lint/test
    - Stamps changelogs, sets version in each `deno.json`, commits, tags, pushes
 3. Tag push triggers `.github/workflows/release.yml`:
@@ -143,6 +144,10 @@ When creating issues:
   - Available labels: `pkg:dim-isq`, `pkg:dim-quantity`, `pkg:dim-si`,
     `pkg:dim-unit`
 - If an issue spans multiple packages, add all relevant labels
+
+When working on issues:
+
+- Use `gh issue develop <number>` to create a linked feature branch
 
 When closing issues via commit:
 
