@@ -1,6 +1,8 @@
 {
   "name": "@isentropic/dim-si",
+  "description": "Ready-to-use SI units with compile-time dimensional analysis",
   "license": "MIT",
+  "publish": { "exclude": ["test.ts"] },
   "exports": {
     "./ops": "./src/ops.ts",
     "./system": "./src/system.ts",

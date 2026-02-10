@@ -1,6 +1,8 @@
 {
   "name": "@isentropic/dim-isq",
+  "description": "Ready-to-use ISQ quantity system for compile-time dimensional analysis",
   "license": "MIT",
+  "publish": { "exclude": ["quantities.spec.ts", "test.ts"] },
   "exports": {
     ".": "./src/mod.ts",
     "./ops": "./src/ops.ts"

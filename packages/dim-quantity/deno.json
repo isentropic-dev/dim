@@ -1,6 +1,8 @@
 {
   "name": "@isentropic/dim-quantity",
+  "description": "Define quantity systems for compile-time dimensional analysis",
   "license": "MIT",
+  "publish": { "exclude": ["scripts/", "test.ts"] },
   "exports": {
     ".": "./src/mod.ts",
     "./ops": "./src/ops.ts",
