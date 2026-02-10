@@ -52,6 +52,9 @@ All packages use lockstep versioning. Release flow:
    - Creates (or updates) a GitHub Release with combined changelog
    - Publishes each package to JSR in dependency order
 
+Before releasing, run `deno publish --dry-run` to catch export/exclude conflicts
+and other publish errors.
+
 Key files: `scripts/release.ts`, `scripts/publish.ts`,
 `scripts/extract-changelog.ts`, `scripts/packages.ts` (single source of truth
 for package list and publish order).
