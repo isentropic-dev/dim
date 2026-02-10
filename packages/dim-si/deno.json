@@ -41,5 +41,5 @@
     "./absorbed-dose": "./src/absorbed-dose.ts",
     "./catalytic-activity": "./src/catalytic-activity.ts"
   },
-  "version": "0.1.0"
+  "version": "0.1.1"
 }
