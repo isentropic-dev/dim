@@ -55,6 +55,9 @@ All packages use lockstep versioning. Release flow:
 Before releasing, run `deno publish --dry-run` to catch export/exclude conflicts
 and other publish errors.
 
+Before releasing packages to JSR, verify each package's Overview source is
+intentional (module doc on default entrypoint vs README fallback).
+
 Key files: `scripts/release.ts`, `scripts/publish.ts`,
 `scripts/extract-changelog.ts`, `scripts/packages.ts` (single source of truth
 for package list and publish order).
@@ -77,6 +80,9 @@ for package list and publish order).
 - Cover critical business logic with tests when adding new functionality
 - Compound scaled units should use named scaled units when available (e.g.,
   `kilowatt.scale * hour.scale` not `watt.scaled(KILO).scale * hour.scale`)
+- For JSR landing pages, use README-first: avoid module docs on a package's
+  default entrypoint (`exports["."]`) unless intentionally overriding Overview
+  with module-doc content
 
 ## Test Patterns
 
