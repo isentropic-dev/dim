@@ -11,11 +11,28 @@ files.
 - No `any` types unless absolutely necessary
 - Always ask before removing functionality or code that appears intentional
 - Check import maps and dependency type definitions instead of guessing
-- Review `adr/` for architectural decisions and invariants
+- Review `adr/` for architectural decisions and invariants. Create new ADRs for
+  significant design choices with trade-offs worth capturing.
 - Read existing scripts, workflows, and config before proposing processes or
   workflows — don't assume, verify
+- Type-check README code examples with `deno check` before presenting them
+- No "See Also" sections in package READMEs — monorepo root README handles
+  cross-linking
 
-## Commands
+## Conventions
+
+- Compound scaled units should use named scaled units when available (e.g.,
+  `kilowatt.scale * hour.scale` not `watt.scaled(KILO).scale * hour.scale`)
+
+## Test Patterns
+
+- `// === Setup ===` section only when there's actual setup code beyond imports
+- `// === Topic ===` sections to group related tests (e.g.,
+  `// === Base Unit Tests ===`)
+- Test names: `"category: description"`
+- Compile-time type checks in `_compileTimeChecks()` function (not executed)
+
+## Workflow
 
 ```bash
 deno test       # Run all tests
@@ -34,7 +51,11 @@ deno fmt        # Format all files
   ```
 - When writing tests, run them, identify issues in either the test or
   implementation, and iterate until fixed.
-- NEVER commit unless user asks.
+- Cover critical business logic with tests when adding new functionality.
+- When changes touch `adr/`, verify `adr/README.md` index matches actual files
+  (entries present, statuses current).
+- When adding/renaming/splitting test files, verify `publish.exclude` in the
+  package's `deno.json` still covers them.
 
 ## Releasing
 
@@ -56,56 +77,18 @@ All packages use lockstep versioning. Release flow:
 Before releasing, run `deno publish --dry-run` to catch export/exclude conflicts
 and other publish errors.
 
-Before releasing packages to JSR, verify each package's Overview source is
-intentional (module doc on default entrypoint vs README fallback).
+For JSR landing pages, use README-first: avoid module docs on a package's
+default entrypoint (`exports["."]`) unless intentionally overriding Overview
+with module-doc content.
 
 Key files: `scripts/release.ts`, `scripts/publish.ts`,
 `scripts/extract-changelog.ts`, `scripts/packages.ts` (single source of truth
 for package list and publish order).
 
-## Pre-commit Checks
+### Changelog
 
-- When changes touch `adr/`, verify `adr/README.md` index matches actual files
-  (entries present, statuses current)
-- When adding/renaming/splitting test files, verify `publish.exclude` in the
-  package's `deno.json` still covers them
-
-## Project Facts
-
-- Copyright holder: "Isentropic Development"
-- Root `deno.json` is workspace-only — publish metadata (license, version, etc.)
-  belongs in individual package `deno.json` files
-
-## Conventions
-
-- Cover critical business logic with tests when adding new functionality
-- Compound scaled units should use named scaled units when available (e.g.,
-  `kilowatt.scale * hour.scale` not `watt.scaled(KILO).scale * hour.scale`)
-- For JSR landing pages, use README-first: avoid module docs on a package's
-  default entrypoint (`exports["."]`) unless intentionally overriding Overview
-  with module-doc content
-
-## Test Patterns
-
-- `// === Setup ===` section only when there's actual setup code beyond imports
-- `// === Topic ===` sections to group related tests (e.g.,
-  `// === Base Unit Tests ===`)
-- Test names: `"category: description"`
-- Compile-time type checks in `_compileTimeChecks()` function (not executed)
-
-## README Conventions
-
-- Type-check code examples with `deno check` before presenting them
-- Skip Installation section until packages are published to JSR
-- No "See Also" sections — monorepo root README handles cross-linking
-
-## Changelog
-
-Location: `packages/*/CHANGELOG.md` (each package has its own)
-
-### Format
-
-Use these sections under `## Unreleased`:
+Each package has its own `CHANGELOG.md`. Use these sections under
+`## Unreleased`:
 
 - `### Breaking Changes` — API changes requiring migration
 - `### Added` — New features
@@ -113,30 +96,18 @@ Use these sections under `## Unreleased`:
 - `### Fixed` — Bug fixes
 - `### Removed` — Removed features
 
-### Rules
-
-- Before adding entries, read the full `Unreleased` section to see which
-  subsections already exist
-- New entries ALWAYS go under `## Unreleased`
-- Append to existing subsections — do not create duplicates
-- NEVER modify already-released version sections
-
-### Attribution
+Attribution:
 
 - **Internal changes (from issues)**:
   `Fixed foo bar ([#123](https://github.com/isentropic-dev/dim/issues/123))`
 - **External contributions**:
   `Added feature X ([#456](https://github.com/isentropic-dev/dim/pull/456) by [@username](https://github.com/username))`
 
-## GitHub Issues
+## GitHub
 
 When reading issues:
 
 - Always read all comments on the issue
-- Use this command to get everything in one call:
-  ```bash
-  gh issue view <number> --json title,body,comments,labels,state
-  ```
 
 When creating issues:
 
@@ -149,11 +120,7 @@ When working on issues:
 
 - Use `gh issue develop <number>` to create a linked feature branch
 
-When closing issues via commit:
-
-- Include `fixes #<number>` or `closes #<number>` in the commit message
-
-## PR Workflow
+PRs:
 
 - Analyze PRs without pulling locally first
 - If the user approves: create a feature branch, pull PR, rebase on main, apply
@@ -161,21 +128,10 @@ When closing issues via commit:
 - Never open PRs yourself — work in feature branches until everything meets
   requirements, then merge into main and push
 
-## Tools
-
-- GitHub CLI for issues/PRs
-
 ## Style
 
-- Keep answers short and concise
 - No emojis in commits, issues, PR comments, or code
-- No fluff or cheerful filler text
-- Technical prose only — be kind but direct
-
-## Architecture Decision Records
-
-See `adr/` for documented architectural decisions. Create new ADRs for
-significant design choices that have trade-offs worth capturing.
+- Technical prose only — concise, direct, no filler
 
 ## **CRITICAL** Tool Usage Rules **CRITICAL**
 
@@ -187,9 +143,12 @@ significant design choices that have trade-offs worth capturing.
 
 ### Committing
 
+- NEVER commit unless user asks
 - ONLY commit files YOU changed in THIS session
 - ALWAYS use `git add <specific-file-paths>` — list only files you modified
 - Before committing, run `git status` and verify you are only staging YOUR files
+- Include `fixes #<number>` or `closes #<number>` in the commit message when
+  closing issues
 
 ### Forbidden Git Operations
 
