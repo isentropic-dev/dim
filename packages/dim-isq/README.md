@@ -1,21 +1,8 @@
 # @isentropic/dim-isq
 
-Type-safe ISQ (International System of Quantities).
-
-The [ISQ](https://en.wikipedia.org/wiki/International_System_of_Quantities)
-defines the base dimensions and derived quantities used in physics and
-engineering. This package provides type-safe factories for ISQ quantities with
-compile-time dimension checking.
-
-Base dimensions:
-
-- **L** — Length
-- **M** — Mass
-- **T** — Time
-- **I** — Electric current
-- **Θ** — Thermodynamic temperature
-- **N** — Amount of substance
-- **J** — Luminous intensity
+Ready-to-use
+[ISQ](https://en.wikipedia.org/wiki/International_System_of_Quantities) quantity
+system built on [`dim-quantity`](../dim-quantity).
 
 ## Quick Start
 
