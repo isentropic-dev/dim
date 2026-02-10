@@ -1,9 +1,17 @@
-# dim
+# Development Rules
 
-Deno monorepo for type-safe dimensional analysis.
+## First Message
 
-See [README.md](README.md) for project overview, packages, core concepts, and
-philosophy. See package READMEs for API details.
+If the user did not give a concrete task, read README.md, then ask which
+package(s) to work on. Based on the answer, read the relevant package
+README.md files.
+
+## Code Quality
+
+- No `any` types unless absolutely necessary
+- Always ask before removing functionality or code that appears intentional
+- Check import maps and dependency type definitions instead of guessing
+- Review `adr/` for architectural decisions and invariants
 
 ## Commands
 
@@ -11,18 +19,19 @@ philosophy. See package READMEs for API details.
 deno test       # Run all tests
 deno lint       # Lint all files
 deno fmt        # Format all files
-deno task --cwd packages/quantity generate:exponents  # Generate exponent types
 ```
 
-Before committing, run `deno fmt && deno lint && deno test`.
-
-When changing generator code, also run generation tasks to verify end-to-end
-(spec imports are dynamically loaded and not caught by type-checking):
-
-```bash
-deno task --cwd packages/dim-quantity generate:exponents
-deno task --cwd packages/dim-isq generate:quantities
-```
+- After code changes (not documentation): run `deno fmt && deno lint && deno test`.
+  Get full output — no tail. Fix all errors before committing.
+- When changing generator code, also run generation tasks to verify end-to-end
+  (spec imports are dynamically loaded and not caught by type-checking):
+  ```bash
+  deno task --cwd packages/dim-quantity generate:exponents
+  deno task --cwd packages/dim-isq generate:quantities
+  ```
+- When writing tests, run them, identify issues in either the test or
+  implementation, and iterate until fixed.
+- NEVER commit unless user asks.
 
 ## Releasing
 
@@ -62,7 +71,6 @@ for package list and publish order).
 - Cover critical business logic with tests when adding new functionality
 - Compound scaled units should use named scaled units when available (e.g.,
   `kilowatt.scale * hour.scale` not `watt.scaled(KILO).scale * hour.scale`)
-- Review `adr/` for architectural decisions and invariants
 
 ## Test Patterns
 
@@ -74,14 +82,103 @@ for package list and publish order).
 
 ## README Conventions
 
-- When reviewing README sections iteratively, output markdown directly in the
-  response so it renders in chat — don't quote-block or use plain text
 - Type-check code examples with `deno check` before presenting them
-
 - Skip Installation section until packages are published to JSR
-- No "See Also" sections—monorepo root README handles cross-linking
+- No "See Also" sections — monorepo root README handles cross-linking
+
+## Changelog
+
+Location: `packages/*/CHANGELOG.md` (each package has its own)
+
+### Format
+
+Use these sections under `## Unreleased`:
+- `### Breaking Changes` — API changes requiring migration
+- `### Added` — New features
+- `### Changed` — Changes to existing functionality
+- `### Fixed` — Bug fixes
+- `### Removed` — Removed features
+
+### Rules
+
+- Before adding entries, read the full `Unreleased` section to see which
+  subsections already exist
+- New entries ALWAYS go under `## Unreleased`
+- Append to existing subsections — do not create duplicates
+- NEVER modify already-released version sections
+
+### Attribution
+
+- **Internal changes (from issues)**: `Fixed foo bar ([#123](https://github.com/isentropic-dev/dim/issues/123))`
+- **External contributions**: `Added feature X ([#456](https://github.com/isentropic-dev/dim/pull/456) by [@username](https://github.com/username))`
+
+## GitHub Issues
+
+When reading issues:
+- Always read all comments on the issue
+- Use this command to get everything in one call:
+  ```bash
+  gh issue view <number> --json title,body,comments,labels,state
+  ```
+
+When creating issues:
+- Add `pkg:*` labels to indicate which package(s) the issue affects
+  - Available labels: `pkg:dim-isq`, `pkg:dim-quantity`, `pkg:dim-si`, `pkg:dim-unit`
+- If an issue spans multiple packages, add all relevant labels
+
+When closing issues via commit:
+- Include `fixes #<number>` or `closes #<number>` in the commit message
+
+## PR Workflow
+
+- Analyze PRs without pulling locally first
+- If the user approves: create a feature branch, pull PR, rebase on main,
+  apply adjustments, commit, merge into main, push, close PR
+- Never open PRs yourself — work in feature branches until everything meets
+  requirements, then merge into main and push
+
+## Tools
+
+- GitHub CLI for issues/PRs
+
+## Style
+
+- Keep answers short and concise
+- No emojis in commits, issues, PR comments, or code
+- No fluff or cheerful filler text
+- Technical prose only — be kind but direct
 
 ## Architecture Decision Records
 
 See `adr/` for documented architectural decisions. Create new ADRs for
 significant design choices that have trade-offs worth capturing.
+
+## **CRITICAL** Tool Usage Rules **CRITICAL**
+
+- NEVER use sed/cat to read a file or a range of a file. Always use the read
+  tool (use offset + limit for ranged reads).
+- You MUST read every file you modify in full before editing.
+
+## **CRITICAL** Git Rules **CRITICAL**
+
+### Committing
+
+- ONLY commit files YOU changed in THIS session
+- ALWAYS use `git add <specific-file-paths>` — list only files you modified
+- Before committing, run `git status` and verify you are only staging YOUR files
+
+### Forbidden Git Operations
+
+These commands can destroy other agents' work:
+- `git reset --hard`
+- `git checkout .`
+- `git clean -fd`
+- `git stash`
+- `git add -A` / `git add .`
+- `git commit --no-verify`
+
+### If Rebase Conflicts Occur
+
+- Resolve conflicts in YOUR files only
+- If conflict is in a file you didn't modify, abort and ask the user
+- NEVER force push
