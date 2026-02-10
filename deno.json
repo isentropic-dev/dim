@@ -1,4 +1,7 @@
 {
+  "tasks": {
+    "release": "deno run --allow-read --allow-write --allow-run scripts/release.ts"
+  },
   "workspace": [
     "./packages/dim-quantity",
     "./packages/dim-unit",

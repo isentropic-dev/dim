@@ -1,0 +1,47 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Check formatting
+        run: deno fmt --check
+
+      - name: Lint
+        run: deno lint
+
+      - name: Run tests
+        run: deno test
+
+      - name: Extract changelog
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          deno run --allow-read scripts/extract-changelog.ts "$VERSION" > /tmp/release-notes.md
+
+      - name: Create or update GitHub Release
+        run: |
+          if gh release view "$GITHUB_REF_NAME" &>/dev/null; then
+            gh release edit "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --notes-file /tmp/release-notes.md
+          else
+            gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --notes-file /tmp/release-notes.md
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Publish to JSR
+        run: deno run --allow-read --allow-run scripts/publish.ts

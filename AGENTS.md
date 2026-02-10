@@ -24,6 +24,26 @@ deno task --cwd packages/dim-quantity generate:exponents
 deno task --cwd packages/dim-isq generate:quantities
 ```
 
+## Releasing
+
+All packages use lockstep versioning. Release flow:
+
+1. Prep changelogs — add entries under `## Unreleased` in each package's
+   `CHANGELOG.md` (at least one package must have content)
+2. Run `deno task release <version>` (e.g. `deno task release 0.1.0`)
+   - Validates: on `main`, clean worktree, up to date with origin, tag doesn't
+     exist
+   - Runs fmt/lint/test
+   - Stamps changelogs, sets version in each `deno.json`, commits, tags, pushes
+3. Tag push triggers `.github/workflows/release.yml`:
+   - Runs fmt/lint/test again
+   - Creates (or updates) a GitHub Release with combined changelog
+   - Publishes each package to JSR in dependency order
+
+Key files: `scripts/release.ts`, `scripts/publish.ts`,
+`scripts/extract-changelog.ts`, `scripts/packages.ts` (single source of truth
+for package list and publish order).
+
 ## Pre-commit Checks
 
 - When changes touch `adr/`, verify `adr/README.md` index matches actual files
