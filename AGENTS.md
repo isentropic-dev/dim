@@ -12,6 +12,8 @@ README.md files.
 - Always ask before removing functionality or code that appears intentional
 - Check import maps and dependency type definitions instead of guessing
 - Review `adr/` for architectural decisions and invariants
+- Read existing scripts, workflows, and config before proposing processes or
+  workflows — don't assume, verify
 
 ## Commands
 
