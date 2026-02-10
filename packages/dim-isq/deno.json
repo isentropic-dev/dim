@@ -13,7 +13,7 @@
     "./ops": "./src/ops.ts"
   },
   "tasks": {
-    "generate:quantities": "deno run -RW @isentropic/dim-quantity/generate --spec ./quantities.spec.ts --out ./src/quantities.generated.ts"
+    "generate:quantities": "deno run -RW @isentropic/dim-quantity/generate --spec ./quantities.spec.ts --out ./src/quantities.generated.ts && deno fmt src/quantities.generated.ts"
   },
   "version": "0.1.1"
 }
