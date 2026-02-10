@@ -2,6 +2,20 @@
 
 Define quantity systems for compile-time dimensional analysis.
 
+## Installation
+
+```bash
+deno add jsr:@isentropic/dim-quantity
+```
+
+```bash
+npx jsr add @isentropic/dim-quantity
+```
+
+```bash
+bunx jsr add @isentropic/dim-quantity
+```
+
 ## Quick Start (Spec-Based)
 
 The preferred approach for any non-trivial system. Define a spec, generate typed

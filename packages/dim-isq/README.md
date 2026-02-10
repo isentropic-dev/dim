@@ -4,6 +4,20 @@ Ready-to-use
 [ISQ](https://en.wikipedia.org/wiki/International_System_of_Quantities) quantity
 system built on [`dim-quantity`](../dim-quantity).
 
+## Installation
+
+```bash
+deno add jsr:@isentropic/dim-isq
+```
+
+```bash
+npx jsr add @isentropic/dim-isq
+```
+
+```bash
+bunx jsr add @isentropic/dim-isq
+```
+
 ## Quick Start
 
 ```typescript

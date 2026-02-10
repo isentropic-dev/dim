@@ -3,6 +3,20 @@
 Build type-safe unit systems with scale factors and affine offsets, layered on
 `dim-quantity`.
 
+## Installation
+
+```bash
+deno add jsr:@isentropic/dim-unit
+```
+
+```bash
+npx jsr add @isentropic/dim-unit
+```
+
+```bash
+bunx jsr add @isentropic/dim-unit
+```
+
 ## Quick Start
 
 ```ts

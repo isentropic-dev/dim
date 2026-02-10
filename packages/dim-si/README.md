@@ -7,6 +7,20 @@ unit system built on [`dim-isq`](../dim-isq) quantities — unit conversions, SI
 prefixes, and affine units like temperature scales, all with dimensions tracked
 at the type level.
 
+## Installation
+
+```bash
+deno add jsr:@isentropic/dim-si
+```
+
+```bash
+npx jsr add @isentropic/dim-si
+```
+
+```bash
+bunx jsr add @isentropic/dim-si
+```
+
 ## Quick Start
 
 ```typescript
