@@ -16,17 +16,29 @@ function die(msg: string): never {
 }
 
 async function run(cmd: string[], opts?: { quiet?: boolean }): Promise<string> {
-  const proc = new Deno.Command(cmd[0], {
-    args: cmd.slice(1),
-    stdout: opts?.quiet ? "piped" : "inherit",
-    stderr: opts?.quiet ? "piped" : "inherit",
-  }).spawn();
-  const { code, stdout, stderr } = await proc.output();
-  if (code !== 0) {
-    const err = opts?.quiet ? new TextDecoder().decode(stderr) : "";
-    die(`Command failed: ${cmd.join(" ")}\n${err}`);
+  if (opts?.quiet) {
+    const { code, stdout, stderr } = await new Deno.Command(cmd[0], {
+      args: cmd.slice(1),
+      stdout: "piped",
+      stderr: "piped",
+    }).output();
+    if (code !== 0) {
+      die(
+        `Command failed: ${cmd.join(" ")}\n${new TextDecoder().decode(stderr)}`,
+      );
+    }
+    return new TextDecoder().decode(stdout);
   }
-  return opts?.quiet ? new TextDecoder().decode(stdout) : "";
+
+  const { code } = await new Deno.Command(cmd[0], {
+    args: cmd.slice(1),
+    stdout: "inherit",
+    stderr: "inherit",
+  }).output();
+  if (code !== 0) {
+    die(`Command failed: ${cmd.join(" ")}`);
+  }
+  return "";
 }
 
 function today(): string {
