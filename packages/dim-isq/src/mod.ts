@@ -1,29 +1,3 @@
-/**
- * International System of Quantities (ISQ) — type-safe quantity system.
- *
- * Provides the 7 ISQ base dimensions and factories for common quantities.
- *
- * @example
- * ```ts
- * import { force, length, mass, time } from "@isentropic/dim-isq";
- * import { divide, multiply } from "@isentropic/dim-isq/ops";
- *
- * const distance = length(100);  // 100 m (base units)
- * const duration = time(10);     // 10 s
- * const v = divide(distance, duration);  // velocity: 10 m/s
- *
- * const m = mass(5);
- * const a = divide(v, duration);         // acceleration: 1 m/s²
- * const f = multiply(m, a);              // force: 5 N
- * ```
- *
- * **Limitations:**
- * - Angle is dimensionless (indistinct from scalar at type level)
- * - Torque and energy share the same dimension signature
- *
- * @module
- */
-
 export {
   // Dimension types
   type AbsorbedDose,
