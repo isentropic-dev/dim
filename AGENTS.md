@@ -3,8 +3,8 @@
 ## First Message
 
 If the user did not give a concrete task, read README.md, then ask which
-package(s) to work on. Based on the answer, read the relevant package
-README.md files.
+package(s) to work on. Based on the answer, read the relevant package README.md
+files.
 
 ## Code Quality
 
@@ -23,8 +23,9 @@ deno lint       # Lint all files
 deno fmt        # Format all files
 ```
 
-- After code changes (not documentation): run `deno fmt && deno lint && deno test`.
-  Get full output — no tail. Fix all errors before committing.
+- After code changes (not documentation): run
+  `deno fmt && deno lint && deno test`. Get full output — no tail. Fix all
+  errors before committing.
 - When changing generator code, also run generation tasks to verify end-to-end
   (spec imports are dynamically loaded and not caught by type-checking):
   ```bash
@@ -95,6 +96,7 @@ Location: `packages/*/CHANGELOG.md` (each package has its own)
 ### Format
 
 Use these sections under `## Unreleased`:
+
 - `### Breaking Changes` — API changes requiring migration
 - `### Added` — New features
 - `### Changed` — Changes to existing functionality
@@ -111,12 +113,15 @@ Use these sections under `## Unreleased`:
 
 ### Attribution
 
-- **Internal changes (from issues)**: `Fixed foo bar ([#123](https://github.com/isentropic-dev/dim/issues/123))`
-- **External contributions**: `Added feature X ([#456](https://github.com/isentropic-dev/dim/pull/456) by [@username](https://github.com/username))`
+- **Internal changes (from issues)**:
+  `Fixed foo bar ([#123](https://github.com/isentropic-dev/dim/issues/123))`
+- **External contributions**:
+  `Added feature X ([#456](https://github.com/isentropic-dev/dim/pull/456) by [@username](https://github.com/username))`
 
 ## GitHub Issues
 
 When reading issues:
+
 - Always read all comments on the issue
 - Use this command to get everything in one call:
   ```bash
@@ -124,18 +129,21 @@ When reading issues:
   ```
 
 When creating issues:
+
 - Add `pkg:*` labels to indicate which package(s) the issue affects
-  - Available labels: `pkg:dim-isq`, `pkg:dim-quantity`, `pkg:dim-si`, `pkg:dim-unit`
+  - Available labels: `pkg:dim-isq`, `pkg:dim-quantity`, `pkg:dim-si`,
+    `pkg:dim-unit`
 - If an issue spans multiple packages, add all relevant labels
 
 When closing issues via commit:
+
 - Include `fixes #<number>` or `closes #<number>` in the commit message
 
 ## PR Workflow
 
 - Analyze PRs without pulling locally first
-- If the user approves: create a feature branch, pull PR, rebase on main,
-  apply adjustments, commit, merge into main, push, close PR
+- If the user approves: create a feature branch, pull PR, rebase on main, apply
+  adjustments, commit, merge into main, push, close PR
 - Never open PRs yourself — work in feature branches until everything meets
   requirements, then merge into main and push
 
@@ -172,6 +180,7 @@ significant design choices that have trade-offs worth capturing.
 ### Forbidden Git Operations
 
 These commands can destroy other agents' work:
+
 - `git reset --hard`
 - `git checkout .`
 - `git clean -fd`
