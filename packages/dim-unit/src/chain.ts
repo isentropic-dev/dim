@@ -80,9 +80,12 @@ export class QLinear<D extends Dim, S extends string> {
     this.value = qty.value;
   }
 
-  /** Add an affine quantity (result becomes affine). */
+  /** Add a quantity.
+   * @param other - The quantity to add
+   * @returns {@linkcode QAffine} if `other` is affine, {@linkcode QLinear} otherwise
+   */
   plus(other: Affine<D, NoInfer<S>>): QAffine<D, S>;
-  /** Add a linear quantity. */
+  /** @param other - The quantity to add */
   plus(other: Linear<D, NoInfer<S>>): QLinear<D, S>;
   plus(
     other: Linear<D, NoInfer<S>> | Affine<D, NoInfer<S>>,
@@ -94,14 +97,20 @@ export class QLinear<D extends Dim, S extends string> {
     return new QLinear<D, S>(asLinear<D, S>(result));
   }
 
-  /** Subtract a linear quantity. */
+  /** Subtract a linear quantity.
+   * @param other - The quantity to subtract
+   * @returns A new {@linkcode QLinear} with the difference
+   */
   minus(other: Linear<D, NoInfer<S>>): QLinear<D, S> {
     return new QLinear<D, S>(
       uSubtract(asLinear<D, S>(this), other),
     );
   }
 
-  /** Multiply by a linear quantity. */
+  /** Multiply by a linear quantity. Dimensions add.
+   * @param other - The quantity to multiply by
+   * @returns A new {@linkcode QLinear} with the product of dimensions
+   */
   times<
     B extends Dim & Record<keyof D, Exp>,
   >(
@@ -115,7 +124,10 @@ export class QLinear<D extends Dim, S extends string> {
     );
   }
 
-  /** Divide by a linear quantity. */
+  /** Divide by a linear quantity. Dimensions subtract.
+   * @param other - The quantity to divide by
+   * @returns A new {@linkcode QLinear} with the quotient of dimensions
+   */
   div<
     B extends Dim & Record<keyof D, Exp>,
   >(
@@ -129,14 +141,20 @@ export class QLinear<D extends Dim, S extends string> {
     );
   }
 
-  /** Scale by a numeric factor. */
+  /** Scale by a numeric factor.
+   * @param factor - The numeric multiplier
+   * @returns A new {@linkcode QLinear} with the scaled value
+   */
   scale(factor: number): QLinear<D, S> {
     return new QLinear<D, S>(
       uScale(asLinear<D, S>(this), factor),
     );
   }
 
-  /** Extract the numeric value in the given unit. */
+  /** Extract the numeric value in the given unit.
+   * @param unit - The target unit
+   * @returns The numeric value expressed in the target unit
+   */
   in(unit: LinearUnit<D, NoInfer<S>>): number {
     return valueIn(asLinear<D, S>(this), unit);
   }
@@ -159,16 +177,22 @@ export class QAffine<D extends Dim, S extends string> {
     this.value = qty.value;
   }
 
-  /** Add a linear quantity (result stays affine). */
+  /** Add a linear quantity. Result stays affine.
+   * @param other - The linear quantity to add
+   * @returns A new {@linkcode QAffine} with the sum
+   */
   plus(other: Linear<D, NoInfer<S>>): QAffine<D, S> {
     return new QAffine<D, S>(
       uAdd(asAffine<D, S>(this), other),
     );
   }
 
-  /** Subtract an affine quantity (result becomes linear). */
+  /** Subtract a quantity.
+   * @param other - The quantity to subtract
+   * @returns {@linkcode QLinear} if `other` is affine, {@linkcode QAffine} otherwise
+   */
   minus(other: Affine<D, NoInfer<S>>): QLinear<D, S>;
-  /** Subtract a linear quantity (result stays affine). */
+  /** @param other - The quantity to subtract */
   minus(other: Linear<D, NoInfer<S>>): QAffine<D, S>;
   minus(
     other: Linear<D, NoInfer<S>> | Affine<D, NoInfer<S>>,
@@ -185,9 +209,12 @@ export class QAffine<D extends Dim, S extends string> {
     );
   }
 
-  /** Extract the numeric value in the given affine unit. */
+  /** Extract the numeric value in the given unit.
+   * @param unit - The target unit
+   * @returns The numeric value expressed in the target unit
+   */
   in(unit: AffineUnit<D, NoInfer<S>>): number;
-  /** Extract the numeric value in the given linear unit (no offset applied). */
+  /** @param unit - The target unit */
   in(unit: LinearUnit<D, NoInfer<S>>): number;
   in(
     unit: LinearUnit<D, NoInfer<S>> | AffineUnit<D, NoInfer<S>>,

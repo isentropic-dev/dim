@@ -4,20 +4,6 @@
  * Extends quantity operations with support for affine units (like temperature
  * scales). For a fluent chaining API, see {@linkcode "@isentropic/dim-unit/chain"}.
  *
- * @example
- * ```ts
- * import { defineQuantitySystem } from "@isentropic/dim-quantity";
- * import { defineUnitSystem } from "@isentropic/dim-unit";
- * import { add, divide, subtract } from "@isentropic/dim-unit/ops";
- *
- * const qs = defineQuantitySystem(["L", "Θ"]);
- * const us = defineUnitSystem("example", qs);
- *
- * const meter = us.unit(qs.base("L"));
- * const km = meter.scaled(1000);
- * const total = add(km(5), meter(500)); // 5500 m
- * ```
- *
  * @module
  */
 
@@ -40,7 +26,24 @@ function isAffine<D, S extends string>(
 
 // === Add ===
 
-/** Add a linear quantity to an affine quantity. */
+/**
+ * Add two quantities.
+ *
+ * Supports linear + linear, linear + affine, and affine + linear.
+ * Adding two affine quantities throws at runtime.
+ *
+ * @typeParam D - The dimension type
+ * @typeParam S - The unit system brand
+ * @param a - The left operand
+ * @param b - The right operand
+ * @returns The sum — affine if either operand is affine, linear otherwise
+ *
+ * @example
+ * ```ts
+ * const total = add(km(5), meter(500));     // linear + linear = linear
+ * const warm = add(celsius(20), kelvin(5)); // affine + linear = affine
+ * ```
+ */
 export function add<D extends Dim, S extends string>(
   a: Affine<D, S>,
   b: Linear<D, NoInfer<S>>,
@@ -77,7 +80,25 @@ export function add<D extends Dim, S extends string>(
 
 // === Subtract ===
 
-/** Subtract two affine quantities (returns linear delta). */
+/**
+ * Subtract two quantities.
+ *
+ * Supports affine - affine, affine - linear, and linear - linear.
+ * Subtracting affine from linear throws at runtime.
+ *
+ * @typeParam D - The dimension type
+ * @typeParam S - The unit system brand
+ * @param a - The left operand
+ * @param b - The right operand
+ * @returns The difference — affine - affine yields linear, affine - linear
+ *   stays affine, linear - linear stays linear
+ *
+ * @example
+ * ```ts
+ * const delta = subtract(celsius(100), celsius(0));  // affine - affine = linear
+ * const cooled = subtract(celsius(100), kelvin(10)); // affine - linear = affine
+ * ```
+ */
 export function subtract<D extends Dim, S extends string>(
   a: Affine<D, S>,
   b: Affine<D, NoInfer<S>>,
@@ -123,7 +144,24 @@ export function subtract<D extends Dim, S extends string>(
 
 // === Multiply ===
 
-/** Multiply two linear quantities. Dimensions add. Both must be from the same system. */
+/**
+ * Multiply two linear quantities. Dimensions add.
+ *
+ * Both operands must be from the same unit system. Affine quantities
+ * cannot be multiplied.
+ *
+ * @typeParam A - The dimension type of the left operand
+ * @typeParam B - The dimension type of the right operand
+ * @typeParam S - The unit system brand
+ * @param a - The left operand
+ * @param b - The right operand
+ * @returns A linear quantity with the product of dimensions
+ *
+ * @example
+ * ```ts
+ * const area = multiply(meter(3), meter(4)); // 12 m²
+ * ```
+ */
 export function multiply<
   A extends Dim,
   B extends Dim & Record<keyof A, Exp>,
@@ -137,7 +175,24 @@ export function multiply<
 
 // === Divide ===
 
-/** Divide two linear quantities. Dimensions subtract. Both must be from the same system. */
+/**
+ * Divide two linear quantities. Dimensions subtract.
+ *
+ * Both operands must be from the same unit system. Affine quantities
+ * cannot be divided.
+ *
+ * @typeParam A - The dimension type of the left operand
+ * @typeParam B - The dimension type of the right operand
+ * @typeParam S - The unit system brand
+ * @param a - The left operand
+ * @param b - The right operand
+ * @returns A linear quantity with the quotient of dimensions
+ *
+ * @example
+ * ```ts
+ * const speed = divide(meter(100), second(10)); // 10 m/s
+ * ```
+ */
 export function divide<
   A extends Dim,
   B extends Dim & Record<keyof A, Exp>,
@@ -151,7 +206,20 @@ export function divide<
 
 // === Scale ===
 
-/** Scale a linear quantity by a factor. */
+/**
+ * Scale a linear quantity by a numeric factor.
+ *
+ * @typeParam D - The dimension type
+ * @typeParam S - The unit system brand
+ * @param q - The quantity to scale
+ * @param factor - The numeric multiplier
+ * @returns A linear quantity with the scaled value
+ *
+ * @example
+ * ```ts
+ * const doubled = scale(meter(5), 2); // 10 m
+ * ```
+ */
 export function scale<D extends Dim, S extends string>(
   q: Linear<D, S>,
   factor: number,

@@ -2,7 +2,30 @@ import type { Affine, Linear } from "./types.ts";
 import type { AffineUnit, LinearUnit } from "./system.ts";
 
 /**
- * Extract the numeric value of a linear quantity in the given unit.
+ * Extract the numeric value of a quantity in a given unit.
+ *
+ * For linear quantities and units, divides by the unit's scale factor.
+ * For affine units, reverses the `base = value * scale + offset` conversion.
+ *
+ * @typeParam D - The dimension type
+ * @typeParam S - The unit system brand
+ * @param quantity - The quantity to convert
+ * @param unit - The target unit
+ * @returns The numeric value expressed in the target unit
+ *
+ * @example
+ * ```ts
+ * import { defineQuantitySystem } from "@isentropic/dim-quantity";
+ * import { defineUnitSystem, valueIn } from "@isentropic/dim-unit";
+ *
+ * const qs = defineQuantitySystem(["L"]);
+ * const us = defineUnitSystem("example", qs);
+ * const meter = us.unit(qs.base("L"));
+ * const km = meter.scaled(1000);
+ *
+ * valueIn(km(5), meter);  // 5000
+ * valueIn(km(5), km);     // 5
+ * ```
  */
 export function valueIn<D, S extends string>(
   quantity: Linear<D, S>,

@@ -4,28 +4,85 @@ import type { Affine, Linear } from "./types.ts";
 /** A quantity factory from the quantity package. */
 type QuantityFactory<D> = (value: number) => Quantity<D>;
 
-/** A linear unit: callable, produces Linear quantities. */
+/**
+ * A linear unit: a callable that produces {@linkcode Linear} quantities.
+ *
+ * Call with a numeric value to create a quantity in this unit's scale.
+ * The `scale` property gives the factor relative to the base unit.
+ *
+ * @typeParam D - The dimension type
+ * @typeParam S - The unit system brand
+ */
 export type LinearUnit<D, S extends string> = {
   (value: number): Linear<D, S>;
   readonly scale: number;
 };
 
 /**
- * A scaled unit: linear unit that can derive further scaled/offset units.
- * This is the intermediate result of baseUnit.scaled().
+ * A scaled unit: a {@linkcode LinearUnit} that can derive further units.
+ *
+ * Created by calling {@linkcode BaseUnit.scaled | scaled} on a base unit.
+ * Supports chaining to create additional scaled or affine units.
+ *
+ * Exported for use in explicit type annotations (required by JSR's
+ * no-slow-types policy). Most code won't reference this type directly.
+ *
+ * @typeParam D - The dimension type
+ * @typeParam S - The unit system brand
+ *
+ * @example
+ * ```ts
+ * const km = meter.scaled(1000);
+ * const mm = meter.scaled(0.001);
+ * const celsius = kelvin.scaled(1).offset(273.15);
+ * ```
  */
 export type ScaledUnit<D, S extends string> = LinearUnit<D, S> & {
   scaled(factor: number): ScaledUnit<D, S>;
   offset(value: number): AffineUnit<D, S>;
 };
 
-/** A base unit: linear unit that can derive other units. */
+/**
+ * A base unit: the reference unit for a dimension in a unit system.
+ *
+ * Created by {@linkcode UnitSystem.unit | unit} from a quantity factory.
+ * Has scale 1 and serves as the root for deriving scaled and affine units.
+ *
+ * Exported for use in explicit type annotations (required by JSR's
+ * no-slow-types policy). Most code won't reference this type directly.
+ *
+ * @typeParam D - The dimension type
+ * @typeParam S - The unit system brand
+ *
+ * @example
+ * ```ts
+ * const meter = us.unit(length);
+ * const km = meter.scaled(1000);
+ * ```
+ */
 export type BaseUnit<D, S extends string> = LinearUnit<D, S> & {
   scaled(factor: number): ScaledUnit<D, S>;
   offset(value: number): AffineUnit<D, S>;
 };
 
-/** An affine unit: produces Affine quantities, has a delta unit. */
+/**
+ * An affine unit: a callable that produces {@linkcode Affine} quantities.
+ *
+ * Created by calling {@linkcode BaseUnit.offset | offset} or
+ * {@linkcode ScaledUnit.offset | offset} on a linear unit. Converts values
+ * using `base = value * scale + offset`. The {@linkcode AffineUnit.delta | delta}
+ * property provides the corresponding linear unit for differences.
+ *
+ * @typeParam D - The dimension type
+ * @typeParam S - The unit system brand
+ *
+ * @example
+ * ```ts
+ * const celsius = kelvin.offset(273.15);
+ * celsius(100);        // Affine quantity (373.15 K internally)
+ * celsius.delta(10);   // Linear quantity (10 K difference)
+ * ```
+ */
 export type AffineUnit<D, S extends string> = {
   (value: number): Affine<D, S>;
   readonly scale: number;
@@ -114,7 +171,19 @@ function createAffineUnit<D, S extends string>(
   return unit;
 }
 
-/** A unit system layered on a quantity system. */
+/**
+ * A unit system layered on a quantity system.
+ *
+ * Provides a {@linkcode UnitSystem.unit | unit} method to create base units
+ * from quantity factories. The system's name brands all quantities to prevent
+ * cross-system operations at compile time.
+ *
+ * Exported for use in explicit type annotations (required by JSR's
+ * no-slow-types policy). Most code won't reference this type directly.
+ *
+ * @typeParam Dims - The dimension names from the underlying quantity system
+ * @typeParam Name - The unique system name used as a type-level brand
+ */
 export type UnitSystem<Dims extends readonly string[], Name extends string> = {
   readonly name: Name;
   readonly quantitySystem: { dims: Dims; [key: string]: unknown };
@@ -126,8 +195,26 @@ export type UnitSystem<Dims extends readonly string[], Name extends string> = {
 /**
  * Define a unit system that layers units onto a quantity system.
  *
- * @param name - Unique name for this unit system (used as type brand to prevent cross-system operations)
+ * The system name brands every quantity produced by its units, ensuring
+ * the type checker rejects operations between different unit systems.
+ *
+ * @typeParam Name - The unique system name used as a type-level brand
+ * @typeParam Dims - The dimension names from the underlying quantity system
+ * @param name - Unique name for this unit system
  * @param qs - The underlying quantity system
+ * @returns A {@linkcode UnitSystem} for creating base units
+ *
+ * @example
+ * ```ts
+ * import { defineQuantitySystem } from "@isentropic/dim-quantity";
+ * import { defineUnitSystem } from "@isentropic/dim-unit";
+ *
+ * const qs = defineQuantitySystem(["L", "T"]);
+ * const us = defineUnitSystem("mechanics", qs);
+ *
+ * const meter = us.unit(qs.base("L"));
+ * const km = meter.scaled(1000);
+ * ```
  */
 export function defineUnitSystem<
   const Name extends string,

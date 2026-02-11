@@ -27,6 +27,10 @@ files.
   reference.
 - Compound scaled units should use named scaled units when available (e.g.,
   `kilowatt.scale * hour.scale` not `watt.scaled(KILO).scale * hour.scale`)
+- When auditing or proposing JSDoc, read source files before proposing (not just
+  before editing). Cross-check parallel functions for consistency.
+- When a pattern applies to one export (e.g., "exported for annotation"),
+  proactively audit all exports for the same pattern before presenting.
 
 ## Test Patterns
 
