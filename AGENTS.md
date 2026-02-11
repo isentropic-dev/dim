@@ -13,14 +13,18 @@ files.
 - Check import maps and dependency type definitions instead of guessing
 - Review `adr/` for architectural decisions and invariants. Create new ADRs for
   significant design choices with trade-offs worth capturing.
-- Read existing scripts, workflows, and config before proposing processes or
-  workflows — don't assume, verify
+- Read existing scripts, workflows, and config before proposing new ones
 - Type-check README code examples with `deno check` before presenting them
 - No "See Also" sections in package READMEs — monorepo root README handles
   cross-linking
 - When removing or changing public exports, grep all packages for downstream
   usage before proposing the change. Run `deno test` after export changes to
   catch cross-package breakage.
+- Compound scaled units should use named scaled units when available (e.g.,
+  `kilowatt.scale * hour.scale` not `watt.scaled(KILO).scale * hour.scale`)
+
+### JSDoc
+
 - All public exports should have comprehensive JSDoc: description, `@typeParam`,
   `@param`, `@returns`, and `@example` blocks where applicable. Module
   entrypoints (`mod.ts`) should have `@module` docs. See `dim-quantity` for
@@ -31,13 +35,14 @@ files.
 - Files can export types/values for internal use without being listed in
   `deno.json` exports (e.g., `types.ts` in dim-si). Keep these out of the public
   API surface.
-- Compound scaled units should use named scaled units when available (e.g.,
-  `kilowatt.scale * hour.scale` not `watt.scaled(KILO).scale * hour.scale`)
 - When auditing or proposing JSDoc, read source files and function signatures
   before proposing (not just before editing). Never guess at API shape.
-  Cross-check parallel functions for consistency.
+- Cross-check parallel functions for consistency.
 - When a pattern applies to one export (e.g., "exported for annotation"),
   proactively audit all exports for the same pattern before presenting.
+- When writing `@module` or `@example` docs, identify the real consumer use
+  cases for the package before drafting examples. If consumers always use the
+  package alongside others, show that — don't demonstrate APIs in isolation.
 
 ## Test Patterns
 

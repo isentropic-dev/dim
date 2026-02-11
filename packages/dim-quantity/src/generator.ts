@@ -187,13 +187,21 @@ export function generateQuantitySystem(spec: QuantitySpec): string {
   lines.push(``);
 
   // System definition
-  lines.push(`/** Base dimensions for the ${name.toUpperCase()} system. */`);
+  lines.push(
+    `/** The ${dims.length} base dimension symbols for the ${name.toUpperCase()} system: ${
+      dims.join(", ")
+    }. */`,
+  );
   lines.push(`export const ${name}Dims = ${dimsArray} as const;`);
   lines.push(``);
-  lines.push(`/** Dimension tuple type. */`);
+  lines.push(
+    `/** Tuple type of the ${name.toUpperCase()} base dimension symbols. */`,
+  );
   lines.push(`export type ${capitalize(name)}Dims = typeof ${name}Dims;`);
   lines.push(``);
-  lines.push(`/** The ${name.toUpperCase()} quantity system. */`);
+  lines.push(
+    `/** The ${name.toUpperCase()} quantity system. Use to create custom quantity factories beyond the pre-defined exports. */`,
+  );
   lines.push(
     `export const ${name}: QuantitySystem<${
       capitalize(name)

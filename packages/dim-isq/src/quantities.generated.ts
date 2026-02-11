@@ -15,13 +15,13 @@ import {
   type WithDefaults,
 } from "@isentropic/dim-quantity";
 
-/** Base dimensions for the ISQ system. */
+/** The 7 base dimension symbols for the ISQ system: L, M, T, I, Θ, N, J. */
 export const isqDims = ["L", "M", "T", "I", "Θ", "N", "J"] as const;
 
-/** Dimension tuple type. */
+/** Tuple type of the ISQ base dimension symbols. */
 export type IsqDims = typeof isqDims;
 
-/** The ISQ quantity system. */
+/** The ISQ quantity system. Use to create custom quantity factories beyond the pre-defined exports. */
 export const isq: QuantitySystem<IsqDims> = defineQuantitySystem(isqDims);
 
 /** Shorthand for defining dimension types in this system. */
