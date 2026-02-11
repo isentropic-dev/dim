@@ -5,14 +5,11 @@ Define quantity systems for compile-time dimensional analysis.
 ## Installation
 
 ```bash
+# Deno
 deno add jsr:@isentropic/dim-quantity
-```
-
-```bash
+# npm
 npx jsr add @isentropic/dim-quantity
-```
-
-```bash
+# Bun
 bunx jsr add @isentropic/dim-quantity
 ```
 

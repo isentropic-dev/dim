@@ -6,14 +6,11 @@ Build type-safe unit systems with scale factors and affine offsets, layered on
 ## Installation
 
 ```bash
+# Deno
 deno add jsr:@isentropic/dim-unit
-```
-
-```bash
+# npm
 npx jsr add @isentropic/dim-unit
-```
-
-```bash
+# Bun
 bunx jsr add @isentropic/dim-unit
 ```
 

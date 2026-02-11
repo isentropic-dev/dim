@@ -7,14 +7,11 @@ system built on [`dim-quantity`](../dim-quantity).
 ## Installation
 
 ```bash
+# Deno
 deno add jsr:@isentropic/dim-isq
-```
-
-```bash
+# npm
 npx jsr add @isentropic/dim-isq
-```
-
-```bash
+# Bun
 bunx jsr add @isentropic/dim-isq
 ```
 

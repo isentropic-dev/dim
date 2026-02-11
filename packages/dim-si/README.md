@@ -10,14 +10,11 @@ at the type level.
 ## Installation
 
 ```bash
+# Deno
 deno add jsr:@isentropic/dim-si
-```
-
-```bash
+# npm
 npx jsr add @isentropic/dim-si
-```
-
-```bash
+# Bun
 bunx jsr add @isentropic/dim-si
 ```
 
