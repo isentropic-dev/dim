@@ -3,12 +3,21 @@
  *
  * SI unit: cubic meter (m³).
  *
+ * @example
+ * ```ts
+ * import { liter, milliliter } from "@isentropic/dim-si/volume";
+ * import { valueIn } from "@isentropic/dim-si/ops";
+ *
+ * const bottle = liter(1.5);
+ * valueIn(bottle, milliliter);  // 1500
+ * ```
+ *
  * @module
  */
 
 import type { Volume } from "@isentropic/dim-isq";
 import { volume } from "@isentropic/dim-isq";
-import type { BaseUnit, ScaledUnit } from "./system.ts";
+import type { BaseUnit, ScaledUnit } from "./types.ts";
 import { si } from "./system.ts";
 import { MICRO, MILLI } from "./prefixes.ts";
 

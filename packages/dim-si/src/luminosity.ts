@@ -3,12 +3,19 @@
  *
  * SI base unit: candela (cd).
  *
+ * @example
+ * ```ts
+ * import { candela } from "@isentropic/dim-si/luminosity";
+ *
+ * const intensity = candela(100);
+ * ```
+ *
  * @module
  */
 
 import type { Luminosity } from "@isentropic/dim-isq";
 import { luminosity } from "@isentropic/dim-isq";
-import type { BaseUnit } from "./system.ts";
+import type { BaseUnit } from "./types.ts";
 import { si } from "./system.ts";
 
 export type { Luminosity } from "@isentropic/dim-isq";

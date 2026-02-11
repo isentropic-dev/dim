@@ -3,12 +3,21 @@
  *
  * SI unit: ohm (Ω).
  *
+ * @example
+ * ```ts
+ * import { kilohm, megohm, ohm } from "@isentropic/dim-si/resistance";
+ * import { valueIn } from "@isentropic/dim-si/ops";
+ *
+ * const pullup = kilohm(4.7);
+ * valueIn(pullup, ohm);  // 4700
+ * ```
+ *
  * @module
  */
 
 import type { Resistance } from "@isentropic/dim-isq";
 import { resistance } from "@isentropic/dim-isq";
-import type { BaseUnit, ScaledUnit } from "./system.ts";
+import type { BaseUnit, ScaledUnit } from "./types.ts";
 import { si } from "./system.ts";
 import { KILO, MEGA, MILLI } from "./prefixes.ts";
 

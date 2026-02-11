@@ -3,12 +3,22 @@
  *
  * SI unit: joule (J).
  *
+ * @example
+ * ```ts
+ * import { joule, kilowattHour, megajoule } from "@isentropic/dim-si/energy";
+ * import { valueIn } from "@isentropic/dim-si/ops";
+ *
+ * const energy = kilowattHour(1);
+ * valueIn(energy, joule);     // 3_600_000
+ * valueIn(energy, megajoule); // 3.6
+ * ```
+ *
  * @module
  */
 
 import type { Energy } from "@isentropic/dim-isq";
 import { energy } from "@isentropic/dim-isq";
-import type { BaseUnit, ScaledUnit } from "./system.ts";
+import type { BaseUnit, ScaledUnit } from "./types.ts";
 import { si } from "./system.ts";
 import { KILO, MEGA } from "./prefixes.ts";
 import { kilowatt } from "./power.ts";

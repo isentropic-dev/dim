@@ -3,12 +3,21 @@
  *
  * SI unit: volt (V).
  *
+ * @example
+ * ```ts
+ * import { kilovolt, millivolt, volt } from "@isentropic/dim-si/voltage";
+ * import { valueIn } from "@isentropic/dim-si/ops";
+ *
+ * const supply = volt(3.3);
+ * valueIn(supply, millivolt);  // 3300
+ * ```
+ *
  * @module
  */
 
 import type { Voltage } from "@isentropic/dim-isq";
 import { voltage } from "@isentropic/dim-isq";
-import type { BaseUnit, ScaledUnit } from "./system.ts";
+import type { BaseUnit, ScaledUnit } from "./types.ts";
 import { si } from "./system.ts";
 import { KILO, MILLI } from "./prefixes.ts";
 

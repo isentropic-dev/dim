@@ -6,12 +6,22 @@
  * Note: becquerel (radioactive decay rate) shares this dimension
  * with hertz (cycles per second). This is intentional per SI.
  *
+ * @example
+ * ```ts
+ * import { gigahertz, hertz, megahertz } from "@isentropic/dim-si/frequency";
+ * import { valueIn } from "@isentropic/dim-si/ops";
+ *
+ * const clock = gigahertz(3.2);
+ * valueIn(clock, megahertz);  // 3200
+ * valueIn(clock, hertz);      // 3_200_000_000
+ * ```
+ *
  * @module
  */
 
 import type { Frequency } from "@isentropic/dim-isq";
 import { frequency } from "@isentropic/dim-isq";
-import type { BaseUnit, ScaledUnit } from "./system.ts";
+import type { BaseUnit, ScaledUnit } from "./types.ts";
 import { si } from "./system.ts";
 import { GIGA, KILO, MEGA } from "./prefixes.ts";
 

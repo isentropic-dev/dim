@@ -3,12 +3,22 @@
  *
  * SI base unit: second (s).
  *
+ * @example
+ * ```ts
+ * import { hour, minute, second } from "@isentropic/dim-si/time";
+ * import { valueIn } from "@isentropic/dim-si/ops";
+ *
+ * const duration = hour(1.5);
+ * valueIn(duration, minute);  // 90
+ * valueIn(duration, second);  // 5400
+ * ```
+ *
  * @module
  */
 
 import type { Time } from "@isentropic/dim-isq";
 import { time } from "@isentropic/dim-isq";
-import type { BaseUnit, ScaledUnit } from "./system.ts";
+import type { BaseUnit, ScaledUnit } from "./types.ts";
 import { si } from "./system.ts";
 import { MICRO, MILLI, NANO, PICO } from "./prefixes.ts";
 

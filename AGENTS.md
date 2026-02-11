@@ -25,10 +25,17 @@ files.
   `@param`, `@returns`, and `@example` blocks where applicable. Module
   entrypoints (`mod.ts`) should have `@module` docs. See `dim-quantity` for
   reference.
+- Each package should have a `.` export in `deno.json` pointing to `src/mod.ts`.
+  This serves as the JSR documentation landing page — write the `@module` doc to
+  introduce the package to new users.
+- Files can export types/values for internal use without being listed in
+  `deno.json` exports (e.g., `types.ts` in dim-si). Keep these out of the public
+  API surface.
 - Compound scaled units should use named scaled units when available (e.g.,
   `kilowatt.scale * hour.scale` not `watt.scaled(KILO).scale * hour.scale`)
-- When auditing or proposing JSDoc, read source files before proposing (not just
-  before editing). Cross-check parallel functions for consistency.
+- When auditing or proposing JSDoc, read source files and function signatures
+  before proposing (not just before editing). Never guess at API shape.
+  Cross-check parallel functions for consistency.
 - When a pattern applies to one export (e.g., "exported for annotation"),
   proactively audit all exports for the same pattern before presenting.
 

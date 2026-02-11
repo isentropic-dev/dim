@@ -3,12 +3,22 @@
  *
  * SI base unit: kilogram (kg).
  *
+ * @example
+ * ```ts
+ * import { gram, kilogram, tonne } from "@isentropic/dim-si/mass";
+ * import { valueIn } from "@isentropic/dim-si/ops";
+ *
+ * const weight = tonne(2);
+ * valueIn(weight, kilogram);  // 2000
+ * valueIn(weight, gram);      // 2_000_000
+ * ```
+ *
  * @module
  */
 
 import type { Mass } from "@isentropic/dim-isq";
 import { mass } from "@isentropic/dim-isq";
-import type { BaseUnit, ScaledUnit } from "./system.ts";
+import type { BaseUnit, ScaledUnit } from "./types.ts";
 import { si } from "./system.ts";
 import { KILO, MICRO, MILLI, NANO } from "./prefixes.ts";
 

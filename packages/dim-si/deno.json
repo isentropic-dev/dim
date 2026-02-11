@@ -8,8 +8,8 @@
     ]
   },
   "exports": {
+    ".": "./src/mod.ts",
     "./ops": "./src/ops.ts",
-    "./system": "./src/system.ts",
     "./prefixes": "./src/prefixes.ts",
     "./scalar": "./src/scalar.ts",
     "./length": "./src/length.ts",

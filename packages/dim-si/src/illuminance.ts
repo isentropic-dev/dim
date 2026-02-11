@@ -3,12 +3,19 @@
  *
  * SI unit: lux (lx).
  *
+ * @example
+ * ```ts
+ * import { lux } from "@isentropic/dim-si/illuminance";
+ *
+ * const brightness = lux(500);
+ * ```
+ *
  * @module
  */
 
 import type { Illuminance } from "@isentropic/dim-isq";
 import { illuminance } from "@isentropic/dim-isq";
-import type { BaseUnit } from "./system.ts";
+import type { BaseUnit } from "./types.ts";
 import { si } from "./system.ts";
 
 export type { Illuminance } from "@isentropic/dim-isq";

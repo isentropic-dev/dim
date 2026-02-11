@@ -3,12 +3,21 @@
  *
  * SI unit: square meter (m²).
  *
+ * @example
+ * ```ts
+ * import { hectare, squareMeter } from "@isentropic/dim-si/area";
+ * import { valueIn } from "@isentropic/dim-si/ops";
+ *
+ * const field = hectare(2);
+ * valueIn(field, squareMeter);  // 20000
+ * ```
+ *
  * @module
  */
 
 import type { Area } from "@isentropic/dim-isq";
 import { area } from "@isentropic/dim-isq";
-import type { BaseUnit, ScaledUnit } from "./system.ts";
+import type { BaseUnit, ScaledUnit } from "./types.ts";
 import { si } from "./system.ts";
 
 export type { Area } from "@isentropic/dim-isq";

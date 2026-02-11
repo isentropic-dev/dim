@@ -3,12 +3,22 @@
  *
  * SI base unit: meter (m).
  *
+ * @example
+ * ```ts
+ * import { kilometer, meter, millimeter } from "@isentropic/dim-si/length";
+ * import { valueIn } from "@isentropic/dim-si/ops";
+ *
+ * const distance = kilometer(5);
+ * valueIn(distance, meter);       // 5000
+ * valueIn(distance, millimeter);  // 5_000_000
+ * ```
+ *
  * @module
  */
 
 import type { Length } from "@isentropic/dim-isq";
 import { length } from "@isentropic/dim-isq";
-import type { BaseUnit, ScaledUnit } from "./system.ts";
+import type { BaseUnit, ScaledUnit } from "./types.ts";
 import { si } from "./system.ts";
 import { CENTI, KILO, MICRO, MILLI, NANO, PICO } from "./prefixes.ts";
 

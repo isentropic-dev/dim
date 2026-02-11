@@ -3,12 +3,21 @@
  *
  * SI base unit: ampere (A).
  *
+ * @example
+ * ```ts
+ * import { ampere, milliampere } from "@isentropic/dim-si/current";
+ * import { valueIn } from "@isentropic/dim-si/ops";
+ *
+ * const draw = milliampere(500);
+ * valueIn(draw, ampere);  // 0.5
+ * ```
+ *
  * @module
  */
 
 import type { Current } from "@isentropic/dim-isq";
 import { current } from "@isentropic/dim-isq";
-import type { BaseUnit, ScaledUnit } from "./system.ts";
+import type { BaseUnit, ScaledUnit } from "./types.ts";
 import { si } from "./system.ts";
 import { MICRO, MILLI } from "./prefixes.ts";
 

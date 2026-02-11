@@ -9,7 +9,9 @@ approach used for `dim-quantity`.
 - [x] `dim-unit` — `defineUnitSystem`, `Linear`, `Affine`, `valueIn`, ops, chain
       API (`q()`), etc.
 - [ ] `dim-isq` — generated quantities file, ISQ system exports
-- [ ] `dim-si` — SI units, prefixes, accepted units, affine temperature units
+- [x] `dim-si` — SI units, prefixes, accepted units, affine temperature units
+  - Also: moved type aliases to internal `types.ts`, added `mod.ts` root export,
+    removed `./system` from deno.json exports (breaking change)
 
 ## Process
 

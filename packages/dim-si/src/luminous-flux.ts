@@ -3,12 +3,19 @@
  *
  * SI unit: lumen (lm).
  *
+ * @example
+ * ```ts
+ * import { lumen } from "@isentropic/dim-si/luminous-flux";
+ *
+ * const output = lumen(800);
+ * ```
+ *
  * @module
  */
 
 import type { LuminousFlux } from "@isentropic/dim-isq";
 import { luminousFlux } from "@isentropic/dim-isq";
-import type { BaseUnit } from "./system.ts";
+import type { BaseUnit } from "./types.ts";
 import { si } from "./system.ts";
 
 export type { LuminousFlux } from "@isentropic/dim-isq";

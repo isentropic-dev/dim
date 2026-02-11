@@ -3,12 +3,21 @@
  *
  * SI base unit: mole (mol).
  *
+ * @example
+ * ```ts
+ * import { millimole, mole } from "@isentropic/dim-si/amount";
+ * import { valueIn } from "@isentropic/dim-si/ops";
+ *
+ * const substance = mole(0.5);
+ * valueIn(substance, millimole);  // 500
+ * ```
+ *
  * @module
  */
 
 import type { Amount } from "@isentropic/dim-isq";
 import { amount } from "@isentropic/dim-isq";
-import type { BaseUnit, ScaledUnit } from "./system.ts";
+import type { BaseUnit, ScaledUnit } from "./types.ts";
 import { si } from "./system.ts";
 import { MICRO, MILLI } from "./prefixes.ts";
 

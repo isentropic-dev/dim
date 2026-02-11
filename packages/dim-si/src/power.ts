@@ -3,12 +3,22 @@
  *
  * SI unit: watt (W).
  *
+ * @example
+ * ```ts
+ * import { kilowatt, megawatt, watt } from "@isentropic/dim-si/power";
+ * import { valueIn } from "@isentropic/dim-si/ops";
+ *
+ * const output = megawatt(1.5);
+ * valueIn(output, kilowatt);  // 1500
+ * valueIn(output, watt);      // 1_500_000
+ * ```
+ *
  * @module
  */
 
 import type { Power } from "@isentropic/dim-isq";
 import { power } from "@isentropic/dim-isq";
-import type { BaseUnit, ScaledUnit } from "./system.ts";
+import type { BaseUnit, ScaledUnit } from "./types.ts";
 import { si } from "./system.ts";
 import { GIGA, KILO, MEGA, MILLI, TERA } from "./prefixes.ts";
 

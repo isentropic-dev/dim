@@ -3,12 +3,19 @@
  *
  * SI unit: meter per second squared (m/s²).
  *
+ * @example
+ * ```ts
+ * import { meterPerSecondSquared } from "@isentropic/dim-si/acceleration";
+ *
+ * const gravity = meterPerSecondSquared(9.81);
+ * ```
+ *
  * @module
  */
 
 import type { Acceleration } from "@isentropic/dim-isq";
 import { acceleration } from "@isentropic/dim-isq";
-import type { BaseUnit } from "./system.ts";
+import type { BaseUnit } from "./types.ts";
 import { si } from "./system.ts";
 
 export type { Acceleration } from "@isentropic/dim-isq";

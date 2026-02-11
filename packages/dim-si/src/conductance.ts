@@ -3,12 +3,19 @@
  *
  * SI unit: siemens (S).
  *
+ * @example
+ * ```ts
+ * import { siemens } from "@isentropic/dim-si/conductance";
+ *
+ * const conductance = siemens(0.5);
+ * ```
+ *
  * @module
  */
 
 import type { Conductance } from "@isentropic/dim-isq";
 import { conductance } from "@isentropic/dim-isq";
-import type { BaseUnit } from "./system.ts";
+import type { BaseUnit } from "./types.ts";
 import { si } from "./system.ts";
 
 export type { Conductance } from "@isentropic/dim-isq";

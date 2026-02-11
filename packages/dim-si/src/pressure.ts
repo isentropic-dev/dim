@@ -3,12 +3,22 @@
  *
  * SI unit: pascal (Pa).
  *
+ * @example
+ * ```ts
+ * import { bar, millibar, pascal } from "@isentropic/dim-si/pressure";
+ * import { valueIn } from "@isentropic/dim-si/ops";
+ *
+ * const atm = pascal(101325);
+ * valueIn(atm, bar);      // 1.01325
+ * valueIn(atm, millibar); // 1013.25
+ * ```
+ *
  * @module
  */
 
 import type { Pressure } from "@isentropic/dim-isq";
 import { pressure } from "@isentropic/dim-isq";
-import type { BaseUnit, ScaledUnit } from "./system.ts";
+import type { BaseUnit, ScaledUnit } from "./types.ts";
 import { si } from "./system.ts";
 import { MILLI } from "./prefixes.ts";
 

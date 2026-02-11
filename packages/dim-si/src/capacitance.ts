@@ -3,12 +3,22 @@
  *
  * SI unit: farad (F).
  *
+ * @example
+ * ```ts
+ * import { microfarad, nanofarad, picofarad } from "@isentropic/dim-si/capacitance";
+ * import { valueIn } from "@isentropic/dim-si/ops";
+ *
+ * const cap = microfarad(4.7);
+ * valueIn(cap, nanofarad);   // 4700
+ * valueIn(cap, picofarad);   // 4_700_000
+ * ```
+ *
  * @module
  */
 
 import type { Capacitance } from "@isentropic/dim-isq";
 import { capacitance } from "@isentropic/dim-isq";
-import type { BaseUnit, ScaledUnit } from "./system.ts";
+import type { BaseUnit, ScaledUnit } from "./types.ts";
 import { si } from "./system.ts";
 import { MICRO, NANO, PICO } from "./prefixes.ts";
 

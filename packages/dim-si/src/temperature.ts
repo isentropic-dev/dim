@@ -1,14 +1,36 @@
 /**
  * Temperature units (Θ).
  *
- * SI base unit: kelvin (K). Celsius and Fahrenheit are affine units.
+ * SI base unit: kelvin (K). Celsius and Fahrenheit are affine units
+ * with offsets from absolute zero.
+ *
+ * Use the unit directly for absolute temperatures, and `.delta` for
+ * temperature differences.
+ *
+ * @example
+ * ```ts
+ * import { celsius, fahrenheit, kelvin } from "@isentropic/dim-si/temperature";
+ * import { add, subtract, valueIn } from "@isentropic/dim-si/ops";
+ *
+ * // Absolute temperatures
+ * const boiling = celsius(100);
+ * valueIn(boiling, kelvin);      // 373.15
+ * valueIn(boiling, fahrenheit);  // 212
+ *
+ * // Temperature differences use .delta
+ * const diff = subtract(celsius(25), celsius(20));
+ * valueIn(diff, celsius.delta);  // 5
+ *
+ * const heated = add(celsius(20), celsius.delta(10));
+ * valueIn(heated, celsius);  // 30
+ * ```
  *
  * @module
  */
 
 import type { Temperature } from "@isentropic/dim-isq";
 import { temperature } from "@isentropic/dim-isq";
-import type { AffineUnit, BaseUnit } from "./system.ts";
+import type { AffineUnit, BaseUnit } from "./types.ts";
 import { si } from "./system.ts";
 
 export type { Temperature } from "@isentropic/dim-isq";

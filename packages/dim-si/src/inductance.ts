@@ -3,12 +3,22 @@
  *
  * SI unit: henry (H).
  *
+ * @example
+ * ```ts
+ * import { henry, microhenry, millihenry } from "@isentropic/dim-si/inductance";
+ * import { valueIn } from "@isentropic/dim-si/ops";
+ *
+ * const coil = millihenry(10);
+ * valueIn(coil, microhenry);  // 10000
+ * valueIn(coil, henry);       // 0.01
+ * ```
+ *
  * @module
  */
 
 import type { Inductance } from "@isentropic/dim-isq";
 import { inductance } from "@isentropic/dim-isq";
-import type { BaseUnit, ScaledUnit } from "./system.ts";
+import type { BaseUnit, ScaledUnit } from "./types.ts";
 import { si } from "./system.ts";
 import { MICRO, MILLI } from "./prefixes.ts";
 

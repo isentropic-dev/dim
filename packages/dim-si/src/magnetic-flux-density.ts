@@ -3,12 +3,19 @@
  *
  * SI unit: tesla (T).
  *
+ * @example
+ * ```ts
+ * import { tesla } from "@isentropic/dim-si/magnetic-flux-density";
+ *
+ * const field = tesla(1.5);
+ * ```
+ *
  * @module
  */
 
 import type { MagneticFluxDensity } from "@isentropic/dim-isq";
 import { magneticFluxDensity } from "@isentropic/dim-isq";
-import type { BaseUnit } from "./system.ts";
+import type { BaseUnit } from "./types.ts";
 import { si } from "./system.ts";
 
 export type { MagneticFluxDensity } from "@isentropic/dim-isq";
