@@ -77,7 +77,12 @@ function generate(max: number): string {
  * Run \`deno task generate:exponents\` to regenerate.
  */
 
-/** Valid exponent values. */
+/**
+ * Valid exponent values for dimension signatures.
+ *
+ * Supports the integer range [${-max}, ${max}]. Arithmetic operations that would produce
+ * a result outside this range resolve to \`never\`, causing a compile-time error.
+ */
 ${generateExpType(max)}
 
 /** Negate an exponent. */

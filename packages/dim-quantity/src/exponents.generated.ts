@@ -6,7 +6,12 @@
  * Run `deno task generate:exponents` to regenerate.
  */
 
-/** Valid exponent values. */
+/**
+ * Valid exponent values for dimension signatures.
+ *
+ * Supports the integer range [-6, 6]. Arithmetic operations that would produce
+ * a result outside this range resolve to `never`, causing a compile-time error.
+ */
 export type Exp = -6 | -5 | -4 | -3 | -2 | -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 /** Negate an exponent. */

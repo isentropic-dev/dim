@@ -6,7 +6,32 @@
 
 import type { Exp } from "./exponents.generated.ts";
 
-/** Specification for a quantity system. */
+/**
+ * Specification for generating a quantity system module.
+ *
+ * Describes the base dimensions, base quantities, and derived quantities
+ * that {@linkcode generateQuantitySystem} uses to produce a complete
+ * TypeScript source file.
+ *
+ * @typeParam Dims The tuple of base dimension symbols.
+ *
+ * @example
+ * ```ts
+ * import { defineQuantitySpec } from "@isentropic/dim-quantity/generate";
+ *
+ * const spec = defineQuantitySpec({
+ *   name: "mech",
+ *   dims: ["L", "M", "T"],
+ *   quantities: {
+ *     base: { length: "L", mass: "M", time: "T" },
+ *     derived: {
+ *       velocity: { L: 1, T: -1 },
+ *       force: { L: 1, M: 1, T: -2 },
+ *     },
+ *   },
+ * });
+ * ```
+ */
 export interface QuantitySpec<
   Dims extends readonly string[] = readonly string[],
 > {
@@ -25,7 +50,16 @@ export interface QuantitySpec<
   regenHint?: string;
 }
 
-/** Define a quantity spec with validated dimension symbols. */
+/**
+ * Create a {@linkcode QuantitySpec} with validated dimension symbols.
+ *
+ * This is a pass-through identity function that provides type checking —
+ * TypeScript will error if quantity definitions reference dimension symbols
+ * not present in `dims`.
+ *
+ * @param spec The quantity system specification.
+ * @returns The same spec, unchanged.
+ */
 export function defineQuantitySpec<const Dims extends readonly string[]>(
   spec: QuantitySpec<Dims>,
 ): QuantitySpec<Dims> {
@@ -100,7 +134,32 @@ function capitalize(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-/** Generate a complete quantity system file from a spec. */
+/**
+ * Generate a complete TypeScript module from a {@linkcode QuantitySpec}.
+ *
+ * The output includes imports, system definition, and typed factory exports
+ * for all base and derived quantities. Write the returned string to a file.
+ *
+ * @param spec The quantity system specification.
+ * @returns The generated TypeScript source code as a string.
+ *
+ * @example
+ * ```ts
+ * import { defineQuantitySpec, generateQuantitySystem } from "@isentropic/dim-quantity/generate";
+ *
+ * const spec = defineQuantitySpec({
+ *   name: "mech",
+ *   dims: ["L", "M", "T"],
+ *   quantities: {
+ *     base: { length: "L", mass: "M", time: "T" },
+ *     derived: { velocity: { L: 1, T: -1 } },
+ *   },
+ * });
+ *
+ * const source = generateQuantitySystem(spec);
+ * await Deno.writeTextFile("mech.generated.ts", source);
+ * ```
+ */
 export function generateQuantitySystem(spec: QuantitySpec): string {
   const { name, dims, quantities } = spec;
   const dimsType = dims.map((d) => `"${d}"`).join(" | ");
