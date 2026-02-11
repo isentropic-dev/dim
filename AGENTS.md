@@ -15,8 +15,6 @@ files.
   significant design choices with trade-offs worth capturing.
 - Read existing scripts, workflows, and config before proposing new ones
 - Type-check README code examples with `deno check` before presenting them
-- No "See Also" sections in package READMEs — monorepo root README handles
-  cross-linking
 - When removing or changing public exports, grep all packages for downstream
   usage before proposing the change. Run `deno test` after export changes to
   catch cross-package breakage.
