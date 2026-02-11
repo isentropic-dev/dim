@@ -18,9 +18,13 @@ files.
 - Type-check README code examples with `deno check` before presenting them
 - No "See Also" sections in package READMEs — monorepo root README handles
   cross-linking
-
-## Conventions
-
+- When removing or changing public exports, grep all packages for downstream
+  usage before proposing the change. Run `deno test` after export changes to
+  catch cross-package breakage.
+- All public exports should have comprehensive JSDoc: description, `@typeParam`,
+  `@param`, `@returns`, and `@example` blocks where applicable. Module
+  entrypoints (`mod.ts`) should have `@module` docs. See `dim-quantity` for
+  reference.
 - Compound scaled units should use named scaled units when available (e.g.,
   `kilowatt.scale * hour.scale` not `watt.scaled(KILO).scale * hour.scale`)
 
@@ -33,12 +37,6 @@ files.
 - Compile-time type checks in `_compileTimeChecks()` function (not executed)
 
 ## Workflow
-
-```bash
-deno test       # Run all tests
-deno lint       # Lint all files
-deno fmt        # Format all files
-```
 
 - After code changes (not documentation): run
   `deno fmt && deno lint && deno test`. Get full output — no tail. Fix all
@@ -77,15 +75,11 @@ All packages use lockstep versioning. Release flow:
 Before releasing, run `deno publish --dry-run` to catch export/exclude conflicts
 and other publish errors.
 
-For JSR landing pages, use README-first: avoid module docs on a package's
-default entrypoint (`exports["."]`) unless intentionally overriding Overview
-with module-doc content.
-
 Key files: `scripts/release.ts`, `scripts/publish.ts`,
 `scripts/extract-changelog.ts`, `scripts/packages.ts` (single source of truth
 for package list and publish order).
 
-### Changelog
+## Changelog
 
 Each package has its own `CHANGELOG.md`. Use these sections under
 `## Unreleased`:
