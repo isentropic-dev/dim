@@ -46,9 +46,7 @@ valueIn(tempDiff, kelvin); // 100
 
 ### Linear Units
 
-Linear units have a scale factor relative to a base. All arithmetic operations
-work on linear quantities: addition, subtraction, multiplication, division, and
-scaling.
+Linear units have a scale factor relative to a base.
 
 **Base units** are created from quantity factories with a scale of 1:
 
