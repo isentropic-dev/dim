@@ -35,11 +35,8 @@ files.
 - Files can export types/values for internal use without being listed in
   `deno.json` exports (e.g., `types.ts` in dim-si). Keep these out of the public
   API surface.
-- When auditing or proposing JSDoc, read source files and function signatures
-  before proposing (not just before editing). Never guess at API shape.
-- Cross-check parallel functions for consistency.
-- When a pattern applies to one export (e.g., "exported for annotation"),
-  proactively audit all exports for the same pattern before presenting.
+- Read source files and function signatures before proposing JSDoc — never guess
+  at API shape.
 - When writing `@module` or `@example` docs, identify the real consumer use
   cases for the package before drafting examples. If consumers always use the
   package alongside others, show that — don't demonstrate APIs in isolation.
@@ -60,8 +57,8 @@ files.
 ## Workflow
 
 - After code changes (not documentation): run
-  `deno fmt && deno lint && deno test`. Get full output — no tail. Fix all
-  errors before committing.
+  `deno fmt && deno lint && deno test`. Get full output. Fix all errors before
+  committing.
 - When changing generator code, also run generation tasks to verify end-to-end
   (spec imports are dynamically loaded and not caught by type-checking):
   ```bash
@@ -76,19 +73,26 @@ files.
 - When adding/renaming/splitting test files, verify `publish.exclude` in the
   package's `deno.json` still covers them.
 
+## Adding Quantities and Units
+
+When adding quantities or units, follow the checklists in the `dim-isq` and
+`dim-si` READMEs ("Adding a New Quantity" / "Adding a New Unit").
+
 ## Releasing
 
 All packages use lockstep versioning. Release flow:
 
 1. Prep changelogs — add entries under `## Unreleased` in each package's
    `CHANGELOG.md` (at least one package must have content)
-2. Run `deno task release <version>` (e.g. `deno task release 0.1.0`)
+2. Run `deno fmt` to fix changelog formatting (the release script runs
+   `deno fmt --check` and will reject unformatted files)
+3. Run `deno task release <version>` (e.g. `deno task release 0.1.0`)
    - Validates: on `main`, up to date with origin, tag doesn't exist
    - Allows uncommitted `CHANGELOG.md` changes (staged into release commit);
      rejects all other uncommitted changes
    - Runs fmt/lint/test
    - Stamps changelogs, sets version in each `deno.json`, commits, tags, pushes
-3. Tag push triggers `.github/workflows/release.yml`:
+4. Tag push triggers `.github/workflows/release.yml`:
    - Runs fmt/lint/test again
    - Creates (or updates) a GitHub Release with combined changelog
    - Publishes each package to JSR in dependency order
@@ -148,15 +152,17 @@ PRs:
 - No emojis in commits, issues, PR comments, or code
 - Technical prose only — concise, direct, no filler
 
-## **CRITICAL** Tool Usage Rules **CRITICAL**
+## Critical Rules
+
+### Tool Usage
 
 - NEVER use sed/cat to read a file or a range of a file. Always use the read
   tool (use offset + limit for ranged reads).
 - You MUST read every file you modify in full before editing.
 
-## **CRITICAL** Git Rules **CRITICAL**
+### Git
 
-### Committing
+#### Committing
 
 - NEVER commit unless user asks
 - ONLY commit files YOU changed in THIS session
@@ -165,7 +171,7 @@ PRs:
 - Include `fixes #<number>` or `closes #<number>` in the commit message when
   closing issues
 
-### Forbidden Git Operations
+#### Forbidden Operations
 
 These commands can destroy other agents' work:
 
@@ -176,7 +182,7 @@ These commands can destroy other agents' work:
 - `git add -A` / `git add .`
 - `git commit --no-verify`
 
-### If Rebase Conflicts Occur
+#### Rebase Conflicts
 
 - Resolve conflicts in YOUR files only
 - If conflict is in a file you didn't modify, abort and ask the user
