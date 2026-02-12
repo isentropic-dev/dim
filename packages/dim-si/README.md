@@ -109,6 +109,38 @@ const picogram = gram.scaled(PICO);
 
 See [prefixes.ts](./src/prefixes.ts) for all available SI prefixes.
 
+## Type Annotations
+
+Each unit module exports a dimension type (e.g., `Length`, `Velocity`). Wrap
+these with `Quantity` to annotate function parameters and return types:
+
+```typescript
+import type { Quantity } from "@isentropic/dim-quantity";
+import type { Length } from "@isentropic/dim-si/length";
+import type { Time } from "@isentropic/dim-si/time";
+import type { Velocity } from "@isentropic/dim-si/velocity";
+import { divide } from "@isentropic/dim-si/ops";
+
+function speed(
+  distance: Quantity<Length>,
+  duration: Quantity<Time>,
+): Quantity<Velocity> {
+  return divide(distance, duration);
+}
+```
+
+## Compound Units
+
+Create units like `km/h` by combining scale factors from existing units:
+
+```typescript
+import { kilometer } from "@isentropic/dim-si/length";
+import { hour } from "@isentropic/dim-si/time";
+import { meterPerSecond } from "@isentropic/dim-si/velocity";
+
+const kilometerPerHour = meterPerSecond.scaled(kilometer.scale / hour.scale);
+```
+
 ## Adding a New Unit
 
 Units are organized one file per dimension. To add a new unit to an existing
