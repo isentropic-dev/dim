@@ -3,7 +3,7 @@
  *
  * SI unit: katal (kat).
  *
- * @example
+ * @example Creating a catalytic activity
  * ```ts
  * import { katal } from "@isentropic/dim-si/catalytic-activity";
  *

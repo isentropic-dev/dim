@@ -3,7 +3,7 @@
  *
  * SI base unit: meter (m).
  *
- * @example
+ * @example Converting between length units
  * ```ts
  * import { kilometer, meter, millimeter } from "@isentropic/dim-si/length";
  * import { valueIn } from "@isentropic/dim-si/ops";

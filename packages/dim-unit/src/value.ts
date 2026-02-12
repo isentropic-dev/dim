@@ -13,7 +13,7 @@ import type { AffineUnit, LinearUnit } from "./system.ts";
  * @param unit - The target unit
  * @returns The numeric value expressed in the target unit
  *
- * @example
+ * @example Converting between units
  * ```ts
  * import { defineQuantitySystem } from "@isentropic/dim-quantity";
  * import { defineUnitSystem, valueIn } from "@isentropic/dim-unit";

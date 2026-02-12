@@ -3,7 +3,7 @@
  *
  * SI unit: lumen (lm).
  *
- * @example
+ * @example Creating a luminous flux
  * ```ts
  * import { lumen } from "@isentropic/dim-si/luminous-flux";
  *

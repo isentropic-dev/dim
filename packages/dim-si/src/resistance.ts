@@ -3,7 +3,7 @@
  *
  * SI unit: ohm (Ω).
  *
- * @example
+ * @example Converting between resistance units
  * ```ts
  * import { kilohm, megohm, ohm } from "@isentropic/dim-si/resistance";
  * import { valueIn } from "@isentropic/dim-si/ops";

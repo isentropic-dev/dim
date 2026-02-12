@@ -3,7 +3,7 @@
  *
  * SI unit: joule (J).
  *
- * @example
+ * @example Converting between energy units
  * ```ts
  * import { joule, kilowattHour, megajoule } from "@isentropic/dim-si/energy";
  * import { valueIn } from "@isentropic/dim-si/ops";

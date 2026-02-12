@@ -5,7 +5,7 @@
  * The chain tracks linear/affine state at the type level, enforcing
  * valid operations at compile time.
  *
- * @example
+ * @example Linear chaining and affine transitions
  * ```ts
  * import { q } from "@isentropic/dim-unit/chain";
  * import { valueIn } from "@isentropic/dim-unit";
@@ -237,7 +237,7 @@ export class QAffine<D extends Dim, S extends string> {
  * Both wrappers structurally satisfy their corresponding plain types,
  * so they interoperate with free functions and {@linkcode valueIn}.
  *
- * @example
+ * @example Chaining operations and type-state transitions
  * ```ts
  * // Linear operations
  * const speed = q(kilometer(100)).div(hour(2));

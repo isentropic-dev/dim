@@ -3,7 +3,7 @@
  *
  * SI unit: siemens (S).
  *
- * @example
+ * @example Creating a conductance
  * ```ts
  * import { siemens } from "@isentropic/dim-si/conductance";
  *

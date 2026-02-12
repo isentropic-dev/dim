@@ -3,7 +3,7 @@
  *
  * SI unit: pascal (Pa).
  *
- * @example
+ * @example Converting between pressure units
  * ```ts
  * import { bar, millibar, pascal } from "@isentropic/dim-si/pressure";
  * import { valueIn } from "@isentropic/dim-si/ops";

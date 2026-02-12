@@ -6,7 +6,7 @@
  * Note: becquerel (radioactive decay rate) shares this dimension
  * with hertz (cycles per second). This is intentional per SI.
  *
- * @example
+ * @example Converting between frequency units
  * ```ts
  * import { gigahertz, hertz, megahertz } from "@isentropic/dim-si/frequency";
  * import { valueIn } from "@isentropic/dim-si/ops";

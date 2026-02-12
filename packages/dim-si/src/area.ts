@@ -3,7 +3,7 @@
  *
  * SI unit: square meter (m²).
  *
- * @example
+ * @example Converting hectares to square meters
  * ```ts
  * import { hectare, squareMeter } from "@isentropic/dim-si/area";
  * import { valueIn } from "@isentropic/dim-si/ops";

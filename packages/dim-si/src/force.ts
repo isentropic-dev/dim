@@ -3,7 +3,7 @@
  *
  * SI unit: newton (N).
  *
- * @example
+ * @example Computing force from mass and acceleration
  * ```ts
  * import { newton } from "@isentropic/dim-si/force";
  * import { kilogram } from "@isentropic/dim-si/mass";

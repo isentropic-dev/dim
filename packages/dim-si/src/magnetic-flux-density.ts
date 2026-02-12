@@ -3,7 +3,7 @@
  *
  * SI unit: tesla (T).
  *
- * @example
+ * @example Creating a magnetic flux density
  * ```ts
  * import { tesla } from "@isentropic/dim-si/magnetic-flux-density";
  *

@@ -7,7 +7,7 @@
  * Use the unit directly for absolute temperatures, and `.delta` for
  * temperature differences.
  *
- * @example
+ * @example Absolute temperatures and differences
  * ```ts
  * import { celsius, fahrenheit, kelvin } from "@isentropic/dim-si/temperature";
  * import { add, subtract, valueIn } from "@isentropic/dim-si/ops";

@@ -3,7 +3,7 @@
  *
  * SI base unit: mole (mol).
  *
- * @example
+ * @example Converting between mole and millimole
  * ```ts
  * import { millimole, mole } from "@isentropic/dim-si/amount";
  * import { valueIn } from "@isentropic/dim-si/ops";

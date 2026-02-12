@@ -3,7 +3,7 @@
  *
  * SI base unit: candela (cd).
  *
- * @example
+ * @example Creating a luminous intensity
  * ```ts
  * import { candela } from "@isentropic/dim-si/luminosity";
  *

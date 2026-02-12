@@ -1,7 +1,7 @@
 /**
  * Quantity operations for ISQ.
  *
- * @example
+ * @example Deriving quantities with arithmetic
  * ```ts
  * import { force, length, time } from "@isentropic/dim-isq";
  * import { divide, multiply } from "@isentropic/dim-isq/ops";

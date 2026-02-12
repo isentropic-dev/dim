@@ -4,14 +4,14 @@
  * The `value` field holds the runtime number. The type parameter `D` encodes
  * the dimensional signature at compile time — it has no runtime cost.
  *
- * Quantities are created via {@linkcode QuantitySystem.base},
- * {@linkcode QuantitySystem.factory}, or {@linkcode QuantitySystem.scalar},
+ * Quantities are created via `QuantitySystem.base`,
+ * `QuantitySystem.factory`, or `QuantitySystem.scalar`,
  * and combined with operations from `@isentropic/dim-quantity/ops`.
  *
  * @typeParam D The dimension signature (e.g., `{ L: 1, M: 0, T: -2 }` for
  * acceleration in an L/M/T system).
  *
- * @example
+ * @example Creating a typed quantity
  * ```ts
  * import type { Quantity } from "@isentropic/dim-quantity";
  * import { defineQuantitySystem } from "@isentropic/dim-quantity";

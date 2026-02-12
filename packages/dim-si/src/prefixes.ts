@@ -3,7 +3,7 @@
  *
  * All 24 official SI prefixes from quetta (10³⁰) to quecto (10⁻³⁰).
  *
- * @example
+ * @example Scaling units with prefix constants
  * ```ts
  * import { meter } from "@isentropic/dim-si/length";
  * import { KILO, MILLI } from "@isentropic/dim-si/prefixes";

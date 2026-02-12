@@ -3,7 +3,7 @@
  *
  * SI unit: cubic meter (m³).
  *
- * @example
+ * @example Converting between volume units
  * ```ts
  * import { liter, milliliter } from "@isentropic/dim-si/volume";
  * import { valueIn } from "@isentropic/dim-si/ops";

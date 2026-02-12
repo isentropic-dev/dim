@@ -3,7 +3,7 @@
  *
  * SI unit: volt (V).
  *
- * @example
+ * @example Converting between voltage units
  * ```ts
  * import { kilovolt, millivolt, volt } from "@isentropic/dim-si/voltage";
  * import { valueIn } from "@isentropic/dim-si/ops";

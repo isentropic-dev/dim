@@ -30,7 +30,7 @@ export type LinearUnit<D, S extends string> = {
  * @typeParam D - The dimension type
  * @typeParam S - The unit system brand
  *
- * @example
+ * @example Deriving scaled and affine units
  * ```ts
  * const km = meter.scaled(1000);
  * const mm = meter.scaled(0.001);
@@ -54,7 +54,7 @@ export type ScaledUnit<D, S extends string> = LinearUnit<D, S> & {
  * @typeParam D - The dimension type
  * @typeParam S - The unit system brand
  *
- * @example
+ * @example Creating a base unit and scaling it
  * ```ts
  * const meter = us.unit(length);
  * const km = meter.scaled(1000);
@@ -76,7 +76,7 @@ export type BaseUnit<D, S extends string> = LinearUnit<D, S> & {
  * @typeParam D - The dimension type
  * @typeParam S - The unit system brand
  *
- * @example
+ * @example Affine unit with offset and delta
  * ```ts
  * const celsius = kelvin.offset(273.15);
  * celsius(100);        // Affine quantity (373.15 K internally)
@@ -204,7 +204,7 @@ export type UnitSystem<Dims extends readonly string[], Name extends string> = {
  * @param qs - The underlying quantity system
  * @returns A {@linkcode UnitSystem} for creating base units
  *
- * @example
+ * @example Defining a unit system
  * ```ts
  * import { defineQuantitySystem } from "@isentropic/dim-quantity";
  * import { defineUnitSystem } from "@isentropic/dim-unit";

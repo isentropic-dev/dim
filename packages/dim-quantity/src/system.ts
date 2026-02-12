@@ -11,7 +11,7 @@ import type { Quantity } from "./quantity.ts";
  *
  * @typeParam D The dimension signature of quantities this factory produces.
  *
- * @example
+ * @example Typing a factory explicitly
  * ```ts
  * import { defineQuantitySystem, type QuantityFactory } from "@isentropic/dim-quantity";
  *
@@ -31,7 +31,7 @@ export type QuantityFactory<D> = (value: number) => Quantity<D>;
  *
  * @typeParam F A {@linkcode QuantityFactory} to extract the dimension from.
  *
- * @example
+ * @example Extracting a dimension type from a factory
  * ```ts
  * import { defineQuantitySystem, type DimOf } from "@isentropic/dim-quantity";
  *
@@ -60,7 +60,7 @@ export type QuantitySystem<Dims extends readonly string[]> = {
    *
    * Unspecified dimensions default to exponent 0.
    *
-   * @example
+   * @example Creating derived quantity factories
    * ```ts
    * import { defineQuantitySystem } from "@isentropic/dim-quantity";
    *
@@ -76,7 +76,7 @@ export type QuantitySystem<Dims extends readonly string[]> = {
   /**
    * Create a factory for a base dimension (exponent 1, all others 0).
    *
-   * @example
+   * @example Creating a base quantity factory
    * ```ts
    * import { defineQuantitySystem } from "@isentropic/dim-quantity";
    *
@@ -91,7 +91,7 @@ export type QuantitySystem<Dims extends readonly string[]> = {
   /**
    * Create a dimensionless (scalar) quantity.
    *
-   * @example
+   * @example Creating a dimensionless quantity
    * ```ts
    * import { defineQuantitySystem } from "@isentropic/dim-quantity";
    *

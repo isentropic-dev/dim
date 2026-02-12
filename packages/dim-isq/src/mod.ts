@@ -1,35 +1,17 @@
 /**
  * ISQ (International System of Quantities) dimension types and factories.
  *
- * Provides typed quantity factories for the seven ISQ base dimensions
- * (length, mass, time, electric current, thermodynamic temperature,
- * amount of substance, luminous intensity) and common derived quantities.
+ * Provides the {@linkcode isq} quantity system with typed factories for the
+ * seven ISQ base dimensions (length, mass, time, electric current,
+ * thermodynamic temperature, amount of substance, luminous intensity) and
+ * common derived quantities (force, energy, power, pressure, etc.).
  *
- * {@link https://jsr.io/@isentropic/dim-si | @isentropic/dim-si} is built
- * on top of this package and provides SI units ready to use. If you need a
- * custom unit system — imperial, CGS, or domain-specific — you can define
- * one directly on these ISQ dimensions with
- * {@link https://jsr.io/@isentropic/dim-unit | @isentropic/dim-unit}:
+ * This package defines dimensions and quantity factories only — no units or
+ * scale factors. Use it directly when building custom unit systems (imperial,
+ * CGS, domain-specific) with `@isentropic/dim-unit`, or use
+ * `@isentropic/dim-si` for ready-made SI units.
  *
- * ```ts
- * import { isq } from "@isentropic/dim-isq";
- * import { defineUnitSystem, valueIn } from "@isentropic/dim-unit";
- *
- * const us = defineUnitSystem("imperial", isq);
- *
- * const yard = us.unit(isq.base("L"));
- * const foot = yard.scaled(1 / 3);
- * const mile = yard.scaled(1760);
- * const inch = yard.scaled(1 / 36);
- *
- * const rankine = us.unit(isq.base("Θ"));
- * const fahrenheit = rankine.offset(459.67);
- *
- * valueIn(mile(1), yard);           // 1760
- * valueIn(yard(1), foot);           // 3
- * valueIn(foot(1), inch);           // 12
- * valueIn(fahrenheit(212), rankine); // 671.67
- * ```
+ * Arithmetic operations for ISQ quantities are in `@isentropic/dim-isq/ops`.
  *
  * @module
  */

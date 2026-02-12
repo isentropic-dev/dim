@@ -1,7 +1,7 @@
 /**
  * Quantity arithmetic operations.
  *
- * @example
+ * @example Quantity arithmetic
  * ```ts
  * import { defineQuantitySystem } from "@isentropic/dim-quantity";
  * import { add, divide, multiply, scale, subtract } from "@isentropic/dim-quantity/ops";
@@ -30,7 +30,7 @@ import type { Quantity } from "./quantity.ts";
  * @param b The right operand.
  * @returns A quantity whose dimension is {@linkcode MulDim}`<A, B>`.
  *
- * @example
+ * @example Multiplying quantities (dimensions add)
  * ```ts
  * import { defineQuantitySystem } from "@isentropic/dim-quantity";
  * import { multiply } from "@isentropic/dim-quantity/ops";
@@ -62,7 +62,7 @@ export function multiply<
  * @param b The denominator.
  * @returns A quantity whose dimension is {@linkcode DivDim}`<A, B>`.
  *
- * @example
+ * @example Dividing quantities (dimensions subtract)
  * ```ts
  * import { defineQuantitySystem } from "@isentropic/dim-quantity";
  * import { divide } from "@isentropic/dim-quantity/ops";
@@ -91,7 +91,7 @@ export function divide<
  * @param b The second operand.
  * @returns A quantity with the same dimension and the sum of the values.
  *
- * @example
+ * @example Adding same-dimension quantities
  * ```ts
  * import { defineQuantitySystem } from "@isentropic/dim-quantity";
  * import { add } from "@isentropic/dim-quantity/ops";
@@ -116,7 +116,7 @@ export function add<D extends Dim>(
  * @param b The quantity to subtract.
  * @returns A quantity with the same dimension and the difference of the values.
  *
- * @example
+ * @example Subtracting same-dimension quantities
  * ```ts
  * import { defineQuantitySystem } from "@isentropic/dim-quantity";
  * import { subtract } from "@isentropic/dim-quantity/ops";
@@ -141,7 +141,7 @@ export function subtract<D extends Dim>(
  * @param factor The scalar multiplier.
  * @returns A quantity with the same dimension and the scaled value.
  *
- * @example
+ * @example Scaling a quantity by a factor
  * ```ts
  * import { defineQuantitySystem } from "@isentropic/dim-quantity";
  * import { scale } from "@isentropic/dim-quantity/ops";

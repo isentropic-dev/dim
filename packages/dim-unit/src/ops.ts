@@ -2,7 +2,7 @@
  * Unit-aware arithmetic operations (free functions).
  *
  * Extends quantity operations with support for affine units (like temperature
- * scales). For a fluent chaining API, see {@linkcode "@isentropic/dim-unit/chain"}.
+ * scales). For a fluent chaining API, see `@isentropic/dim-unit/chain`.
  *
  * @module
  */
@@ -38,7 +38,7 @@ function isAffine<D, S extends string>(
  * @param b - The right operand
  * @returns The sum — affine if either operand is affine, linear otherwise
  *
- * @example
+ * @example Linear and affine addition
  * ```ts
  * const total = add(km(5), meter(500));     // linear + linear = linear
  * const warm = add(celsius(20), kelvin(5)); // affine + linear = affine
@@ -93,7 +93,7 @@ export function add<D extends Dim, S extends string>(
  * @returns The difference — affine - affine yields linear, affine - linear
  *   stays affine, linear - linear stays linear
  *
- * @example
+ * @example Affine and linear subtraction
  * ```ts
  * const delta = subtract(celsius(100), celsius(0));  // affine - affine = linear
  * const cooled = subtract(celsius(100), kelvin(10)); // affine - linear = affine
@@ -157,7 +157,7 @@ export function subtract<D extends Dim, S extends string>(
  * @param b - The right operand
  * @returns A linear quantity with the product of dimensions
  *
- * @example
+ * @example Computing area from two lengths
  * ```ts
  * const area = multiply(meter(3), meter(4)); // 12 m²
  * ```
@@ -188,7 +188,7 @@ export function multiply<
  * @param b - The right operand
  * @returns A linear quantity with the quotient of dimensions
  *
- * @example
+ * @example Computing speed from distance and time
  * ```ts
  * const speed = divide(meter(100), second(10)); // 10 m/s
  * ```
@@ -215,7 +215,7 @@ export function divide<
  * @param factor - The numeric multiplier
  * @returns A linear quantity with the scaled value
  *
- * @example
+ * @example Doubling a quantity
  * ```ts
  * const doubled = scale(meter(5), 2); // 10 m
  * ```

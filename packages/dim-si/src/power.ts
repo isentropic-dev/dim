@@ -3,7 +3,7 @@
  *
  * SI unit: watt (W).
  *
- * @example
+ * @example Converting between power units
  * ```ts
  * import { kilowatt, megawatt, watt } from "@isentropic/dim-si/power";
  * import { valueIn } from "@isentropic/dim-si/ops";

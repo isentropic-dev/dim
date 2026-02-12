@@ -3,7 +3,7 @@
  *
  * SI base unit: kilogram (kg).
  *
- * @example
+ * @example Converting between mass units
  * ```ts
  * import { gram, kilogram, tonne } from "@isentropic/dim-si/mass";
  * import { valueIn } from "@isentropic/dim-si/ops";

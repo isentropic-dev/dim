@@ -3,7 +3,7 @@
  *
  * SI unit: weber (Wb).
  *
- * @example
+ * @example Creating a magnetic flux
  * ```ts
  * import { weber } from "@isentropic/dim-si/magnetic-flux";
  *

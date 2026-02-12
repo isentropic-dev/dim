@@ -15,7 +15,7 @@ import type { Exp } from "./exponents.generated.ts";
  *
  * @typeParam Dims The tuple of base dimension symbols.
  *
- * @example
+ * @example Defining a mechanics system
  * ```ts
  * import { defineQuantitySpec } from "@isentropic/dim-quantity/generate";
  *
@@ -143,7 +143,7 @@ function capitalize(s: string): string {
  * @param spec The quantity system specification.
  * @returns The generated TypeScript source code as a string.
  *
- * @example
+ * @example Generating a quantity system module
  * ```ts
  * import { defineQuantitySpec, generateQuantitySystem } from "@isentropic/dim-quantity/generate";
  *

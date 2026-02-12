@@ -6,7 +6,7 @@
  * Note: gray (absorbed radiation dose) and sievert (equivalent dose)
  * share this dimension. This is intentional per SI.
  *
- * @example
+ * @example Creating dose quantities
  * ```ts
  * import { gray, sievert } from "@isentropic/dim-si/absorbed-dose";
  *

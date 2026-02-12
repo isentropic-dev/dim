@@ -2,11 +2,11 @@ import type { AddExp, Exp, SubExp } from "./exponents.generated.ts";
 
 /**
  * A dimension signature: a mapping from dimension symbols to their
- * {@linkcode Exp exponents}.
+ * {@linkcode Exp | exponents}.
  *
  * This is the general constraint used in generic bounds for quantity
  * operations. Concrete dimension types produced by a
- * {@linkcode QuantitySystem} are more specific — `Dim` serves as the
+ * `QuantitySystem` are more specific — `Dim` serves as the
  * base type they all satisfy.
  */
 export type Dim = Record<string, Exp>;
@@ -27,13 +27,13 @@ export type BaseDim<Dims extends readonly string[], D extends Dims[number]> =
 /**
  * Fill missing dimension keys with zero.
  *
- * Used internally by {@linkcode QuantitySystem.factory} to expand a partial
+ * Used internally by `QuantitySystem.factory` to expand a partial
  * dimension signature into a complete one.
  *
  * @typeParam Dims The system's base dimension tuple.
  * @typeParam D A partial mapping of dimension symbols to exponents.
  *
- * @example
+ * @example Filling in missing dimensions
  * ```ts
  * import type { WithDefaults } from "@isentropic/dim-quantity";
  *
@@ -48,13 +48,13 @@ export type WithDefaults<
 /**
  * Multiply two dimension signatures by adding their exponents element-wise.
  *
- * This is the type-level counterpart of {@linkcode multiply} from
+ * This is the type-level counterpart of `multiply` from
  * `@isentropic/dim-quantity/ops`.
  *
  * @typeParam A The left dimension signature.
  * @typeParam B The right dimension signature.
  *
- * @example
+ * @example Adding exponents element-wise
  * ```ts
  * import type { MulDim } from "@isentropic/dim-quantity";
  *
@@ -70,13 +70,13 @@ export type MulDim<
 /**
  * Divide two dimension signatures by subtracting their exponents element-wise.
  *
- * This is the type-level counterpart of {@linkcode divide} from
+ * This is the type-level counterpart of `divide` from
  * `@isentropic/dim-quantity/ops`.
  *
  * @typeParam A The numerator dimension signature.
  * @typeParam B The denominator dimension signature.
  *
- * @example
+ * @example Subtracting exponents element-wise
  * ```ts
  * import type { DivDim } from "@isentropic/dim-quantity";
  *

@@ -3,7 +3,7 @@
  *
  * SI unit: lux (lx).
  *
- * @example
+ * @example Creating an illuminance
  * ```ts
  * import { lux } from "@isentropic/dim-si/illuminance";
  *

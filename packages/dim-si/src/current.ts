@@ -3,7 +3,7 @@
  *
  * SI base unit: ampere (A).
  *
- * @example
+ * @example Converting milliamperes to amperes
  * ```ts
  * import { ampere, milliampere } from "@isentropic/dim-si/current";
  * import { valueIn } from "@isentropic/dim-si/ops";

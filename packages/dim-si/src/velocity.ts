@@ -3,7 +3,7 @@
  *
  * SI unit: meter per second (m/s).
  *
- * @example
+ * @example Computing velocity from distance and time
  * ```ts
  * import { meterPerSecond } from "@isentropic/dim-si/velocity";
  * import { kilometer } from "@isentropic/dim-si/length";

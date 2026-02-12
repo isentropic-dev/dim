@@ -3,7 +3,7 @@
  *
  * SI unit: farad (F).
  *
- * @example
+ * @example Converting between capacitance units
  * ```ts
  * import { microfarad, nanofarad, picofarad } from "@isentropic/dim-si/capacitance";
  * import { valueIn } from "@isentropic/dim-si/ops";

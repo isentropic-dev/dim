@@ -3,7 +3,7 @@
  *
  * SI unit: meter per second squared (m/s²).
  *
- * @example
+ * @example Creating an acceleration
  * ```ts
  * import { meterPerSecondSquared } from "@isentropic/dim-si/acceleration";
  *

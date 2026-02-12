@@ -3,7 +3,7 @@
  *
  * SI base unit: second (s).
  *
- * @example
+ * @example Converting between time units
  * ```ts
  * import { hour, minute, second } from "@isentropic/dim-si/time";
  * import { valueIn } from "@isentropic/dim-si/ops";

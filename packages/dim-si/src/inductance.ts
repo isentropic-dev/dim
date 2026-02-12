@@ -3,7 +3,7 @@
  *
  * SI unit: henry (H).
  *
- * @example
+ * @example Converting between inductance units
  * ```ts
  * import { henry, microhenry, millihenry } from "@isentropic/dim-si/inductance";
  * import { valueIn } from "@isentropic/dim-si/ops";

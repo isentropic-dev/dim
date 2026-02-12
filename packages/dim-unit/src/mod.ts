@@ -1,33 +1,19 @@
 /**
  * Build type-safe unit systems with scale factors and affine offsets.
  *
- * Layers units onto a quantity system from
- * {@link https://jsr.io/@isentropic/dim-quantity | @isentropic/dim-quantity}.
- * Units are callables that produce branded {@linkcode Linear} or
- * {@linkcode Affine} quantities, with the system name preventing
- * cross-system operations at compile time.
+ * Layers units onto a quantity system from `@isentropic/dim-quantity`. Units
+ * are callables that produce branded {@linkcode Linear} or {@linkcode Affine}
+ * quantities, with the system name preventing cross-system operations at
+ * compile time.
  *
- * For arithmetic, see
- * {@linkcode "@isentropic/dim-unit/ops" | free functions} or the
- * {@linkcode "@isentropic/dim-unit/chain" | fluent chain API}.
+ * - {@linkcode defineUnitSystem} — create a unit system from a quantity system,
+ *   providing a `unit` method that produces {@linkcode BaseUnit | base},
+ *   {@linkcode ScaledUnit | scaled}, and {@linkcode AffineUnit | affine} units
+ * - {@linkcode valueIn} — extract a quantity's numeric value in a target unit
  *
- * @example
- * ```ts
- * import { defineQuantitySystem } from "@isentropic/dim-quantity";
- * import { defineUnitSystem, valueIn } from "@isentropic/dim-unit";
- *
- * const qs = defineQuantitySystem(["L", "Θ"]);
- * const us = defineUnitSystem("example", qs);
- *
- * const meter = us.unit(qs.base("L"));
- * const km = meter.scaled(1000);
- *
- * const kelvin = us.unit(qs.base("Θ"));
- * const celsius = kelvin.offset(273.15);
- *
- * valueIn(km(5), meter);         // 5000
- * valueIn(celsius(100), kelvin); // 373.15
- * ```
+ * Arithmetic operations (`add`, `subtract`, `multiply`, `divide`, `scale`)
+ * are in `@isentropic/dim-unit/ops`. A fluent chaining API is in
+ * `@isentropic/dim-unit/chain`.
  *
  * @module
  */

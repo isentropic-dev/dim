@@ -3,7 +3,7 @@
  *
  * SI unit: coulomb (C).
  *
- * @example
+ * @example Computing charge from current and time
  * ```ts
  * import { coulomb } from "@isentropic/dim-si/charge";
  * import { ampere } from "@isentropic/dim-si/current";

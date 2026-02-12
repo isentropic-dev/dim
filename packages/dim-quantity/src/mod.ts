@@ -3,51 +3,18 @@
  *
  * A quantity encodes dimensionality — dimensions are tracked at compile time
  * so the type checker catches errors like adding a length to a time before
- * your code runs. Unit systems (via
- * {@link https://jsr.io/@isentropic/dim-unit | @isentropic/dim-unit}) layer
- * on top to give quantities physical meaning with scale factors and offsets.
+ * your code runs. This package provides the core building blocks:
  *
- * There are two ways to define a quantity system:
+ * - {@linkcode defineQuantitySystem} — create a quantity system from a tuple
+ *   of dimension symbols, with methods for base, derived, and scalar
+ *   quantity factories
+ * - {@linkcode Quantity} — a numeric value branded with a phantom dimension type
+ * - Dimension algebra types ({@linkcode MulDim}, {@linkcode DivDim},
+ *   {@linkcode WithDefaults}) for computing result dimensions at the type level
  *
- * ### Spec-based (recommended)
- *
- * Define a spec and generate typed factories with
- * {@linkcode generateQuantitySystem} from `@isentropic/dim-quantity/generate`:
- *
- * ```ts
- * import { defineQuantitySpec } from "@isentropic/dim-quantity/generate";
- *
- * export default defineQuantitySpec({
- *   name: "physics",
- *   dims: ["L", "T"],
- *   quantities: {
- *     base: { length: "L", time: "T" },
- *     derived: { velocity: { L: 1, T: -1 }, area: { L: 2 } },
- *   },
- * });
- * ```
- *
- * ```sh
- * deno run -RW jsr:@isentropic/dim-quantity/generate \
- *   --spec ./quantities.spec.ts \
- *   --out ./quantities.generated.ts
- * ```
- *
- * ### Code-based
- *
- * For small or one-off systems, define dimensions and factories directly:
- *
- * ```ts
- * import { defineQuantitySystem } from "@isentropic/dim-quantity";
- * import { divide } from "@isentropic/dim-quantity/ops";
- *
- * const sys = defineQuantitySystem(["L", "T"]);
- * const length = sys.base("L");
- * const time = sys.base("T");
- *
- * const velocity = divide(length(100), time(10));
- * console.log(velocity.value); // 10
- * ```
+ * Arithmetic operations (`multiply`, `divide`, `add`, `subtract`, `scale`)
+ * are in `@isentropic/dim-quantity/ops`. Code generation for larger systems
+ * is in `@isentropic/dim-quantity/generate`.
  *
  * @module
  */
