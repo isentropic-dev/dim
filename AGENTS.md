@@ -11,8 +11,10 @@ files.
 - No `any` types unless absolutely necessary
 - Always ask before removing functionality or code that appears intentional
 - Check import maps and dependency type definitions instead of guessing
-- Review `adr/` for architectural decisions and invariants. Create new ADRs for
-  significant design choices with trade-offs worth capturing.
+- Review `adr/` for architectural decisions and invariants before proposing
+  changes to foundational design (type-level mechanics, package structure, API
+  patterns). Create new ADRs for significant design choices with trade-offs
+  worth capturing.
 - Read existing scripts, workflows, and config before proposing new ones
 - Type-check README code examples with `deno check` before presenting them
 - When removing or changing public exports, grep all packages for downstream
