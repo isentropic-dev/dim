@@ -43,6 +43,11 @@ files.
 - When writing `@module` or `@example` docs, identify the real consumer use
   cases for the package before drafting examples. If consumers always use the
   package alongside others, show that — don't demonstrate APIs in isolation.
+- Match JSDoc language to the package's abstraction level — don't reference
+  concepts from higher-level packages
+- Plain backticks for cross-entrypoint/cross-package refs — never `{@linkcode}`
+  or registry URLs
+- All `@example` tags must have a descriptive name
 
 ## Test Patterns
 
