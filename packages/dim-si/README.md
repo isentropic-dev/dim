@@ -51,6 +51,36 @@ const total = add(kilometer(5), meter(500));
 const speed = divide(kilometer(100), hour(2));
 ```
 
+## Worked Example
+
+Computing kinetic energy: KE = ½mv²
+
+```typescript
+import type { Quantity } from "@isentropic/dim-quantity";
+import type { Energy, Mass, Velocity } from "@isentropic/dim-isq";
+import { kilogram } from "@isentropic/dim-si/mass";
+import { meterPerSecond } from "@isentropic/dim-si/velocity";
+import { joule, kilojoule } from "@isentropic/dim-si/energy";
+import { multiply, scale, valueIn } from "@isentropic/dim-si/ops";
+
+function kineticEnergy(
+  mass: Quantity<Mass>,
+  velocity: Quantity<Velocity>,
+): Quantity<Energy> {
+  return scale(multiply(mass, multiply(velocity, velocity)), 0.5);
+}
+
+const car = kilogram(1200);
+const highway = meterPerSecond(30);
+
+const ke = kineticEnergy(car, highway);
+valueIn(ke, joule); // 540000
+valueIn(ke, kilojoule); // 540
+
+// Dimension mismatches caught at compile time:
+// kineticEnergy(car, kilogram(10));  // Error: expected Velocity, got Mass
+```
+
 ## Units
 
 ### Base
