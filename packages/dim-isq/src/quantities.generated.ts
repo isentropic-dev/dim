@@ -200,3 +200,8 @@ export const absorbedDose: QuantityFactory<AbsorbedDose> = isq.factory({
 export type CatalyticActivity = D<{ T: -1; N: 1 }>;
 export const catalyticActivity: QuantityFactory<CatalyticActivity> = isq
   .factory({ T: -1, N: 1 });
+
+/** ThermalConductance (L²·M·T⁻³·Θ⁻¹) */
+export type ThermalConductance = D<{ L: 2; M: 1; T: -3; Θ: -1 }>;
+export const thermalConductance: QuantityFactory<ThermalConductance> = isq
+  .factory({ L: 2, M: 1, T: -3, Θ: -1 });
