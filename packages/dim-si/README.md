@@ -22,15 +22,25 @@ bunx jsr add @isentropic/dim-si
 
 ```typescript
 import { kilometer, meter } from "@isentropic/dim-si/length";
+import { kilogram } from "@isentropic/dim-si/mass";
 import { hour } from "@isentropic/dim-si/time";
+import { meterPerSecond } from "@isentropic/dim-si/velocity";
+import { meterPerSecondSquared } from "@isentropic/dim-si/acceleration";
+import { newton } from "@isentropic/dim-si/force";
 import { celsius, kelvin } from "@isentropic/dim-si/temperature";
-import { q, valueIn } from "@isentropic/dim-si/ops";
+import { q } from "@isentropic/dim-si/ops";
 
-const speed = q(kilometer(100)).div(hour(2));
-const total = q(kilometer(5)).plus(meter(500));
+// Division produces velocity
+q(kilometer(100)).div(hour(2)).in(meterPerSecond); // ~13.89
 
-valueIn(total, meter); // 5500
-valueIn(total, kilometer); // 5.5
+// Multiplication produces force (F = ma)
+q(kilogram(80)).times(meterPerSecondSquared(9.81)).in(newton); // 784.8
+
+// Addition with unit conversion
+q(kilometer(5)).plus(meter(500)).in(kilometer); // 5.5
+
+// Scaling
+q(meter(3)).scale(2).in(meter); // 6
 
 // Dimension mismatches are compile errors
 q(kilometer(5)).plus(hour(1)); // Error: can't add length and time
@@ -41,45 +51,8 @@ q(celsius(100)).minus(celsius(0)).in(kelvin); // 100 (linear delta)
 q(celsius(20)).plus(celsius.delta(5)).in(celsius); // 25
 ```
 
-Free functions (`add`, `subtract`, `multiply`, `divide`, `scale`) are also
-available:
-
-```typescript
-import { add, divide } from "@isentropic/dim-si/ops";
-
-const total = add(kilometer(5), meter(500));
-const speed = divide(kilometer(100), hour(2));
-```
-
-## Worked Example
-
-Computing kinetic energy: KE = ½mv²
-
-```typescript
-import type { Quantity } from "@isentropic/dim-quantity";
-import type { Energy, Mass, Velocity } from "@isentropic/dim-isq";
-import { kilogram } from "@isentropic/dim-si/mass";
-import { meterPerSecond } from "@isentropic/dim-si/velocity";
-import { joule, kilojoule } from "@isentropic/dim-si/energy";
-import { multiply, scale, valueIn } from "@isentropic/dim-si/ops";
-
-function kineticEnergy(
-  mass: Quantity<Mass>,
-  velocity: Quantity<Velocity>,
-): Quantity<Energy> {
-  return scale(multiply(mass, multiply(velocity, velocity)), 0.5);
-}
-
-const car = kilogram(1200);
-const highway = meterPerSecond(30);
-
-const ke = kineticEnergy(car, highway);
-valueIn(ke, joule); // 540000
-valueIn(ke, kilojoule); // 540
-
-// Dimension mismatches caught at compile time:
-// kineticEnergy(car, kilogram(10));  // Error: expected Velocity, got Mass
-```
+Free functions (`add`, `subtract`, `multiply`, `divide`, `scale`, `valueIn`) are
+also available for a non-chaining style.
 
 ## Units
 
