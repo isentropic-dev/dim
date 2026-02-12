@@ -82,6 +82,7 @@ const v: Velocity = velocity(25);
 | `illuminance`         | J·L⁻²         |
 | `absorbedDose`        | L²·T⁻²        |
 | `catalyticActivity`   | N·T⁻¹         |
+| `thermalConductance`  | M·L²·T⁻³·Θ⁻¹  |
 
 ## Adding a New Quantity
 

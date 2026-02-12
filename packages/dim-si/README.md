@@ -89,6 +89,7 @@ const speed = divide(kilometer(100), hour(2));
 | [Illuminance](./src/illuminance.ts)                     | `lux`                                                               |
 | [Luminous Flux](./src/luminous-flux.ts)                 | `lumen`                                                             |
 | [Catalytic Activity](./src/catalytic-activity.ts)       | `katal`                                                             |
+| [Thermal Conductance](./src/thermal-conductance.ts)     | `wattPerKelvin`, `milliwattPerKelvin`, `kilowattPerKelvin`          |
 | [Absorbed Dose](./src/absorbed-dose.ts)                 | `gray`, `sievert`                                                   |
 
 _<a id="affine">\*</a> [Affine quantity](../dim-unit/README.md#affine-units) —
