@@ -73,6 +73,8 @@ export {
   type Scalar,
   type Temperature,
   temperature,
+  type ThermalConductance,
+  thermalConductance,
   type Time,
   time,
   type Velocity,
