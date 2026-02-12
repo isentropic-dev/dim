@@ -57,6 +57,9 @@ export default defineQuantitySpec({
       // Radiation and other
       absorbedDose: { L: 2, T: -2 },
       catalyticActivity: { N: 1, T: -1 },
+
+      // Thermal
+      thermalConductance: { M: 1, L: 2, T: -3, "Θ": -1 },
     },
   },
 });

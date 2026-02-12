@@ -39,7 +39,8 @@
     "./luminous-flux": "./src/luminous-flux.ts",
     "./illuminance": "./src/illuminance.ts",
     "./absorbed-dose": "./src/absorbed-dose.ts",
-    "./catalytic-activity": "./src/catalytic-activity.ts"
+    "./catalytic-activity": "./src/catalytic-activity.ts",
+    "./thermal-conductance": "./src/thermal-conductance.ts"
   },
   "version": "0.2.0"
 }
