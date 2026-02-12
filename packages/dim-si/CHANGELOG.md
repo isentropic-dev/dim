@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 0.3.0 (2026-02-12)
+
+### Added
+
+- Added thermal conductance units: watt per kelvin and kilowatt per kelvin
+  ([#3](https://github.com/isentropic-dev/dim/pull/3))
+
 ## 0.2.0 (2026-02-11)
 
 ### Breaking Changes
