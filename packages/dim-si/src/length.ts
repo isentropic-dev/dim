@@ -24,7 +24,7 @@ import type { Si } from "./system.ts";
 import { si } from "./system.ts";
 import { CENTI, KILO, MICRO, MILLI, NANO, PICO } from "./prefixes.ts";
 
-/** An SI length quantity (linear). */
+/** An SI length quantity. */
 export type Length = Linear<LengthDim, Si>;
 
 /** Meter (m) — SI unit of length. */
