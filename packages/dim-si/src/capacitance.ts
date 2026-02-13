@@ -16,22 +16,25 @@
  * @module
  */
 
-import type { Capacitance } from "@isentropic/dim-isq";
+import type { Capacitance as CapacitanceDim } from "@isentropic/dim-isq";
+import type { Linear } from "@isentropic/dim-unit";
 import { capacitance } from "@isentropic/dim-isq";
 import type { BaseUnit, ScaledUnit } from "./types.ts";
+import type { Si } from "./system.ts";
 import { si } from "./system.ts";
 import { MICRO, NANO, PICO } from "./prefixes.ts";
 
-export type { Capacitance } from "@isentropic/dim-isq";
+/** An SI capacitance quantity. */
+export type Capacitance = Linear<CapacitanceDim, Si>;
 
 /** Farad (F) — SI unit of capacitance. */
-export const farad: BaseUnit<Capacitance> = si.unit(capacitance);
+export const farad: BaseUnit<CapacitanceDim> = si.unit(capacitance);
 
 /** Microfarad (μF) — 10⁻⁶ farads. */
-export const microfarad: ScaledUnit<Capacitance> = farad.scaled(MICRO);
+export const microfarad: ScaledUnit<CapacitanceDim> = farad.scaled(MICRO);
 
 /** Nanofarad (nF) — 10⁻⁹ farads. */
-export const nanofarad: ScaledUnit<Capacitance> = farad.scaled(NANO);
+export const nanofarad: ScaledUnit<CapacitanceDim> = farad.scaled(NANO);
 
 /** Picofarad (pF) — 10⁻¹² farads. */
-export const picofarad: ScaledUnit<Capacitance> = farad.scaled(PICO);
+export const picofarad: ScaledUnit<CapacitanceDim> = farad.scaled(PICO);

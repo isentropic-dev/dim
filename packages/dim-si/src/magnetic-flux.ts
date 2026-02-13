@@ -13,12 +13,15 @@
  * @module
  */
 
-import type { MagneticFlux } from "@isentropic/dim-isq";
+import type { MagneticFlux as MagneticFluxDim } from "@isentropic/dim-isq";
+import type { Linear } from "@isentropic/dim-unit";
 import { magneticFlux } from "@isentropic/dim-isq";
 import type { BaseUnit } from "./types.ts";
+import type { Si } from "./system.ts";
 import { si } from "./system.ts";
 
-export type { MagneticFlux } from "@isentropic/dim-isq";
+/** An SI magnetic flux quantity. */
+export type MagneticFlux = Linear<MagneticFluxDim, Si>;
 
 /** Weber (Wb) — SI unit of magnetic flux. */
-export const weber: BaseUnit<MagneticFlux> = si.unit(magneticFlux);
+export const weber: BaseUnit<MagneticFluxDim> = si.unit(magneticFlux);

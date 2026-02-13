@@ -15,22 +15,25 @@
  * @module
  */
 
-import type { Resistance } from "@isentropic/dim-isq";
+import type { Resistance as ResistanceDim } from "@isentropic/dim-isq";
+import type { Linear } from "@isentropic/dim-unit";
 import { resistance } from "@isentropic/dim-isq";
 import type { BaseUnit, ScaledUnit } from "./types.ts";
+import type { Si } from "./system.ts";
 import { si } from "./system.ts";
 import { KILO, MEGA, MILLI } from "./prefixes.ts";
 
-export type { Resistance } from "@isentropic/dim-isq";
+/** An SI resistance quantity. */
+export type Resistance = Linear<ResistanceDim, Si>;
 
 /** Ohm (Ω) — SI unit of electrical resistance. */
-export const ohm: BaseUnit<Resistance> = si.unit(resistance);
+export const ohm: BaseUnit<ResistanceDim> = si.unit(resistance);
 
 /** Milliohm (mΩ) — 10⁻³ ohms. */
-export const milliohm: ScaledUnit<Resistance> = ohm.scaled(MILLI);
+export const milliohm: ScaledUnit<ResistanceDim> = ohm.scaled(MILLI);
 
 /** Kilohm (kΩ) — 1000 ohms. */
-export const kilohm: ScaledUnit<Resistance> = ohm.scaled(KILO);
+export const kilohm: ScaledUnit<ResistanceDim> = ohm.scaled(KILO);
 
 /** Megohm (MΩ) — 10⁶ ohms. */
-export const megohm: ScaledUnit<Resistance> = ohm.scaled(MEGA);
+export const megohm: ScaledUnit<ResistanceDim> = ohm.scaled(MEGA);

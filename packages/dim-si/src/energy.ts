@@ -16,27 +16,30 @@
  * @module
  */
 
-import type { Energy } from "@isentropic/dim-isq";
+import type { Energy as EnergyDim } from "@isentropic/dim-isq";
+import type { Linear } from "@isentropic/dim-unit";
 import { energy } from "@isentropic/dim-isq";
 import type { BaseUnit, ScaledUnit } from "./types.ts";
+import type { Si } from "./system.ts";
 import { si } from "./system.ts";
 import { KILO, MEGA } from "./prefixes.ts";
 import { kilowatt } from "./power.ts";
 import { hour } from "./time.ts";
 
-export type { Energy } from "@isentropic/dim-isq";
+/** An SI energy quantity. */
+export type Energy = Linear<EnergyDim, Si>;
 
 /** Joule (J) — SI unit of energy. */
-export const joule: BaseUnit<Energy> = si.unit(energy);
+export const joule: BaseUnit<EnergyDim> = si.unit(energy);
 
 /** Kilojoule (kJ) — 1000 joules. */
-export const kilojoule: ScaledUnit<Energy> = joule.scaled(KILO);
+export const kilojoule: ScaledUnit<EnergyDim> = joule.scaled(KILO);
 
 /** Megajoule (MJ) — 10⁶ joules. */
-export const megajoule: ScaledUnit<Energy> = joule.scaled(MEGA);
+export const megajoule: ScaledUnit<EnergyDim> = joule.scaled(MEGA);
 
 /** Kilowatt-hour (kWh) — 3.6 megajoules. */
 // 1 kWh = 1 kW × 1 hour = 3.6 MJ
-export const kilowattHour: ScaledUnit<Energy> = joule.scaled(
+export const kilowattHour: ScaledUnit<EnergyDim> = joule.scaled(
   kilowatt.scale * hour.scale,
 );

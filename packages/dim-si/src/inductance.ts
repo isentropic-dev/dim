@@ -16,19 +16,22 @@
  * @module
  */
 
-import type { Inductance } from "@isentropic/dim-isq";
+import type { Inductance as InductanceDim } from "@isentropic/dim-isq";
+import type { Linear } from "@isentropic/dim-unit";
 import { inductance } from "@isentropic/dim-isq";
 import type { BaseUnit, ScaledUnit } from "./types.ts";
+import type { Si } from "./system.ts";
 import { si } from "./system.ts";
 import { MICRO, MILLI } from "./prefixes.ts";
 
-export type { Inductance } from "@isentropic/dim-isq";
+/** An SI inductance quantity. */
+export type Inductance = Linear<InductanceDim, Si>;
 
 /** Henry (H) — SI unit of inductance. */
-export const henry: BaseUnit<Inductance> = si.unit(inductance);
+export const henry: BaseUnit<InductanceDim> = si.unit(inductance);
 
 /** Millihenry (mH) — 10⁻³ henrys. */
-export const millihenry: ScaledUnit<Inductance> = henry.scaled(MILLI);
+export const millihenry: ScaledUnit<InductanceDim> = henry.scaled(MILLI);
 
 /** Microhenry (μH) — 10⁻⁶ henrys. */
-export const microhenry: ScaledUnit<Inductance> = henry.scaled(MICRO);
+export const microhenry: ScaledUnit<InductanceDim> = henry.scaled(MICRO);

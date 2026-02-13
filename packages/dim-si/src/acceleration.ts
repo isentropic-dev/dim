@@ -13,14 +13,17 @@
  * @module
  */
 
-import type { Acceleration } from "@isentropic/dim-isq";
+import type { Acceleration as AccelerationDim } from "@isentropic/dim-isq";
+import type { Linear } from "@isentropic/dim-unit";
 import { acceleration } from "@isentropic/dim-isq";
 import type { BaseUnit } from "./types.ts";
+import type { Si } from "./system.ts";
 import { si } from "./system.ts";
 
-export type { Acceleration } from "@isentropic/dim-isq";
+/** An SI acceleration quantity. */
+export type Acceleration = Linear<AccelerationDim, Si>;
 
 /** Meter per second squared (m/s²) — SI unit of acceleration. */
-export const meterPerSecondSquared: BaseUnit<Acceleration> = si.unit(
+export const meterPerSecondSquared: BaseUnit<AccelerationDim> = si.unit(
   acceleration,
 );

@@ -15,19 +15,22 @@
  * @module
  */
 
-import type { Current } from "@isentropic/dim-isq";
+import type { Current as CurrentDim } from "@isentropic/dim-isq";
+import type { Linear } from "@isentropic/dim-unit";
 import { current } from "@isentropic/dim-isq";
 import type { BaseUnit, ScaledUnit } from "./types.ts";
+import type { Si } from "./system.ts";
 import { si } from "./system.ts";
 import { MICRO, MILLI } from "./prefixes.ts";
 
-export type { Current } from "@isentropic/dim-isq";
+/** An SI current quantity. */
+export type Current = Linear<CurrentDim, Si>;
 
 /** Ampere (A) — SI unit of electric current. */
-export const ampere: BaseUnit<Current> = si.unit(current);
+export const ampere: BaseUnit<CurrentDim> = si.unit(current);
 
 /** Milliampere (mA) — 10⁻³ amperes. */
-export const milliampere: ScaledUnit<Current> = ampere.scaled(MILLI);
+export const milliampere: ScaledUnit<CurrentDim> = ampere.scaled(MILLI);
 
 /** Microampere (μA) — 10⁻⁶ amperes. */
-export const microampere: ScaledUnit<Current> = ampere.scaled(MICRO);
+export const microampere: ScaledUnit<CurrentDim> = ampere.scaled(MICRO);

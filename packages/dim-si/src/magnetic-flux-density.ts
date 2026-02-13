@@ -13,14 +13,17 @@
  * @module
  */
 
-import type { MagneticFluxDensity } from "@isentropic/dim-isq";
+import type { MagneticFluxDensity as MagneticFluxDensityDim } from "@isentropic/dim-isq";
+import type { Linear } from "@isentropic/dim-unit";
 import { magneticFluxDensity } from "@isentropic/dim-isq";
 import type { BaseUnit } from "./types.ts";
+import type { Si } from "./system.ts";
 import { si } from "./system.ts";
 
-export type { MagneticFluxDensity } from "@isentropic/dim-isq";
+/** An SI magnetic flux density quantity. */
+export type MagneticFluxDensity = Linear<MagneticFluxDensityDim, Si>;
 
 /** Tesla (T) — SI unit of magnetic flux density. */
-export const tesla: BaseUnit<MagneticFluxDensity> = si.unit(
+export const tesla: BaseUnit<MagneticFluxDensityDim> = si.unit(
   magneticFluxDensity,
 );

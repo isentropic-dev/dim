@@ -16,28 +16,31 @@
  * @module
  */
 
-import type { Mass } from "@isentropic/dim-isq";
+import type { Mass as MassDim } from "@isentropic/dim-isq";
+import type { Linear } from "@isentropic/dim-unit";
 import { mass } from "@isentropic/dim-isq";
 import type { BaseUnit, ScaledUnit } from "./types.ts";
+import type { Si } from "./system.ts";
 import { si } from "./system.ts";
 import { KILO, MICRO, MILLI, NANO } from "./prefixes.ts";
 
-export type { Mass } from "@isentropic/dim-isq";
+/** An SI mass quantity. */
+export type Mass = Linear<MassDim, Si>;
 
 /** Kilogram (kg) — SI unit of mass. */
-export const kilogram: BaseUnit<Mass> = si.unit(mass);
+export const kilogram: BaseUnit<MassDim> = si.unit(mass);
 
 /** Gram (g) — 0.001 kilograms. */
-export const gram: ScaledUnit<Mass> = kilogram.scaled(MILLI);
+export const gram: ScaledUnit<MassDim> = kilogram.scaled(MILLI);
 
 /** Milligram (mg) — 10⁻³ grams. */
-export const milligram: ScaledUnit<Mass> = gram.scaled(MILLI);
+export const milligram: ScaledUnit<MassDim> = gram.scaled(MILLI);
 
 /** Microgram (μg) — 10⁻⁶ grams. */
-export const microgram: ScaledUnit<Mass> = gram.scaled(MICRO);
+export const microgram: ScaledUnit<MassDim> = gram.scaled(MICRO);
 
 /** Nanogram (ng) — 10⁻⁹ grams. */
-export const nanogram: ScaledUnit<Mass> = gram.scaled(NANO);
+export const nanogram: ScaledUnit<MassDim> = gram.scaled(NANO);
 
 /** Tonne (t) — 1000 kilograms. */
-export const tonne: ScaledUnit<Mass> = kilogram.scaled(KILO);
+export const tonne: ScaledUnit<MassDim> = kilogram.scaled(KILO);

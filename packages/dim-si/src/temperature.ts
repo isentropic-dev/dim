@@ -28,15 +28,21 @@
  * @module
  */
 
-import type { Temperature } from "@isentropic/dim-isq";
+import type { Temperature as TemperatureDim } from "@isentropic/dim-isq";
+import type { Affine, Linear } from "@isentropic/dim-unit";
 import { temperature } from "@isentropic/dim-isq";
 import type { AffineUnit, BaseUnit } from "./types.ts";
+import type { Si } from "./system.ts";
 import { si } from "./system.ts";
 
-export type { Temperature } from "@isentropic/dim-isq";
+/** An SI absolute temperature quantity (affine). */
+export type Temperature = Affine<TemperatureDim, Si>;
+
+/** An SI temperature difference quantity (linear). */
+export type TemperatureDifference = Linear<TemperatureDim, Si>;
 
 /** Kelvin (K) — SI unit of thermodynamic temperature. */
-export const kelvin: BaseUnit<Temperature> = si.unit(temperature);
+export const kelvin: BaseUnit<TemperatureDim> = si.unit(temperature);
 
 /**
  * Celsius (°C) — temperature offset from kelvin by 273.15.
@@ -47,7 +53,7 @@ export const kelvin: BaseUnit<Temperature> = si.unit(temperature);
  * const newTemp = add(celsius(20), rise);  // 30°C
  * ```
  */
-export const celsius: AffineUnit<Temperature> = kelvin.offset(273.15);
+export const celsius: AffineUnit<TemperatureDim> = kelvin.offset(273.15);
 
 /**
  * Fahrenheit (°F) — temperature with scale 5/9 and offset from kelvin.
@@ -59,6 +65,7 @@ export const celsius: AffineUnit<Temperature> = kelvin.offset(273.15);
  */
 // Fahrenheit to Kelvin: K = (°F + 459.67) × 5/9
 // 459.67 is the offset in Rankine scale (0°R = 0K, 0°F = 459.67°R)
-export const fahrenheit: AffineUnit<Temperature> = kelvin.scaled(5 / 9).offset(
-  459.67 * 5 / 9,
-);
+export const fahrenheit: AffineUnit<TemperatureDim> = kelvin.scaled(5 / 9)
+  .offset(
+    459.67 * 5 / 9,
+  );

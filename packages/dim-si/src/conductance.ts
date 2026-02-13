@@ -13,12 +13,15 @@
  * @module
  */
 
-import type { Conductance } from "@isentropic/dim-isq";
+import type { Conductance as ConductanceDim } from "@isentropic/dim-isq";
+import type { Linear } from "@isentropic/dim-unit";
 import { conductance } from "@isentropic/dim-isq";
 import type { BaseUnit } from "./types.ts";
+import type { Si } from "./system.ts";
 import { si } from "./system.ts";
 
-export type { Conductance } from "@isentropic/dim-isq";
+/** An SI conductance quantity. */
+export type Conductance = Linear<ConductanceDim, Si>;
 
 /** Siemens (S) — SI unit of electrical conductance. */
-export const siemens: BaseUnit<Conductance> = si.unit(conductance);
+export const siemens: BaseUnit<ConductanceDim> = si.unit(conductance);
