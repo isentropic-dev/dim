@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## 0.4.0 (2026-02-13)
+
+### Added
+
+- Exported concrete quantity type aliases (e.g., `Length`, `Mass`, `Power`) for
+  annotating function signatures without reaching into lower-level packages
+  ([#7](https://github.com/isentropic-dev/dim/issues/7))
+
 ## 0.3.0 (2026-02-12)
 
 ### Added
