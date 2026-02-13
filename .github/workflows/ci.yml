@@ -7,6 +7,8 @@ on:
 
 jobs:
   check:
+    # Release commits are checked by the release workflow
+    if: "!startsWith(github.event.head_commit.message, 'release: v')"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
