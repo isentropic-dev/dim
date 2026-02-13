@@ -17,12 +17,15 @@
  * @module
  */
 
-import type { Velocity } from "@isentropic/dim-isq";
+import type { Velocity as VelocityDim } from "@isentropic/dim-isq";
+import type { Linear } from "@isentropic/dim-unit";
 import { velocity } from "@isentropic/dim-isq";
 import type { BaseUnit } from "./types.ts";
+import type { Si } from "./system.ts";
 import { si } from "./system.ts";
 
-export type { Velocity } from "@isentropic/dim-isq";
+/** An SI velocity quantity. */
+export type Velocity = Linear<VelocityDim, Si>;
 
 /** Meter per second (m/s) — SI unit of velocity. */
-export const meterPerSecond: BaseUnit<Velocity> = si.unit(velocity);
+export const meterPerSecond: BaseUnit<VelocityDim> = si.unit(velocity);

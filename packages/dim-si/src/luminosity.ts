@@ -13,12 +13,15 @@
  * @module
  */
 
-import type { Luminosity } from "@isentropic/dim-isq";
+import type { Luminosity as LuminosityDim } from "@isentropic/dim-isq";
+import type { Linear } from "@isentropic/dim-unit";
 import { luminosity } from "@isentropic/dim-isq";
 import type { BaseUnit } from "./types.ts";
+import type { Si } from "./system.ts";
 import { si } from "./system.ts";
 
-export type { Luminosity } from "@isentropic/dim-isq";
+/** An SI luminosity quantity. */
+export type Luminosity = Linear<LuminosityDim, Si>;
 
 /** Candela (cd) — SI unit of luminous intensity. */
-export const candela: BaseUnit<Luminosity> = si.unit(luminosity);
+export const candela: BaseUnit<LuminosityDim> = si.unit(luminosity);

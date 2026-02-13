@@ -17,12 +17,15 @@
  * @module
  */
 
-import type { Charge } from "@isentropic/dim-isq";
+import type { Charge as ChargeDim } from "@isentropic/dim-isq";
+import type { Linear } from "@isentropic/dim-unit";
 import { charge } from "@isentropic/dim-isq";
 import type { BaseUnit } from "./types.ts";
+import type { Si } from "./system.ts";
 import { si } from "./system.ts";
 
-export type { Charge } from "@isentropic/dim-isq";
+/** An SI charge quantity. */
+export type Charge = Linear<ChargeDim, Si>;
 
 /** Coulomb (C) — SI unit of electric charge. */
-export const coulomb: BaseUnit<Charge> = si.unit(charge);
+export const coulomb: BaseUnit<ChargeDim> = si.unit(charge);

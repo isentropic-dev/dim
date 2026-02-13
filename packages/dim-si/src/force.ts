@@ -17,12 +17,15 @@
  * @module
  */
 
-import type { Force } from "@isentropic/dim-isq";
+import type { Force as ForceDim } from "@isentropic/dim-isq";
+import type { Linear } from "@isentropic/dim-unit";
 import { force } from "@isentropic/dim-isq";
 import type { BaseUnit } from "./types.ts";
+import type { Si } from "./system.ts";
 import { si } from "./system.ts";
 
-export type { Force } from "@isentropic/dim-isq";
+/** An SI force quantity. */
+export type Force = Linear<ForceDim, Si>;
 
 /** Newton (N) — SI unit of force. */
-export const newton: BaseUnit<Force> = si.unit(force);
+export const newton: BaseUnit<ForceDim> = si.unit(force);

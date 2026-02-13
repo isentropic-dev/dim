@@ -13,12 +13,15 @@
  * @module
  */
 
-import type { Illuminance } from "@isentropic/dim-isq";
+import type { Illuminance as IlluminanceDim } from "@isentropic/dim-isq";
+import type { Linear } from "@isentropic/dim-unit";
 import { illuminance } from "@isentropic/dim-isq";
 import type { BaseUnit } from "./types.ts";
+import type { Si } from "./system.ts";
 import { si } from "./system.ts";
 
-export type { Illuminance } from "@isentropic/dim-isq";
+/** An SI illuminance quantity. */
+export type Illuminance = Linear<IlluminanceDim, Si>;
 
 /** Lux (lx) — SI unit of illuminance. */
-export const lux: BaseUnit<Illuminance> = si.unit(illuminance);
+export const lux: BaseUnit<IlluminanceDim> = si.unit(illuminance);

@@ -95,6 +95,31 @@ const speed = divide(kilometer(100), hour(2));
 _<a id="affine">\*</a> [Affine quantity](../dim-unit/README.md#affine-units) —
 zero point is arbitrary, which restricts valid operations._
 
+## Type Annotations
+
+Each quantity module exports a type for use in function signatures:
+
+```typescript
+import type { Length } from "@isentropic/dim-si/length";
+import type { Time } from "@isentropic/dim-si/time";
+import type { Velocity } from "@isentropic/dim-si/velocity";
+import { divide } from "@isentropic/dim-si/ops";
+
+function speed(d: Length, t: Time): Velocity {
+  return divide(d, t);
+}
+```
+
+Temperature has two types — `Temperature` for absolute values (affine) and
+`TemperatureDifference` for deltas (linear):
+
+```typescript
+import type {
+  Temperature,
+  TemperatureDifference,
+} from "@isentropic/dim-si/temperature";
+```
+
 ## Custom Scaled Units
 
 Use SI prefixes to create units not provided out of the box:
@@ -127,15 +152,18 @@ dimension:
     * @module
     */
 
-   import type { Jerk } from "@isentropic/dim-isq";
+   import type { Jerk as JerkDim } from "@isentropic/dim-isq";
+   import type { Linear } from "@isentropic/dim-unit";
    import { jerk } from "@isentropic/dim-isq";
-   import type { BaseUnit } from "./system.ts";
+   import type { BaseUnit } from "./types.ts";
+   import type { Si } from "./system.ts";
    import { si } from "./system.ts";
 
-   export type { Jerk } from "@isentropic/dim-isq";
+   /** An SI jerk quantity. */
+   export type Jerk = Linear<JerkDim, Si>;
 
    /** Meter per second cubed (m/s³) — SI unit of jerk. */
-   export const meterPerSecondCubed: BaseUnit<Jerk> = si.unit(jerk);
+   export const meterPerSecondCubed: BaseUnit<JerkDim> = si.unit(jerk);
    ```
 
    > **Note:** The quantity (`jerk`) must exist in `dim-isq` first. See the

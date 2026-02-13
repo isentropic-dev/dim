@@ -15,19 +15,22 @@
  * @module
  */
 
-import type { Amount } from "@isentropic/dim-isq";
+import type { Amount as AmountDim } from "@isentropic/dim-isq";
+import type { Linear } from "@isentropic/dim-unit";
 import { amount } from "@isentropic/dim-isq";
 import type { BaseUnit, ScaledUnit } from "./types.ts";
+import type { Si } from "./system.ts";
 import { si } from "./system.ts";
 import { MICRO, MILLI } from "./prefixes.ts";
 
-export type { Amount } from "@isentropic/dim-isq";
+/** An SI amount quantity. */
+export type Amount = Linear<AmountDim, Si>;
 
 /** Mole (mol) — SI unit of amount of substance. */
-export const mole: BaseUnit<Amount> = si.unit(amount);
+export const mole: BaseUnit<AmountDim> = si.unit(amount);
 
 /** Millimole (mmol) — 10⁻³ moles. */
-export const millimole: ScaledUnit<Amount> = mole.scaled(MILLI);
+export const millimole: ScaledUnit<AmountDim> = mole.scaled(MILLI);
 
 /** Micromole (μmol) — 10⁻⁶ moles. */
-export const micromole: ScaledUnit<Amount> = mole.scaled(MICRO);
+export const micromole: ScaledUnit<AmountDim> = mole.scaled(MICRO);

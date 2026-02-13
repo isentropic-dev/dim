@@ -15,19 +15,22 @@
  * @module
  */
 
-import type { Voltage } from "@isentropic/dim-isq";
+import type { Voltage as VoltageDim } from "@isentropic/dim-isq";
+import type { Linear } from "@isentropic/dim-unit";
 import { voltage } from "@isentropic/dim-isq";
 import type { BaseUnit, ScaledUnit } from "./types.ts";
+import type { Si } from "./system.ts";
 import { si } from "./system.ts";
 import { KILO, MILLI } from "./prefixes.ts";
 
-export type { Voltage } from "@isentropic/dim-isq";
+/** An SI voltage quantity. */
+export type Voltage = Linear<VoltageDim, Si>;
 
 /** Volt (V) — SI unit of voltage. */
-export const volt: BaseUnit<Voltage> = si.unit(voltage);
+export const volt: BaseUnit<VoltageDim> = si.unit(voltage);
 
 /** Millivolt (mV) — 10⁻³ volts. */
-export const millivolt: ScaledUnit<Voltage> = volt.scaled(MILLI);
+export const millivolt: ScaledUnit<VoltageDim> = volt.scaled(MILLI);
 
 /** Kilovolt (kV) — 1000 volts. */
-export const kilovolt: ScaledUnit<Voltage> = volt.scaled(KILO);
+export const kilovolt: ScaledUnit<VoltageDim> = volt.scaled(KILO);

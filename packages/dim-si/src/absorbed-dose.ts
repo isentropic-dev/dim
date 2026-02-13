@@ -17,15 +17,18 @@
  * @module
  */
 
-import type { AbsorbedDose } from "@isentropic/dim-isq";
+import type { AbsorbedDose as AbsorbedDoseDim } from "@isentropic/dim-isq";
+import type { Linear } from "@isentropic/dim-unit";
 import { absorbedDose } from "@isentropic/dim-isq";
 import type { BaseUnit } from "./types.ts";
+import type { Si } from "./system.ts";
 import { si } from "./system.ts";
 
-export type { AbsorbedDose } from "@isentropic/dim-isq";
+/** An SI absorbed dose quantity. */
+export type AbsorbedDose = Linear<AbsorbedDoseDim, Si>;
 
 /** Gray (Gy) — SI unit of absorbed dose. */
-export const gray: BaseUnit<AbsorbedDose> = si.unit(absorbedDose);
+export const gray: BaseUnit<AbsorbedDoseDim> = si.unit(absorbedDose);
 
 /** Sievert (Sv) — SI unit of equivalent dose (same dimension as gray). */
-export const sievert: BaseUnit<AbsorbedDose> = si.unit(absorbedDose);
+export const sievert: BaseUnit<AbsorbedDoseDim> = si.unit(absorbedDose);
