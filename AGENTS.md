@@ -6,6 +6,42 @@ If the user did not give a concrete task, read README.md, then ask which
 package(s) to work on. Based on the answer, read the relevant package README.md
 files.
 
+## Critical Rules
+
+### Tool Usage
+
+- NEVER use sed/cat to read a file or a range of a file. Always use the read
+  tool (use offset + limit for ranged reads).
+- You MUST read every file you modify in full before editing.
+
+### Git
+
+#### Committing
+
+- NEVER commit unless user asks
+- ONLY commit files YOU changed in THIS session
+- ALWAYS use `git add <specific-file-paths>` — list only files you modified
+- Before committing, run `git status` and verify you are only staging YOUR files
+- Include `fixes #<number>` or `closes #<number>` in the commit message when
+  closing issues
+
+#### Forbidden Operations
+
+These commands can destroy other agents' work:
+
+- `git reset --hard`
+- `git checkout .`
+- `git clean -fd`
+- `git stash`
+- `git add -A` / `git add .`
+- `git commit --no-verify`
+
+#### Rebase Conflicts
+
+- Resolve conflicts in YOUR files only
+- If conflict is in a file you didn't modify, abort and ask the user
+- NEVER force push
+
 ## Code Quality
 
 - No `any` types unless absolutely necessary
@@ -22,6 +58,8 @@ files.
   catch cross-package breakage.
 - Compound scaled units should use named scaled units when available (e.g.,
   `kilowatt.scale * hour.scale` not `watt.scaled(KILO).scale * hour.scale`)
+- No emojis in commits, issues, PR comments, or code
+- Technical prose only — concise, direct, no filler
 
 ### JSDoc
 
@@ -59,31 +97,28 @@ files.
 - After code changes (not documentation): run
   `deno fmt && deno lint && deno test`. Get full output. Fix all errors before
   committing.
-- When changing generator code, also run generation tasks to verify end-to-end
-  (spec imports are dynamically loaded and not caught by type-checking):
-  ```bash
-  deno task --cwd packages/dim-quantity generate:exponents
-  deno task --cwd packages/dim-isq generate:quantities
-  ```
+- When changing `dim-quantity` generator code, run
+  `deno task --cwd packages/dim-quantity generate:exponents` (spec imports are
+  dynamically loaded and not caught by type-checking).
+- When changing `dim-isq` spec or generator code, run
+  `deno task --cwd packages/dim-isq generate:quantities`.
 - When writing tests, run them, identify issues in either the test or
   implementation, and iterate until fixed.
 - Cover critical business logic with tests when adding new functionality.
 - When changes touch `adr/`, verify `adr/README.md` index matches actual files
   (entries present, statuses current).
-- When adding/renaming/splitting test files, verify `publish.exclude` in the
-  package's `deno.json` still covers them.
-
-## Adding Quantities and Units
-
-When adding quantities or units, follow the checklists in the `dim-isq` and
-`dim-si` READMEs ("Adding a New Quantity" / "Adding a New Unit").
+- When adding test files, add them to `publish.exclude` in the package's
+  `deno.json`.
+- When adding quantities or units, follow the checklists in the `dim-isq` and
+  `dim-si` READMEs ("Adding a New Quantity" / "Adding a New Unit").
 
 ## Releasing
 
 All packages use lockstep versioning. Release flow:
 
 1. Prep changelogs — add entries under `## Unreleased` in each package's
-   `CHANGELOG.md` (at least one package must have content)
+   `CHANGELOG.md` (at least one package must have content). If changelogs are
+   empty, check commits since the last tag and draft entries.
 2. Run `deno fmt` to fix changelog formatting (the release script runs
    `deno fmt --check` and will reject unformatted files)
 3. Run `deno task release <version>` (e.g. `deno task release 0.1.0`)
@@ -141,49 +176,8 @@ When working on issues:
 
 PRs:
 
-- Analyze PRs without pulling locally first
+- Review PR diffs on GitHub before pulling locally
 - If the user approves: create a feature branch, pull PR, rebase on main, apply
   adjustments, commit, merge into main, push, close PR
 - Never open PRs yourself — work in feature branches until everything meets
   requirements, then merge into main and push
-
-## Style
-
-- No emojis in commits, issues, PR comments, or code
-- Technical prose only — concise, direct, no filler
-
-## Critical Rules
-
-### Tool Usage
-
-- NEVER use sed/cat to read a file or a range of a file. Always use the read
-  tool (use offset + limit for ranged reads).
-- You MUST read every file you modify in full before editing.
-
-### Git
-
-#### Committing
-
-- NEVER commit unless user asks
-- ONLY commit files YOU changed in THIS session
-- ALWAYS use `git add <specific-file-paths>` — list only files you modified
-- Before committing, run `git status` and verify you are only staging YOUR files
-- Include `fixes #<number>` or `closes #<number>` in the commit message when
-  closing issues
-
-#### Forbidden Operations
-
-These commands can destroy other agents' work:
-
-- `git reset --hard`
-- `git checkout .`
-- `git clean -fd`
-- `git stash`
-- `git add -A` / `git add .`
-- `git commit --no-verify`
-
-#### Rebase Conflicts
-
-- Resolve conflicts in YOUR files only
-- If conflict is in a file you didn't modify, abort and ask the user
-- NEVER force push
