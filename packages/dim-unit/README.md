@@ -1,7 +1,75 @@
 # @isentropic/dim-unit
 
-Build type-safe unit systems with scale factors and affine offsets, layered on
-`dim-quantity`.
+Build type-safe unit systems with scale factors and affine offsets.
+
+> Looking for ready-made SI units? See [`@isentropic/dim-si`](../dim-si).
+
+## Usage
+
+### Define a unit system
+
+Create units by layering a unit system onto a quantity system:
+
+```ts
+import { isq, length, temperature, time, velocity } from "@isentropic/dim-isq";
+import { defineUnitSystem } from "@isentropic/dim-unit";
+
+const us = defineUnitSystem("myUnits", isq);
+
+// Base units
+const meter = us.unit(length);
+const second = us.unit(time);
+const kelvin = us.unit(temperature);
+const meterPerSecond = us.unit(velocity);
+
+// Scaled units
+const kilometer = meter.scaled(1000);
+const hour = second.scaled(3600);
+
+// Affine units (arbitrary zero point)
+const celsius = kelvin.offset(273.15);
+```
+
+Use `Linear` and `Affine` from `@isentropic/dim-unit` to define quantity types
+for your system. `Linear` is for quantities where zero is absolute (length,
+mass, velocity). `Affine` is for quantities where zero is arbitrary (temperature
+scales like Celsius and Fahrenheit). This distinction determines which
+operations the type system allows — see
+[Linear and Affine Units](#linear-and-affine-units) for details.
+
+```ts
+import type {
+  Length as LengthDim,
+  Temperature as TempDim,
+} from "@isentropic/dim-isq";
+import type { Affine, Linear } from "@isentropic/dim-unit";
+
+type System = typeof us.name;
+type Length = Linear<LengthDim, System>;
+type Temperature = Affine<TempDim, System>;
+```
+
+### Compute with units
+
+Wrap any quantity with `q()` for fluent arithmetic and `.in()` to extract
+values:
+
+```ts
+import { q } from "@isentropic/dim-unit/chain";
+
+const speed = q(kilometer(100)).div(hour(2)).in(meterPerSecond); // ~13.89
+const total = q(kilometer(5)).plus(meter(500)).in(meter); // 5500
+
+// Affine units enforce correct semantics
+const tempDiff = q(celsius(100)).minus(celsius(0)).in(kelvin); // 100
+
+// Dimension mismatches are compile errors
+q(kilometer(5)).plus(hour(1)); // Error: can't add length and time
+```
+
+The free function `valueIn(quantity, unit)` does the same thing outside a chain.
+Free functions `add`, `subtract`, `multiply`, `divide`, and `scale` are also
+available from `@isentropic/dim-unit/ops`.
 
 ## Installation
 
@@ -14,35 +82,7 @@ npx jsr add @isentropic/dim-unit
 bunx jsr add @isentropic/dim-unit
 ```
 
-## Quick Start
-
-```ts
-import { isq, length, temperature, time, velocity } from "@isentropic/dim-isq";
-import { defineUnitSystem, valueIn } from "@isentropic/dim-unit";
-import { divide, subtract } from "@isentropic/dim-unit/ops";
-
-// isq is a pre-defined quantity system from dim-isq
-const us = defineUnitSystem("myUnits", isq);
-
-// Define units
-const meter = us.unit(length);
-const second = us.unit(time);
-const kelvin = us.unit(temperature);
-const meterPerSecond = us.unit(velocity);
-
-const kilometer = meter.scaled(1000);
-const hour = second.scaled(3600);
-const celsius = kelvin.offset(273.15);
-
-// Use them
-const speed = divide(kilometer(100), hour(2));
-const tempDiff = subtract(celsius(100), celsius(0));
-
-valueIn(speed, meterPerSecond); // ~13.89
-valueIn(tempDiff, kelvin); // 100
-```
-
-## Units
+## Linear and Affine Units
 
 ### Linear Units
 
@@ -127,32 +167,22 @@ subtract(boiling, celsius.delta(10)); // 90°C (affine)
 
 The full set of linear/affine interactions:
 
-| Operation                     | Result   | Example                                          |
-| ----------------------------- | -------- | ------------------------------------------------ |
-| Linear + Linear               | Linear   | `add(meter(5), meter(3))` → 8 m                  |
-| Linear − Linear               | Linear   | `subtract(meter(5), meter(3))` → 2 m             |
-| Affine − Affine               | Linear   | `subtract(celsius(100), celsius(0))` → 100 K     |
-| Affine + Linear               | Affine   | `add(celsius(20), celsius.delta(5))` → 25°C      |
-| Affine − Linear               | Affine   | `subtract(celsius(20), celsius.delta(5))` → 15°C |
-| Affine + Affine               | ❌ Error | —                                                |
-| scale/multiply/divide(Affine) | ❌ Error | —                                                |
+| Operation                     | Result | Example                                          |
+| ----------------------------- | ------ | ------------------------------------------------ |
+| Linear + Linear               | Linear | `add(meter(5), meter(3))` → 8 m                  |
+| Linear − Linear               | Linear | `subtract(meter(5), meter(3))` → 2 m             |
+| Affine − Affine               | Linear | `subtract(celsius(100), celsius(0))` → 100 K     |
+| Affine + Linear               | Affine | `add(celsius(20), celsius.delta(5))` → 25°C      |
+| Affine − Linear               | Affine | `subtract(celsius(20), celsius.delta(5))` → 15°C |
+| Affine + Affine               | Error  | —                                                |
+| scale/multiply/divide(Affine) | Error  | —                                                |
 
-## Chainable Operations
+## Fluent API
 
-Wrap any quantity with `q()` for a fluent API:
-
-```ts
-import { q } from "@isentropic/dim-unit/chain";
-
-// .in() terminal extracts a number in the given unit
-q(kilometer(5)).plus(meter(500)).in(meter); // 5500
-q(kilometer(5)).plus(meter(500)).in(kilometer); // 5.5
-```
-
-The chain tracks linear/affine state at the type level. `QLinear` supports all
-operations (`plus`, `minus`, `times`, `div`, `scale`, `in`). `QAffine` supports
-only `plus`/`minus` with appropriate types, and `in`. Subtracting two affine
-values transitions back to `QLinear`, enabling further arithmetic:
+The `q()` chain tracks linear/affine state at the type level. `QLinear` supports
+all operations (`plus`, `minus`, `times`, `div`, `scale`, `in`). `QAffine`
+supports only `plus`/`minus` with appropriate types, and `in`. Subtracting two
+affine values transitions back to `QLinear`, enabling further arithmetic:
 
 ```ts
 // QAffine → QLinear → QLinear (dimension changes via div)
