@@ -2,7 +2,38 @@
 
 Ready-to-use
 [ISQ](https://en.wikipedia.org/wiki/International_System_of_Quantities) quantity
-system built on [`dim-quantity`](../dim-quantity).
+system with compile-time dimensional analysis.
+
+## Usage
+
+Each quantity has a type and factory function with the same name:
+
+```typescript
+import {
+  Acceleration,
+  Force,
+  Length,
+  length,
+  mass,
+  time,
+  Velocity,
+} from "@isentropic/dim-isq";
+import { add, divide, multiply } from "@isentropic/dim-isq/ops";
+
+const distance = length(100);
+const duration = time(10);
+const v: Velocity = divide(distance, duration);
+
+const m = mass(5);
+const a: Acceleration = divide(v, duration);
+const f: Force = multiply(m, a);
+
+const total: Length = add(length(5), length(3));
+
+// Type errors at compile time:
+// add(length(1), time(1))     // Can't add length + time
+// add(force(1), energy(1))    // Can't add force + energy
+```
 
 ## Installation
 
@@ -15,35 +46,7 @@ npx jsr add @isentropic/dim-isq
 bunx jsr add @isentropic/dim-isq
 ```
 
-## Quick Start
-
-```typescript
-import { force, length, mass, time, velocity } from "@isentropic/dim-isq";
-import { divide, multiply } from "@isentropic/dim-isq/ops";
-
-const distance = length(100);
-const duration = time(10);
-const v = divide(distance, duration); // → Velocity
-
-const m = mass(5);
-const a = divide(v, duration); // → Acceleration
-const f = multiply(m, a); // → Force
-
-// Type errors at compile time:
-// add(length(1), time(1))     // ❌ Can't add length + time
-// add(force(1), energy(1))    // ❌ Can't add force + energy
-```
-
-## Available Quantities
-
-Each quantity has a type and factory function with the same name:
-
-```typescript
-import { Force, force, Velocity, velocity } from "@isentropic/dim-isq";
-
-const f: Force = force(10);
-const v: Velocity = velocity(25);
-```
+## Quantities
 
 ### Base
 
@@ -86,8 +89,9 @@ const v: Velocity = velocity(25);
 
 ## Contributing
 
-See [CONTRIBUTING.md](../../CONTRIBUTING.md#adding-a-new-isq-quantity) for how
-to add a new quantity.
+Not seeing a quantity you need? We welcome contributions. See
+[CONTRIBUTING.md](../../CONTRIBUTING.md#adding-a-new-isq-quantity) for how to
+add one.
 
 ## Limitations
 
