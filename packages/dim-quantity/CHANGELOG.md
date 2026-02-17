@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 0.4.1 (2026-02-17)
+
+### Changed
+
+- Rewrote README with reorganized Usage section for spec-based and code-based
+  approaches
+
 ## 0.4.0 (2026-02-13)
 
 ## 0.3.0 (2026-02-12)

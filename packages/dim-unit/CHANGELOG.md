@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 0.4.1 (2026-02-17)
+
+### Changed
+
+- Rewrote README with structured Usage section covering unit system definition,
+  type aliases, and fluent API
+
 ## 0.4.0 (2026-02-13)
 
 ## 0.3.0 (2026-02-12)

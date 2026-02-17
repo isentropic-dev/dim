@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 0.4.1 (2026-02-17)
+
+### Changed
+
+- Rewrote README with Usage section and explicit type annotations in examples
+
 ## 0.4.0 (2026-02-13)
 
 ## 0.3.0 (2026-02-12)

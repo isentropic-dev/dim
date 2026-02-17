@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 0.4.1 (2026-02-17)
+
+### Changed
+
+- Rewrote README with structured Usage section, fluent `q()` API examples, and
+  improved onboarding flow
+
 ## 0.4.0 (2026-02-13)
 
 ### Added
