@@ -37,7 +37,7 @@ const qs = defineQuantitySystem(["L", "T", "Θ"]);
 const length = qs.base("L");
 const time = qs.base("T");
 const temperature = qs.base("Θ");
-const velocity = qs.factory({ L: 1, T: -1, Θ: 0 });
+const velocity = qs.factory({ L: 1, T: -1 });
 ```
 
 At this point, `length(100)` produces a value tagged with dimension `L`. No
@@ -51,7 +51,7 @@ units, no scale factors, just dimensionality.
 Units attach physical meaning to those raw quantities:
 
 ```typescript
-import { defineUnitSystem, valueIn } from "@isentropic/dim-unit";
+import { defineUnitSystem } from "@isentropic/dim-unit";
 
 const us = defineUnitSystem("tutorial", qs);
 
@@ -93,14 +93,8 @@ q(celsius(0)).plus(celsius.delta(10)); // 10°C (affine point)
 q(celsius(100)).plus(celsius(0)); // Error: can't add two affine quantities
 ```
 
-Free functions are also available for one-off operations:
-
-```typescript
-import { add, divide } from "@isentropic/dim-unit/ops";
-
-const total = add(kilometer(1), meter(500));
-const speed = divide(kilometer(5), hour(2));
-```
+Free functions `add`, `subtract`, `multiply`, `divide`, and `scale` are also
+available from `@isentropic/dim-unit/ops`.
 
 ## Pre-Built Systems
 
