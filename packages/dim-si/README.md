@@ -3,9 +3,105 @@
 Ready-to-use SI units with compile-time dimensional analysis.
 
 Provides the [SI](https://en.wikipedia.org/wiki/International_System_of_Units)
-unit system built on [`dim-isq`](../dim-isq) quantities — unit conversions, SI
-prefixes, and affine units like temperature scales, all with dimensions tracked
-at the type level.
+unit system — unit conversions, SI prefixes, and affine units like temperature
+scales, all with dimensions tracked at the type level. Wrap raw numbers in typed
+quantities and let the compiler catch dimension mismatches before your code
+runs.
+
+## Usage
+
+### Create and compute
+
+Unit functions wrap raw numbers into typed quantities. The fluent `q()` API
+chains arithmetic while tracking dimensions at compile time:
+
+```typescript
+import { kilometer, meter } from "@isentropic/dim-si/length";
+import { hour } from "@isentropic/dim-si/time";
+import { q } from "@isentropic/dim-si/ops";
+
+const distance = kilometer(100);
+const duration = hour(2);
+
+const speed = q(distance).div(duration);
+const total = q(kilometer(5)).plus(meter(500));
+```
+
+### Extract values
+
+Use `.in(unit)` to get a plain number back — for example, to serialize or
+display:
+
+```typescript
+import { meterPerSecond } from "@isentropic/dim-si/velocity";
+
+speed.in(meterPerSecond); // ~13.89
+total.in(meter); // 5500
+total.in(kilometer); // 5.5
+```
+
+The free function `valueIn(quantity, unit)` does the same thing outside a chain.
+Free functions `add`, `subtract`, `multiply`, `divide`, and `scale` are also
+available from `@isentropic/dim-si/ops`.
+
+### Type safety
+
+Dimension mismatches are caught at compile time:
+
+```typescript
+q(kilometer(5)).plus(hour(1)); // Error: can't add length and time
+```
+
+Use the exported quantity types for function signatures:
+
+```typescript
+import type { Length } from "@isentropic/dim-si/length";
+import type { Time } from "@isentropic/dim-si/time";
+import type { Velocity } from "@isentropic/dim-si/velocity";
+
+function speed(d: Length, t: Time): Velocity {
+  return q(d).div(t);
+}
+```
+
+Temperature has two types — `Temperature` for absolute values (affine) and
+`TemperatureDifference` for deltas (linear):
+
+```typescript
+import { celsius, kelvin } from "@isentropic/dim-si/temperature";
+
+q(celsius(100)).in(kelvin); // 373.15
+q(celsius(100)).minus(celsius(0)).in(kelvin); // 100 (linear delta)
+q(celsius(20)).plus(celsius.delta(5)).in(celsius); // 25
+```
+
+### Custom units
+
+Use SI prefixes to create units not provided out of the box:
+
+```typescript
+import { meter } from "@isentropic/dim-si/length";
+import { gram } from "@isentropic/dim-si/mass";
+import { MEGA, PICO } from "@isentropic/dim-si/prefixes";
+
+const megameter = meter.scaled(MEGA);
+const picogram = gram.scaled(PICO);
+```
+
+See [prefixes.ts](./src/prefixes.ts) for all available SI prefixes.
+
+You can also compose units from other unit scales:
+
+```typescript
+import { joule } from "@isentropic/dim-si/energy";
+import { kilowatt } from "@isentropic/dim-si/power";
+import { hour } from "@isentropic/dim-si/time";
+
+const kilowattHour = joule.scaled(kilowatt.scale * hour.scale);
+```
+
+If you find yourself using a custom unit frequently, consider
+[contributing it](../../CONTRIBUTING.md#adding-a-new-si-unit) to the package.
 
 ## Installation
 
@@ -16,39 +112,6 @@ deno add jsr:@isentropic/dim-si
 npx jsr add @isentropic/dim-si
 # Bun
 bunx jsr add @isentropic/dim-si
-```
-
-## Quick Start
-
-```typescript
-import { kilometer, meter } from "@isentropic/dim-si/length";
-import { hour } from "@isentropic/dim-si/time";
-import { celsius, kelvin } from "@isentropic/dim-si/temperature";
-import { q, valueIn } from "@isentropic/dim-si/ops";
-
-const speed = q(kilometer(100)).div(hour(2));
-const total = q(kilometer(5)).plus(meter(500));
-
-valueIn(total, meter); // 5500
-valueIn(total, kilometer); // 5.5
-
-// Dimension mismatches are compile errors
-q(kilometer(5)).plus(hour(1)); // Error: can't add length and time
-
-// Affine units enforce correct semantics
-q(celsius(100)).in(kelvin); // 373.15
-q(celsius(100)).minus(celsius(0)).in(kelvin); // 100 (linear delta)
-q(celsius(20)).plus(celsius.delta(5)).in(celsius); // 25
-```
-
-Free functions (`add`, `subtract`, `multiply`, `divide`, `scale`) are also
-available:
-
-```typescript
-import { add, divide } from "@isentropic/dim-si/ops";
-
-const total = add(kilometer(5), meter(500));
-const speed = divide(kilometer(100), hour(2));
 ```
 
 ## Units
@@ -94,103 +157,6 @@ const speed = divide(kilometer(100), hour(2));
 
 _<a id="affine">\*</a> [Affine quantity](../dim-unit/README.md#affine-units) —
 zero point is arbitrary, which restricts valid operations._
-
-## Type Annotations
-
-Each quantity module exports a type for use in function signatures:
-
-```typescript
-import type { Length } from "@isentropic/dim-si/length";
-import type { Time } from "@isentropic/dim-si/time";
-import type { Velocity } from "@isentropic/dim-si/velocity";
-import { divide } from "@isentropic/dim-si/ops";
-
-function speed(d: Length, t: Time): Velocity {
-  return divide(d, t);
-}
-```
-
-Temperature has two types — `Temperature` for absolute values (affine) and
-`TemperatureDifference` for deltas (linear):
-
-```typescript
-import type {
-  Temperature,
-  TemperatureDifference,
-} from "@isentropic/dim-si/temperature";
-```
-
-## Custom Scaled Units
-
-Use SI prefixes to create units not provided out of the box:
-
-```typescript
-import { meter } from "@isentropic/dim-si/length";
-import { gram } from "@isentropic/dim-si/mass";
-import { MEGA, PICO } from "@isentropic/dim-si/prefixes";
-
-const megameter = meter.scaled(MEGA);
-const picogram = gram.scaled(PICO);
-```
-
-See [prefixes.ts](./src/prefixes.ts) for all available SI prefixes.
-
-## Adding a New Unit
-
-Units are organized one file per dimension. To add a new unit to an existing
-dimension, edit its module (e.g., `src/length.ts`). To add units for a new
-dimension:
-
-1. **Create the unit module** at `src/<dimension>.ts`:
-
-   ```typescript
-   /**
-    * Jerk units (L·T⁻³).
-    *
-    * SI unit: meter per second cubed (m/s³).
-    *
-    * @module
-    */
-
-   import type { Jerk as JerkDim } from "@isentropic/dim-isq";
-   import type { Linear } from "@isentropic/dim-unit";
-   import { jerk } from "@isentropic/dim-isq";
-   import type { BaseUnit } from "./types.ts";
-   import type { Si } from "./system.ts";
-   import { si } from "./system.ts";
-
-   /** An SI jerk quantity. */
-   export type Jerk = Linear<JerkDim, Si>;
-
-   /** Meter per second cubed (m/s³) — SI unit of jerk. */
-   export const meterPerSecondCubed: BaseUnit<JerkDim> = si.unit(jerk);
-   ```
-
-   > **Note:** The quantity (`jerk`) must exist in `dim-isq` first. See the
-   > [dim-isq README](../dim-isq/README.md#adding-a-new-quantity) for how to add
-   > one.
-
-   For scaled units, use prefixes or compose from other unit scales:
-
-   ```typescript
-   import { KILO } from "./prefixes.ts";
-
-   export const kilometerPerSecondCubed = meterPerSecondCubed.scaled(KILO);
-   ```
-
-2. **Add a subpath export** in `deno.json`:
-
-   ```jsonc
-   "./jerk": "./src/jerk.ts"
-   ```
-
-3. **Update the unit listing** in this README under [Units](#units).
-
-4. **Run checks**:
-
-   ```bash
-   deno fmt && deno lint && deno test
-   ```
 
 ## License
 

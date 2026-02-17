@@ -109,8 +109,7 @@ These commands can destroy other agents' work:
   (entries present, statuses current).
 - When adding test files, add them to `publish.exclude` in the package's
   `deno.json`.
-- When adding quantities or units, follow the checklists in the `dim-isq` and
-  `dim-si` READMEs ("Adding a New Quantity" / "Adding a New Unit").
+- When adding quantities or units, follow the checklists in CONTRIBUTING.md.
 
 ## Releasing
 
