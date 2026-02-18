@@ -83,6 +83,7 @@ await build({
   },
   postBuild() {
     Deno.copyFileSync(config.licensePath, "./npm/LICENSE");
+    Deno.copyFileSync("./README.md", "./npm/README.md");
 
     // Restore real version ranges for workspace deps in the published
     // package.json (replace file: references with actual versions)
