@@ -2,6 +2,14 @@
   "name": "@isentropic/dim-si",
   "description": "Ready-to-use SI units with compile-time dimensional analysis",
   "license": "MIT",
+  "keywords": [
+    "typescript",
+    "dimensional-analysis",
+    "si",
+    "unit-system",
+    "isq",
+    "quantity-system"
+  ],
   "publish": {
     "exclude": [
       "test.ts"

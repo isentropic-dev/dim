@@ -26,6 +26,7 @@ interface BuildConfig {
     version: string;
     description: string;
     license: string;
+    keywords: string[];
     repository: { type: string; url: string };
   };
   licensePath: string;

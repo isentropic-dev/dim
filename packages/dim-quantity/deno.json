@@ -2,6 +2,11 @@
   "name": "@isentropic/dim-quantity",
   "description": "Define quantity systems for compile-time dimensional analysis",
   "license": "MIT",
+  "keywords": [
+    "typescript",
+    "dimensional-analysis",
+    "quantity-system"
+  ],
   "publish": {
     "exclude": [
       "scripts/generate-exponents.ts",

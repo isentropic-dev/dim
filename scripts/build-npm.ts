@@ -24,6 +24,7 @@ interface DenoJson {
   description: string;
   version: string;
   exports: Record<string, string>;
+  keywords?: string[];
 }
 
 function getOrThrow<K, V>(map: Map<K, V>, key: K, label: string): V {
@@ -219,6 +220,7 @@ for (const [dir, name] of Object.entries(PACKAGES)) {
       version: json.version,
       description: json.description,
       license: "MIT",
+      keywords: json.keywords ?? [],
       repository: {
         type: "git",
         url: "git+https://github.com/isentropic-dev/dim.git",
