@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 0.4.2 (2026-02-18)
+
+### Changed
+
+- Added npm and bun install instructions to README
+
 ## 0.4.1 (2026-02-17)
 
 ### Changed

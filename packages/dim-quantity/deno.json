@@ -16,5 +16,5 @@
   "tasks": {
     "generate:exponents": "deno run --allow-write scripts/generate-exponents.ts && deno fmt src/exponents.generated.ts"
   },
-  "version": "0.4.1"
+  "version": "0.4.2"
 }
