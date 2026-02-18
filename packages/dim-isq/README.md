@@ -90,8 +90,8 @@ bunx jsr add @isentropic/dim-isq
 ## Contributing
 
 Not seeing a quantity you need? We welcome contributions. See
-[CONTRIBUTING.md](../../CONTRIBUTING.md#adding-a-new-isq-quantity) for how to
-add one.
+[CONTRIBUTING.md](https://github.com/isentropic-dev/dim/blob/main/CONTRIBUTING.md#adding-a-new-isq-quantity)
+for how to add one.
 
 ## Limitations
 

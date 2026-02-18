@@ -2,7 +2,8 @@
 
 Build type-safe unit systems with scale factors and affine offsets.
 
-> Looking for ready-made SI units? See [`@isentropic/dim-si`](../dim-si).
+> Looking for ready-made SI units? See
+> [`@isentropic/dim-si`](https://github.com/isentropic-dev/dim/blob/main/packages/dim-si/README.md).
 
 ## Usage
 

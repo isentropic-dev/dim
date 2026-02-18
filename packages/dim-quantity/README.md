@@ -2,7 +2,8 @@
 
 Define quantity systems for compile-time dimensional analysis.
 
-> Looking for standard ISQ quantities? See [`@isentropic/dim-isq`](../dim-isq).
+> Looking for standard ISQ quantities? See
+> [`@isentropic/dim-isq`](https://github.com/isentropic-dev/dim/blob/main/packages/dim-isq/README.md).
 
 ## Usage
 

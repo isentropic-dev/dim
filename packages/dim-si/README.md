@@ -27,6 +27,17 @@ const speed = q(distance).div(duration);
 const total = q(kilometer(5)).plus(meter(500));
 ```
 
+Temperature conversions handle offsets correctly. Absolute temperatures use
+affine conversion (applying the zero-point offset), while deltas stay linear:
+
+```typescript
+import { celsius, kelvin } from "@isentropic/dim-si/temperature";
+
+q(celsius(100)).in(kelvin); // 373.15
+q(celsius(100)).minus(celsius(0)).in(kelvin); // 100 (linear delta)
+q(celsius(20)).plus(celsius.delta(5)).in(celsius); // 25
+```
+
 ### Extract values
 
 Use `.in(unit)` to get a plain number back — for example, to serialize or
@@ -64,17 +75,6 @@ function speed(d: Length, t: Time): Velocity {
 }
 ```
 
-Temperature has two types — `Temperature` for absolute values (affine) and
-`TemperatureDifference` for deltas (linear):
-
-```typescript
-import { celsius, kelvin } from "@isentropic/dim-si/temperature";
-
-q(celsius(100)).in(kelvin); // 373.15
-q(celsius(100)).minus(celsius(0)).in(kelvin); // 100 (linear delta)
-q(celsius(20)).plus(celsius.delta(5)).in(celsius); // 25
-```
-
 ### Custom units
 
 Use SI prefixes to create units not provided out of the box:
@@ -88,7 +88,9 @@ const megameter = meter.scaled(MEGA);
 const picogram = gram.scaled(PICO);
 ```
 
-See [prefixes.ts](./src/prefixes.ts) for all available SI prefixes.
+See
+[prefixes.ts](https://github.com/isentropic-dev/dim/blob/main/packages/dim-si/src/prefixes.ts)
+for all available SI prefixes.
 
 You can also compose units from other unit scales:
 
@@ -101,7 +103,8 @@ const kilowattHour = joule.scaled(kilowatt.scale * hour.scale);
 ```
 
 If you find yourself using a custom unit frequently, consider
-[contributing it](../../CONTRIBUTING.md#adding-a-new-si-unit) to the package.
+[contributing it](https://github.com/isentropic-dev/dim/blob/main/CONTRIBUTING.md#adding-a-new-si-unit)
+to the package.
 
 ## Installation
 
@@ -118,45 +121,46 @@ bunx jsr add @isentropic/dim-si
 
 ### Base
 
-| Quantity                                         | Units                                                                                       |
-| ------------------------------------------------ | ------------------------------------------------------------------------------------------- |
-| [Length](./src/length.ts)                        | `meter`, `kilometer`, `centimeter`, `millimeter`, `micrometer`, `nanometer`, `picometer`    |
-| [Mass](./src/mass.ts)                            | `kilogram`, `gram`, `milligram`, `microgram`, `nanogram`, `tonne`                           |
-| [Time](./src/time.ts)                            | `second`, `millisecond`, `microsecond`, `nanosecond`, `picosecond`, `minute`, `hour`, `day` |
-| [Temperature](./src/temperature.ts) [*](#affine) | `kelvin`, `celsius`, `fahrenheit`                                                           |
-| [Electric Current](./src/current.ts)             | `ampere`, `milliampere`, `microampere`                                                      |
-| [Amount of Substance](./src/amount.ts)           | `mole`, `millimole`, `micromole`                                                            |
-| [Luminous Intensity](./src/luminosity.ts)        | `candela`                                                                                   |
+| Quantity                 | Units                                                                                       |
+| ------------------------ | ------------------------------------------------------------------------------------------- |
+| Length                   | `meter`, `kilometer`, `centimeter`, `millimeter`, `micrometer`, `nanometer`, `picometer`    |
+| Mass                     | `kilogram`, `gram`, `milligram`, `microgram`, `nanogram`, `tonne`                           |
+| Time                     | `second`, `millisecond`, `microsecond`, `nanosecond`, `picosecond`, `minute`, `hour`, `day` |
+| Temperature [*](#affine) | `kelvin`, `celsius`, `fahrenheit`                                                           |
+| Electric Current         | `ampere`, `milliampere`, `microampere`                                                      |
+| Amount of Substance      | `mole`, `millimole`, `micromole`                                                            |
+| Luminous Intensity       | `candela`                                                                                   |
 
 ### Derived
 
-| Quantity                                                | Units                                                               |
-| ------------------------------------------------------- | ------------------------------------------------------------------- |
-| [Area](./src/area.ts)                                   | `squareMeter`, `hectare`                                            |
-| [Volume](./src/volume.ts)                               | `cubicMeter`, `liter`, `milliliter`, `microliter`                   |
-| [Velocity](./src/velocity.ts)                           | `meterPerSecond`                                                    |
-| [Acceleration](./src/acceleration.ts)                   | `meterPerSecondSquared`                                             |
-| [Force](./src/force.ts)                                 | `newton`                                                            |
-| [Pressure](./src/pressure.ts)                           | `pascal`, `bar`, `millibar`                                         |
-| [Energy](./src/energy.ts)                               | `joule`, `kilojoule`, `megajoule`, `kilowattHour`                   |
-| [Power](./src/power.ts)                                 | `watt`, `milliwatt`, `kilowatt`, `megawatt`, `gigawatt`, `terawatt` |
-| [Frequency](./src/frequency.ts)                         | `hertz`, `kilohertz`, `megahertz`, `gigahertz`, `becquerel`         |
-| [Voltage](./src/voltage.ts)                             | `volt`, `millivolt`, `kilovolt`                                     |
-| [Resistance](./src/resistance.ts)                       | `ohm`, `milliohm`, `kilohm`, `megohm`                               |
-| [Capacitance](./src/capacitance.ts)                     | `farad`, `microfarad`, `nanofarad`, `picofarad`                     |
-| [Inductance](./src/inductance.ts)                       | `henry`, `millihenry`, `microhenry`                                 |
-| [Charge](./src/charge.ts)                               | `coulomb`                                                           |
-| [Magnetic Flux](./src/magnetic-flux.ts)                 | `weber`                                                             |
-| [Magnetic Flux Density](./src/magnetic-flux-density.ts) | `tesla`                                                             |
-| [Conductance](./src/conductance.ts)                     | `siemens`                                                           |
-| [Illuminance](./src/illuminance.ts)                     | `lux`                                                               |
-| [Luminous Flux](./src/luminous-flux.ts)                 | `lumen`                                                             |
-| [Catalytic Activity](./src/catalytic-activity.ts)       | `katal`                                                             |
-| [Thermal Conductance](./src/thermal-conductance.ts)     | `wattPerKelvin`, `milliwattPerKelvin`, `kilowattPerKelvin`          |
-| [Absorbed Dose](./src/absorbed-dose.ts)                 | `gray`, `sievert`                                                   |
+| Quantity              | Units                                                               |
+| --------------------- | ------------------------------------------------------------------- |
+| Area                  | `squareMeter`, `hectare`                                            |
+| Volume                | `cubicMeter`, `liter`, `milliliter`, `microliter`                   |
+| Velocity              | `meterPerSecond`                                                    |
+| Acceleration          | `meterPerSecondSquared`                                             |
+| Force                 | `newton`                                                            |
+| Pressure              | `pascal`, `bar`, `millibar`                                         |
+| Energy                | `joule`, `kilojoule`, `megajoule`, `kilowattHour`                   |
+| Power                 | `watt`, `milliwatt`, `kilowatt`, `megawatt`, `gigawatt`, `terawatt` |
+| Frequency             | `hertz`, `kilohertz`, `megahertz`, `gigahertz`, `becquerel`         |
+| Voltage               | `volt`, `millivolt`, `kilovolt`                                     |
+| Resistance            | `ohm`, `milliohm`, `kilohm`, `megohm`                               |
+| Capacitance           | `farad`, `microfarad`, `nanofarad`, `picofarad`                     |
+| Inductance            | `henry`, `millihenry`, `microhenry`                                 |
+| Charge                | `coulomb`                                                           |
+| Magnetic Flux         | `weber`                                                             |
+| Magnetic Flux Density | `tesla`                                                             |
+| Conductance           | `siemens`                                                           |
+| Illuminance           | `lux`                                                               |
+| Luminous Flux         | `lumen`                                                             |
+| Catalytic Activity    | `katal`                                                             |
+| Thermal Conductance   | `wattPerKelvin`, `milliwattPerKelvin`, `kilowattPerKelvin`          |
+| Absorbed Dose         | `gray`, `sievert`                                                   |
 
-_<a id="affine">\*</a> [Affine quantity](../dim-unit/README.md#affine-units) —
-zero point is arbitrary, which restricts valid operations._
+_<a id="affine">\*</a>
+[Affine quantity](https://github.com/isentropic-dev/dim/blob/main/packages/dim-unit/README.md#affine-units)
+— zero point is arbitrary, which restricts valid operations._
 
 ## License
 
