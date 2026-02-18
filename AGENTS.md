@@ -137,9 +137,9 @@ All packages use lockstep versioning. Release flow:
 Before releasing, run `deno publish --dry-run` to catch export/exclude conflicts
 and other publish errors.
 
-Key files: `scripts/release.ts`, `scripts/publish.ts`,
-`scripts/extract-changelog.ts`, `scripts/packages.ts` (single source of truth
-for package list and publish order).
+Key files: `scripts/release.ts`, `scripts/publish-jsr.ts`,
+`scripts/publish-npm.ts`, `scripts/extract-changelog.ts`, `scripts/packages.ts`
+(single source of truth for package list and publish order).
 
 ## Changelog
 
@@ -175,6 +175,8 @@ When creating issues:
 When working on issues:
 
 - Use `gh issue develop <number>` to create a linked feature branch
+- After completing a work item tied to an issue checklist, update the issue
+  immediately (check the box, update descriptions if needed)
 
 PRs:
 
