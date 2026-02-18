@@ -60,6 +60,9 @@ These commands can destroy other agents' work:
   `kilowatt.scale * hour.scale` not `watt.scaled(KILO).scale * hour.scale`)
 - No emojis in commits, issues, PR comments, or code
 - Technical prose only — concise, direct, no filler
+- Package READMEs must not use relative links — use absolute GitHub URLs so
+  links work on both GitHub and JSR. Cross-package references should link to the
+  other package's GitHub README.
 
 ### JSDoc
 
@@ -94,9 +97,9 @@ These commands can destroy other agents' work:
 
 ## Workflow
 
-- After code changes (not documentation): run
-  `deno fmt && deno lint && deno test`. Get full output. Fix all errors before
-  committing.
+- After code changes: run `deno fmt && deno lint && deno test`. After
+  documentation-only changes: run `deno fmt`. Get full output. Fix all errors
+  before committing.
 - When changing `dim-quantity` generator code, run
   `deno task --cwd packages/dim-quantity generate:exponents` (spec imports are
   dynamically loaded and not caught by type-checking).
