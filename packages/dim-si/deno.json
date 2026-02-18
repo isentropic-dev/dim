@@ -42,5 +42,5 @@
     "./catalytic-activity": "./src/catalytic-activity.ts",
     "./thermal-conductance": "./src/thermal-conductance.ts"
   },
-  "version": "0.4.2"
+  "version": "0.4.3"
 }

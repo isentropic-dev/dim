@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 0.4.3 (2026-02-18)
+
+### Fixed
+
+- Added missing README to npm package
+
 ## 0.4.2 (2026-02-18)
 
 ### Changed
