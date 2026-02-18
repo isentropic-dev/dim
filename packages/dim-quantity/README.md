@@ -101,9 +101,9 @@ const speed = divide(distance, duration);
 # Deno
 deno add jsr:@isentropic/dim-quantity
 # npm
-npx jsr add @isentropic/dim-quantity
+npm install @isentropic/dim-quantity
 # Bun
-bunx jsr add @isentropic/dim-quantity
+bun add @isentropic/dim-quantity
 ```
 
 ## License

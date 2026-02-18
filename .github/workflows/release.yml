@@ -21,6 +21,12 @@ jobs:
         run: deno lint
       - name: Run tests
         run: deno test
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+      - name: Build npm packages
+        run: deno task build:npm
       - name: Extract changelog
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
@@ -35,4 +41,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
       - name: Publish to JSR
-        run: deno run --allow-read --allow-run scripts/publish.ts
+        run: deno run --allow-read --allow-run scripts/publish-jsr.ts
+      - name: Publish to npm
+        run: deno run --allow-read --allow-run scripts/publish-npm.ts

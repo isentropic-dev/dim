@@ -78,9 +78,9 @@ available from `@isentropic/dim-unit/ops`.
 # Deno
 deno add jsr:@isentropic/dim-unit
 # npm
-npx jsr add @isentropic/dim-unit
+npm install @isentropic/dim-unit
 # Bun
-bunx jsr add @isentropic/dim-unit
+bun add @isentropic/dim-unit
 ```
 
 ## Linear and Affine Units

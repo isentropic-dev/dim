@@ -1,6 +1,11 @@
 {
   "tasks": {
+    "build:npm": "deno run -A --no-config scripts/build-npm.ts",
     "release": "deno run --allow-read --allow-write --allow-run scripts/release.ts"
+  },
+
+  "test": {
+    "exclude": ["**/npm/"]
   },
   "workspace": [
     "./packages/dim-quantity",

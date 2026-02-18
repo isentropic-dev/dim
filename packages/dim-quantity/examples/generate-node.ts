@@ -2,7 +2,7 @@
  * Example: Generate a quantity system in Node/Bun.
  *
  * Usage:
- *   npx jsr add @isentropic/dim-quantity
+ *   npm install @isentropic/dim-quantity
  *   npx tsx generate-node.ts
  */
 

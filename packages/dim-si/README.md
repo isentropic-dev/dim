@@ -112,9 +112,9 @@ to the package.
 # Deno
 deno add jsr:@isentropic/dim-si
 # npm
-npx jsr add @isentropic/dim-si
+npm install @isentropic/dim-si
 # Bun
-bunx jsr add @isentropic/dim-si
+bun add @isentropic/dim-si
 ```
 
 ## Units

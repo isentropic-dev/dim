@@ -3,7 +3,7 @@
  * Skips packages that are already published at the current version.
  * Used by the release workflow.
  *
- * Usage: deno run --allow-read --allow-run scripts/publish.ts
+ * Usage: deno run --allow-read --allow-run scripts/publish-jsr.ts
  */
 
 import { PACKAGES } from "./packages.ts";

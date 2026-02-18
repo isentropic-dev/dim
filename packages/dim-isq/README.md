@@ -41,9 +41,9 @@ const total: Length = add(length(5), length(3));
 # Deno
 deno add jsr:@isentropic/dim-isq
 # npm
-npx jsr add @isentropic/dim-isq
+npm install @isentropic/dim-isq
 # Bun
-bunx jsr add @isentropic/dim-isq
+bun add @isentropic/dim-isq
 ```
 
 ## Quantities
