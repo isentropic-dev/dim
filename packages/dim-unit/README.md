@@ -178,6 +178,27 @@ The full set of linear/affine interactions:
 | Affine + Affine               | Error  | —                                                |
 | scale/multiply/divide(Affine) | Error  | —                                                |
 
+## Floating-Point Scale Composition
+
+When computing scale factors from other unit scales — especially with
+exponentiation — IEEE 754 arithmetic can introduce small errors. For example,
+`centimeter.scale ** 3` produces `1.0000000000000002e-6` instead of `1e-6`.
+
+The `roundScale` utility rounds a computed scale factor to 15 significant
+digits, eliminating these artifacts while preserving all meaningful precision:
+
+```ts
+import { roundScale } from "@isentropic/dim-unit";
+
+// Without roundScale: gram.scale / centimeter.scale ** 3 = 999.9999999999999
+// With roundScale: 1000
+const gcm3 = kgPerM3.scaled(roundScale(gram.scale / centimeter.scale ** 3));
+```
+
+Use `roundScale` only when the factor is computed from other scales and the
+result has visible noise. Do not use it on direct expressions like `1000 / 3600`
+that are already the best float64 approximation of the intended value.
+
 ## Fluent API
 
 The `q()` chain tracks linear/affine state at the type level. `QLinear` supports

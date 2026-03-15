@@ -19,6 +19,7 @@
  */
 
 export { defineUnitSystem } from "./system.ts";
+export { roundScale } from "./round-scale.ts";
 export type {
   AffineUnit,
   BaseUnit,
