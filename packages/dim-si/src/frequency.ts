@@ -4,7 +4,8 @@
  * SI unit: hertz (Hz).
  *
  * Note: becquerel (radioactive decay rate) shares this dimension
- * with hertz (cycles per second). This is intentional per SI.
+ * with hertz (cycles per second). This is intentional per SI — the
+ * type system cannot distinguish them.
  *
  * @example Converting between frequency units
  * ```ts

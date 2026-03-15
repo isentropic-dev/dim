@@ -4,7 +4,8 @@
  * SI unit: gray (Gy).
  *
  * Note: gray (absorbed radiation dose) and sievert (equivalent dose)
- * share this dimension. This is intentional per SI.
+ * share this dimension. This is intentional per SI — the type system
+ * cannot distinguish them.
  *
  * @example Creating dose quantities
  * ```ts
