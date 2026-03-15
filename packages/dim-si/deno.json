@@ -72,5 +72,5 @@
     "./concentration": "./src/concentration.ts",
     "./molar-mass": "./src/molar-mass.ts"
   },
-  "version": "0.4.3"
+  "version": "0.5.0"
 }

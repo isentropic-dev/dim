@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+## 0.5.0 (2026-03-15)
+
+### Added
+
+- Added SI unit modules for density, specificVolume, momentum, angularVelocity,
+  angularAcceleration, torque, dynamicViscosity, kinematicViscosity,
+  surfaceTension, wavenumber, heatCapacity, specificHeatCapacity,
+  specificEnergy, thermalConductivity, electricFieldStrength, permittivity,
+  permeability, currentDensity, volumetricFlowRate, massFlowRate, concentration,
+  and molarMass ([#11](https://github.com/isentropic-dev/dim/issues/11))
+- Added non-trivial units: kilometerPerHour, ampereHour, milliampereHour,
+  atmosphere, squareKilometer, and squareCentimeter
+  ([#11](https://github.com/isentropic-dev/dim/issues/11))
+
 ## 0.4.3 (2026-02-18)
 
 ### Fixed

@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 0.5.0 (2026-03-15)
+
+### Added
+
+- Added `roundScale` utility for eliminating IEEE 754 composition noise in
+  computed scale factors
+
 ## 0.4.3 (2026-02-18)
 
 ### Fixed

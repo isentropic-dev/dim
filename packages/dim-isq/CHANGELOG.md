@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+## 0.5.0 (2026-03-15)
+
+### Added
+
+- Added 22 derived quantities: density, specificVolume, momentum,
+  angularVelocity, angularAcceleration, torque, dynamicViscosity,
+  kinematicViscosity, surfaceTension, wavenumber, heatCapacity,
+  specificHeatCapacity, specificEnergy, thermalConductivity,
+  electricFieldStrength, permittivity, permeability, currentDensity,
+  volumetricFlowRate, massFlowRate, concentration, and molarMass
+  ([#10](https://github.com/isentropic-dev/dim/issues/10))
+
 ## 0.4.3 (2026-02-18)
 
 ### Fixed
