@@ -113,6 +113,68 @@ export const pressure: QuantityFactory<Pressure> = isq.factory({
 export type Frequency = D<{ T: -1 }>;
 export const frequency: QuantityFactory<Frequency> = isq.factory({ T: -1 });
 
+/** Density (L⁻³·M) */
+export type Density = D<{ L: -3; M: 1 }>;
+export const density: QuantityFactory<Density> = isq.factory({ L: -3, M: 1 });
+
+/** SpecificVolume (L³·M⁻¹) */
+export type SpecificVolume = D<{ L: 3; M: -1 }>;
+export const specificVolume: QuantityFactory<SpecificVolume> = isq.factory({
+  L: 3,
+  M: -1,
+});
+
+/** Momentum (L·M·T⁻¹) */
+export type Momentum = D<{ L: 1; M: 1; T: -1 }>;
+export const momentum: QuantityFactory<Momentum> = isq.factory({
+  L: 1,
+  M: 1,
+  T: -1,
+});
+
+/** AngularVelocity (T⁻¹) */
+export type AngularVelocity = D<{ T: -1 }>;
+export const angularVelocity: QuantityFactory<AngularVelocity> = isq.factory({
+  T: -1,
+});
+
+/** AngularAcceleration (T⁻²) */
+export type AngularAcceleration = D<{ T: -2 }>;
+export const angularAcceleration: QuantityFactory<AngularAcceleration> = isq
+  .factory({ T: -2 });
+
+/** Torque (L²·M·T⁻²) */
+export type Torque = D<{ L: 2; M: 1; T: -2 }>;
+export const torque: QuantityFactory<Torque> = isq.factory({
+  L: 2,
+  M: 1,
+  T: -2,
+});
+
+/** DynamicViscosity (L⁻¹·M·T⁻¹) */
+export type DynamicViscosity = D<{ L: -1; M: 1; T: -1 }>;
+export const dynamicViscosity: QuantityFactory<DynamicViscosity> = isq.factory({
+  L: -1,
+  M: 1,
+  T: -1,
+});
+
+/** KinematicViscosity (L²·T⁻¹) */
+export type KinematicViscosity = D<{ L: 2; T: -1 }>;
+export const kinematicViscosity: QuantityFactory<KinematicViscosity> = isq
+  .factory({ L: 2, T: -1 });
+
+/** SurfaceTension (M·T⁻²) */
+export type SurfaceTension = D<{ M: 1; T: -2 }>;
+export const surfaceTension: QuantityFactory<SurfaceTension> = isq.factory({
+  M: 1,
+  T: -2,
+});
+
+/** Wavenumber (L⁻¹) */
+export type Wavenumber = D<{ L: -1 }>;
+export const wavenumber: QuantityFactory<Wavenumber> = isq.factory({ L: -1 });
+
 /** Charge (T·I) */
 export type Charge = D<{ T: 1; I: 1 }>;
 export const charge: QuantityFactory<Charge> = isq.factory({ T: 1, I: 1 });
@@ -176,6 +238,36 @@ export type MagneticFluxDensity = D<{ M: 1; T: -2; I: -1 }>;
 export const magneticFluxDensity: QuantityFactory<MagneticFluxDensity> = isq
   .factory({ M: 1, T: -2, I: -1 });
 
+/** ElectricFieldStrength (L·M·T⁻³·I⁻¹) */
+export type ElectricFieldStrength = D<{ L: 1; M: 1; T: -3; I: -1 }>;
+export const electricFieldStrength: QuantityFactory<ElectricFieldStrength> = isq
+  .factory({ L: 1, M: 1, T: -3, I: -1 });
+
+/** Permittivity (L⁻³·M⁻¹·T⁴·I²) */
+export type Permittivity = D<{ L: -3; M: -1; T: 4; I: 2 }>;
+export const permittivity: QuantityFactory<Permittivity> = isq.factory({
+  L: -3,
+  M: -1,
+  T: 4,
+  I: 2,
+});
+
+/** Permeability (L·M·T⁻²·I⁻²) */
+export type Permeability = D<{ L: 1; M: 1; T: -2; I: -2 }>;
+export const permeability: QuantityFactory<Permeability> = isq.factory({
+  L: 1,
+  M: 1,
+  T: -2,
+  I: -2,
+});
+
+/** CurrentDensity (L⁻²·I) */
+export type CurrentDensity = D<{ L: -2; I: 1 }>;
+export const currentDensity: QuantityFactory<CurrentDensity> = isq.factory({
+  L: -2,
+  I: 1,
+});
+
 /** LuminousFlux (J) */
 export type LuminousFlux = D<{ J: 1 }>;
 export const luminousFlux: QuantityFactory<LuminousFlux> = isq.factory({
@@ -205,3 +297,55 @@ export const catalyticActivity: QuantityFactory<CatalyticActivity> = isq
 export type ThermalConductance = D<{ L: 2; M: 1; T: -3; Θ: -1 }>;
 export const thermalConductance: QuantityFactory<ThermalConductance> = isq
   .factory({ L: 2, M: 1, T: -3, Θ: -1 });
+
+/** HeatCapacity (L²·M·T⁻²·Θ⁻¹) */
+export type HeatCapacity = D<{ L: 2; M: 1; T: -2; Θ: -1 }>;
+export const heatCapacity: QuantityFactory<HeatCapacity> = isq.factory({
+  L: 2,
+  M: 1,
+  T: -2,
+  Θ: -1,
+});
+
+/** SpecificHeatCapacity (L²·T⁻²·Θ⁻¹) */
+export type SpecificHeatCapacity = D<{ L: 2; T: -2; Θ: -1 }>;
+export const specificHeatCapacity: QuantityFactory<SpecificHeatCapacity> = isq
+  .factory({ L: 2, T: -2, Θ: -1 });
+
+/** SpecificEnergy (L²·T⁻²) */
+export type SpecificEnergy = D<{ L: 2; T: -2 }>;
+export const specificEnergy: QuantityFactory<SpecificEnergy> = isq.factory({
+  L: 2,
+  T: -2,
+});
+
+/** ThermalConductivity (L·M·T⁻³·Θ⁻¹) */
+export type ThermalConductivity = D<{ L: 1; M: 1; T: -3; Θ: -1 }>;
+export const thermalConductivity: QuantityFactory<ThermalConductivity> = isq
+  .factory({ L: 1, M: 1, T: -3, Θ: -1 });
+
+/** VolumetricFlowRate (L³·T⁻¹) */
+export type VolumetricFlowRate = D<{ L: 3; T: -1 }>;
+export const volumetricFlowRate: QuantityFactory<VolumetricFlowRate> = isq
+  .factory({ L: 3, T: -1 });
+
+/** MassFlowRate (M·T⁻¹) */
+export type MassFlowRate = D<{ M: 1; T: -1 }>;
+export const massFlowRate: QuantityFactory<MassFlowRate> = isq.factory({
+  M: 1,
+  T: -1,
+});
+
+/** Concentration (L⁻³·N) */
+export type Concentration = D<{ L: -3; N: 1 }>;
+export const concentration: QuantityFactory<Concentration> = isq.factory({
+  L: -3,
+  N: 1,
+});
+
+/** MolarMass (M·N⁻¹) */
+export type MolarMass = D<{ M: 1; N: -1 }>;
+export const molarMass: QuantityFactory<MolarMass> = isq.factory({
+  M: 1,
+  N: -1,
+});
