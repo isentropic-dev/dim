@@ -57,7 +57,12 @@ These commands can destroy other agents' work:
   usage before proposing the change. Run `deno test` after export changes to
   catch cross-package breakage.
 - Compound scaled units should use named scaled units when available (e.g.,
-  `kilowatt.scale * hour.scale` not `watt.scaled(KILO).scale * hour.scale`)
+  `kilowatt.scale * hour.scale` not `watt.scaled(KILO).scale * hour.scale`).
+  Use `roundScale()` from `dim-unit` when the composed expression has IEEE 754
+  noise (e.g., `centimeter.scale ** 3`). Do not use it on values that are
+  already the best float64 approximation (e.g., `1000 / 3600`).
+- When adding non-trivially-scaled units to dim-si, verify all scaling factors
+  with `deno eval` before running reviews.
 - No emojis in commits, issues, PR comments, or code
 - Technical prose only — concise, direct, no filler
 - Package READMEs must not use relative links — use absolute GitHub URLs so
