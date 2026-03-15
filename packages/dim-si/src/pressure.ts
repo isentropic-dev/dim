@@ -35,3 +35,6 @@ export const bar: ScaledUnit<PressureDim> = pascal.scaled(100000);
 
 /** Millibar (mbar) — 100 pascals. */
 export const millibar: ScaledUnit<PressureDim> = bar.scaled(MILLI);
+
+/** Standard atmosphere (atm) — 101325 pascals. */
+export const atmosphere: ScaledUnit<PressureDim> = pascal.scaled(101325);

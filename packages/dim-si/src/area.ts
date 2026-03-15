@@ -21,12 +21,23 @@ import { area } from "@isentropic/dim-isq";
 import type { BaseUnit, ScaledUnit } from "./types.ts";
 import type { Si } from "./system.ts";
 import { si } from "./system.ts";
+import { centimeter, kilometer } from "./length.ts";
 
 /** An SI area quantity. */
 export type Area = Linear<AreaDim, Si>;
 
 /** Square meter (m²) — SI unit of area. */
 export const squareMeter: BaseUnit<AreaDim> = si.unit(area);
+
+/** Square kilometer (km²) — 10⁶ square meters. */
+export const squareKilometer: ScaledUnit<AreaDim> = squareMeter.scaled(
+  kilometer.scale ** 2,
+);
+
+/** Square centimeter (cm²) — 10⁻⁴ square meters. */
+export const squareCentimeter: ScaledUnit<AreaDim> = squareMeter.scaled(
+  centimeter.scale ** 2,
+);
 
 /** Hectare (ha) — 10000 square meters. */
 export const hectare: ScaledUnit<AreaDim> = squareMeter.scaled(10000);

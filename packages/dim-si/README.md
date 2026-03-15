@@ -133,30 +133,52 @@ bun add @isentropic/dim-si
 
 ### Derived
 
-| Quantity              | Units                                                               |
-| --------------------- | ------------------------------------------------------------------- |
-| Area                  | `squareMeter`, `hectare`                                            |
-| Volume                | `cubicMeter`, `liter`, `milliliter`, `microliter`                   |
-| Velocity              | `meterPerSecond`                                                    |
-| Acceleration          | `meterPerSecondSquared`                                             |
-| Force                 | `newton`                                                            |
-| Pressure              | `pascal`, `bar`, `millibar`                                         |
-| Energy                | `joule`, `kilojoule`, `megajoule`, `kilowattHour`                   |
-| Power                 | `watt`, `milliwatt`, `kilowatt`, `megawatt`, `gigawatt`, `terawatt` |
-| Frequency             | `hertz`, `kilohertz`, `megahertz`, `gigahertz`, `becquerel`         |
-| Voltage               | `volt`, `millivolt`, `kilovolt`                                     |
-| Resistance            | `ohm`, `milliohm`, `kilohm`, `megohm`                               |
-| Capacitance           | `farad`, `microfarad`, `nanofarad`, `picofarad`                     |
-| Inductance            | `henry`, `millihenry`, `microhenry`                                 |
-| Charge                | `coulomb`                                                           |
-| Magnetic Flux         | `weber`                                                             |
-| Magnetic Flux Density | `tesla`                                                             |
-| Conductance           | `siemens`                                                           |
-| Illuminance           | `lux`                                                               |
-| Luminous Flux         | `lumen`                                                             |
-| Catalytic Activity    | `katal`                                                             |
-| Thermal Conductance   | `wattPerKelvin`, `milliwattPerKelvin`, `kilowattPerKelvin`          |
-| Absorbed Dose         | `gray`, `sievert`                                                   |
+| Quantity                | Units                                                               |
+| ----------------------- | ------------------------------------------------------------------- |
+| Area                    | `squareMeter`, `squareKilometer`, `squareCentimeter`, `hectare`     |
+| Volume                  | `cubicMeter`, `liter`, `milliliter`, `microliter`                   |
+| Velocity                | `meterPerSecond`, `kilometerPerHour`                                |
+| Acceleration            | `meterPerSecondSquared`                                             |
+| Force                   | `newton`                                                            |
+| Pressure                | `pascal`, `bar`, `millibar`, `atmosphere`                           |
+| Energy                  | `joule`, `kilojoule`, `megajoule`, `kilowattHour`                   |
+| Power                   | `watt`, `milliwatt`, `kilowatt`, `megawatt`, `gigawatt`, `terawatt` |
+| Frequency               | `hertz`, `kilohertz`, `megahertz`, `gigahertz`, `becquerel`         |
+| Density                 | `kilogramPerCubicMeter`, `gramPerLiter`, `gramPerCubicCentimeter`   |
+| Specific Volume         | `cubicMeterPerKilogram`                                             |
+| Momentum                | `newtonSecond`                                                      |
+| Angular Velocity        | `radianPerSecond`, `revolutionPerMinute`                            |
+| Angular Acceleration    | `radianPerSecondSquared`                                            |
+| Torque                  | `newtonMeter`                                                       |
+| Dynamic Viscosity       | `pascalSecond`                                                      |
+| Kinematic Viscosity     | `squareMeterPerSecond`                                              |
+| Surface Tension         | `newtonPerMeter`                                                    |
+| Wavenumber              | `reciprocalMeter`                                                   |
+| Voltage                 | `volt`, `millivolt`, `kilovolt`                                     |
+| Resistance              | `ohm`, `milliohm`, `kilohm`, `megohm`                               |
+| Capacitance             | `farad`, `microfarad`, `nanofarad`, `picofarad`                     |
+| Inductance              | `henry`, `millihenry`, `microhenry`                                 |
+| Charge                  | `coulomb`, `ampereHour`, `milliampereHour`                          |
+| Magnetic Flux           | `weber`                                                             |
+| Magnetic Flux Density   | `tesla`                                                             |
+| Conductance             | `siemens`                                                           |
+| Electric Field Strength | `voltPerMeter`                                                      |
+| Permittivity            | `faradPerMeter`                                                     |
+| Permeability            | `henryPerMeter`                                                     |
+| Current Density         | `amperePerSquareMeter`                                              |
+| Illuminance             | `lux`                                                               |
+| Luminous Flux           | `lumen`                                                             |
+| Catalytic Activity      | `katal`                                                             |
+| Thermal Conductance     | `wattPerKelvin`, `milliwattPerKelvin`, `kilowattPerKelvin`          |
+| Heat Capacity           | `joulePerKelvin`                                                    |
+| Specific Heat Capacity  | `joulePerKilogramKelvin`                                            |
+| Specific Energy         | `joulePerKilogram`                                                  |
+| Thermal Conductivity    | `wattPerMeterKelvin`                                                |
+| Absorbed Dose           | `gray`, `sievert`                                                   |
+| Volumetric Flow Rate    | `cubicMeterPerSecond`, `literPerSecond`, `literPerMinute`           |
+| Mass Flow Rate          | `kilogramPerSecond`                                                 |
+| Concentration           | `molePerCubicMeter`, `molePerLiter`                                 |
+| Molar Mass              | `kilogramPerMole`, `gramPerMole`                                    |
 
 _<a id="affine">\*</a>
 [Affine quantity](https://github.com/isentropic-dev/dim/blob/main/packages/dim-unit/README.md#affine-units)

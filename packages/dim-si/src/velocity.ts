@@ -20,12 +20,19 @@
 import type { Velocity as VelocityDim } from "@isentropic/dim-isq";
 import type { Linear } from "@isentropic/dim-unit";
 import { velocity } from "@isentropic/dim-isq";
-import type { BaseUnit } from "./types.ts";
+import type { BaseUnit, ScaledUnit } from "./types.ts";
 import type { Si } from "./system.ts";
 import { si } from "./system.ts";
+import { kilometer } from "./length.ts";
+import { hour } from "./time.ts";
 
 /** An SI velocity quantity. */
 export type Velocity = Linear<VelocityDim, Si>;
 
 /** Meter per second (m/s) — SI unit of velocity. */
 export const meterPerSecond: BaseUnit<VelocityDim> = si.unit(velocity);
+
+/** Kilometer per hour (km/h) — 1/3.6 m/s. */
+export const kilometerPerHour: ScaledUnit<VelocityDim> = meterPerSecond.scaled(
+  kilometer.scale / hour.scale,
+);
