@@ -103,8 +103,8 @@ These commands can destroy other agents' work:
 ## Workflow
 
 - After code changes: run `deno fmt && deno lint && deno test`. After
-  documentation-only changes: run `deno fmt`. Get full output. Fix all errors
-  before committing.
+  documentation-only changes (including `AGENTS.md`): run `deno fmt`. Get full
+  output. Fix all errors before committing.
 - When changing `dim-quantity` generator code, run
   `deno task --cwd packages/dim-quantity generate:exponents` (spec imports are
   dynamically loaded and not caught by type-checking).
